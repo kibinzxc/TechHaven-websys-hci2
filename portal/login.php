@@ -10,7 +10,7 @@
     </title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
 </head>
 <body>
