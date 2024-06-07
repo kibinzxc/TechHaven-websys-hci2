@@ -41,7 +41,7 @@
 }
 .box h3{
     text-align: center;
-    font: italic 700 25px/normal 'Inter';
+    font:700 25px/normal 'Inter';
     margin-top: 13%;
 }
 
@@ -53,7 +53,7 @@ form{
 }
 
 form label{
-    font: italic 500 13px/normal 'Inter';
+    font:  500 13px/normal 'Inter';
     margin-bottom: 10px;
 
 }
