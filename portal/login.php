@@ -6,7 +6,7 @@
 
     <link rel="short icon" href="logo.jpg" type="x-icon">
     <title>
-        <?php echo "Login to Tech Haven"; ?>
+        <?php echo "Login | Tech Haven"; ?>
     </title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
@@ -16,8 +16,7 @@
 <body>
 
     <header class="nav">
-        <img src="tech-haven-logo.png" alt="">
-        <h4>Tech Haven</h4>
+        <img src="tech-haven-logo2.png" alt="">
     </header>
 
     <section class="container">
@@ -41,7 +40,7 @@
                     <button type="submit">Login</button>
                 </div>
                 <div class="sign-log">
-                    <p> Don’t have any account? <span id="register">Signup</span></p>
+                    <p> Don’t have an account yet? <span id="register">Create Account</span></p>
                 </div>
         </div>
     </section>
