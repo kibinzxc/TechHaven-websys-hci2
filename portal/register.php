@@ -44,10 +44,10 @@
                         <input type="password" placeholder="Confirm your Password" required>
                         <i class="bi bi-eye-slash"></i>
                     </div>
-            </form>
-            <div class="btn-container">
-                    <button type="submit">Create Account</button>
+                    <div class="btn-container">
+                    <button type="submit">Login</button>
                 </div>
+            </form>
             <div class="sign-log">
                 <p> Already have account? <span id="login">Login</span></p>
             </div>

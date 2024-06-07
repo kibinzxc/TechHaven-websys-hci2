@@ -36,10 +36,11 @@
                             <i class="bi bi-eye-slash"></i>
                         </div>
                     <p><a href="#">Forget Password?</a><p>
+                    <div class="btn-container">
+                        <button type="submit">Login</button>
+                    </div>
                 </form>
-                <div class="btn-container">
-                    <button type="submit">Login</button>
-                </div>
+                
                 <div class="sign-log">
                     <p> Don’t have any account? <span id="register">Signup</span></p>
                 </div>
