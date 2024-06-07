@@ -1,19 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .side-nav {
+    position: fixed;
+    margin-top: 7%;
+    left: -6px;
+    width: 60px;
+    height: 250px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border: black solid 2px;
+}
 
-    <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title>
-        <?php echo "Login to Tech Haven"; ?>
-    </title>
-    <link rel="stylesheet" href="user-nav.css">
-    
-    <link rel="stylesheet" href="../portal/font.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+.side-nav i {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
 
-</head>
+.side-nav a {
+    font-size: 8px;
+    font-family: 'Poppins', sans-serif;
+    color: #000; /* Default text color */
+    text-decoration: none; /* Remove underline */
+}
+
+.side-nav i:hover {
+    color: #007bff;
+}
+
+.dark-mode {
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.dark-mode .nav {
+    background-color: #1c1c1c;
+}
+
+.dark-mode .side-nav {
+    background-color: #333;
+}
+
+.dark-mode .search-bar {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.dark-mode .nav-right i,
+.dark-mode .side-nav i {
+    color: #fff;
+}
+
+.rotate {
+    animation: rotate 0.4s ease-in-out;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+</style>
+
 <body>
     <header class="nav">
         <div class="nav-left">
@@ -21,7 +78,7 @@
             <h4>Tech Haven</h4>
         </div>
         <div class="nav-middle">
-            <input type="text" placeholder="Search..." class="search-bar">
+            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
         </div>
         <div class="nav-right">
             <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
@@ -38,32 +95,4 @@
     <i class="bi bi-clipboard2-check-fill"></i> <a href="orders.php"> Orders</a>
     <i class="bi bi-chat-left-text-fill"></i><a href="support.php"> Support</a>
     </div>
-
-    <section>
-
-    </section>
-    
 </body>
-
-<script>
-    const toggle = document.getElementById('dark-mode-toggle');
-    const logo = document.getElementById('logo');
-
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggle.classList.add('rotate');
-        if (document.body.classList.contains('dark-mode')) {
-            toggle.classList.remove('bi-moon-fill');
-            toggle.classList.add('bi-sun-fill');
-            logo.src = '../costumer/logo-dark.png';
-        } else {
-            toggle.classList.remove('bi-sun-fill');
-            toggle.classList.add('bi-moon-fill');
-            logo.src = '../portal/tech-haven-logo.png';
-        }
-        setTimeout(() => {
-            toggle.classList.remove('rotate');
-        }, 400);
-    });
-    </script>
-</html>

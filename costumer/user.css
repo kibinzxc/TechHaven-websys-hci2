@@ -83,6 +83,16 @@ body.dark-mode {
     cursor: pointer;
 }
 
+
+/*** Homepage ****/
+.nav-right .btn-login{
+    background-color: var(--shadedColor);
+    border-radius: 20px;
+    border: none;
+    padding: 8px;
+    
+}
+
 .container {
     display: flex;
     margin: 2% 5%;
