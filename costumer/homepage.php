@@ -15,22 +15,22 @@
 </head>
 <body>
     <header class="nav">
-        <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
-            <h4>Tech Haven</h4>
-        </div>
-        <div class="nav-middle">
-            <input type="text" placeholder="Search..." class="search-bar">
-        </div>
-        <div class="nav-right">
-            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
-            <button class="btn-login" type="submit" >Login</button>
-        </div>
-    </header>
+            <div class="nav-left">
+                <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
+                <h4>Tech Haven</h4>
+            </div>
+            <div class="nav-middle">
+                <input type="text" placeholder="Search..." class="search-bar">
+            </div>
+            <div class="homepage-nav-right">
+                <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
+                <button class="btn-login" type="submit" >Login</button>
+            </div>  
+    </header>   
 
     
     <section>
-
+    
 
     </section>
     
