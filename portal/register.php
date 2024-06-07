@@ -19,8 +19,7 @@
 </head>
 <body>
 <header class="nav">
-        <img src="tech-haven-logo.png" alt="">
-        <h4>Tech Haven</h4>
+        <img src="tech-haven-logo2.png" alt="">
     </header>
 
     <section class="container">
@@ -49,7 +48,7 @@
                 </div>
             </form>
             <div class="sign-log">
-                <p> Already have account? <span id="login">Login</span></p>
+                <p> Already have an account? <span id="login">Login</span></p>
             </div>
         </div>
     </section>
