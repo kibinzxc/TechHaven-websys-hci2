@@ -65,7 +65,7 @@ body.dark-mode {
 
 .search-bar {
     width: 100%;
-    max-width: 350px;
+    max-width: 450px;
     padding: 0.5px;
     background-color: var(--shadedColor);
     border-radius: 20px;
@@ -77,9 +77,38 @@ body.dark-mode {
 .nav-right{
     display: flex;
     justify-content: space-between;
+    margin-right: 3%;
 }
 
 .nav-right i{
     margin: 5px;
     cursor: pointer;
+}
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+    margin: 2% 5%;
+}
+.search-filters {
+    display: flex;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid #292929;
+    width: 20%;
+    flex-direction: column;
+
+}
+
+.search-filters .top{
+    display: flex;
+    flex-direction: row;
+}
+
+.search-filters .top h4{
+    margin-left: 5px;
+}
+
+.product-list {
+    padding: 10px;
 }
