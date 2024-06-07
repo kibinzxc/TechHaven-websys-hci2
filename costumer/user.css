@@ -85,7 +85,6 @@ body.dark-mode {
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 
 
 /*** Homepage ****/
@@ -98,7 +97,7 @@ body.dark-mode {
 }
 
 
-=======
+
 .section-container {
     display: flex;
     flex-direction: column;
@@ -126,4 +125,3 @@ body.dark-mode {
 .product-list {
     padding: 10px;
 }
->>>>>>> 0f1104e4b1877c1e30a6ed423ca9536b6bdb01f4
