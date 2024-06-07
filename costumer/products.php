@@ -16,7 +16,7 @@
 <body>
     <header class="nav">
         <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
+            <img src="../portal/tech-haven-logo.png" id="logo">
             <h4>Tech Haven</h4>
         </div>
         <div class="nav-middle">
@@ -29,10 +29,44 @@
         </div>
     </header>
 
-    
-    <section>
 
+    <section class="section-container">
+
+        <div class="search-filters">
+            <div class="filter-group">
+                <div class="top">
+                    <i class="bi bi-funnel-fill"></i>
+                    <h4>SEARCH FILTERS</h4>
+                </div>
+                <label for="category-filter">Category:</label>
+                <div>
+                    <input type="checkbox" id="electronics" name="category" value="electronics">
+                    <label for="electronics">Lorem Ipsum</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="clothing" name="category" value="clothing">
+                    <label for="clothing">Lorem Ipsum</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sort">
+                <h5>Sort By:</h5>
+                <select>
+                    <option value="">Oldest First</option>
+                    <option value="">Oldest First</option>
+                    <option value="">Oldest First</option>
+                </select>
+            </div>
+            <div class="num_page">
+
+            </div>
+        </div>
+        <div class="product-list">
+
+        </div>
     </section>
+</body>
     
 </body>
 
