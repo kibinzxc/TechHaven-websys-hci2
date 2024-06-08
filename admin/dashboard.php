@@ -43,7 +43,7 @@
 <body>
     <header class="nav">
         <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
+            <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
             <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
