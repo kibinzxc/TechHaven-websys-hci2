@@ -145,6 +145,75 @@ body.dark-mode {
 
 
 
+
+
+
+.homepage-content {
+    position: relative; 
+    width: 100%;
+}
+
+.content-left {
+    position: relative; 
+    width: 100%;
+    max-width: 100%; 
+}
+
+.content-left img {
+    width: 100%; 
+    height: auto;
+    display: block;
+    border-radius: 
+}
+
+.content-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start; 
+    padding: 20px;
+    color: white;
+}
+
+.overlay-text {
+    max-width: 50%; 
+    text-align: right; 
+}
+
+.overlay-text h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.overlay-text h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-shop-now {
+    background-color: var(--shadedColor); 
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
 .container {
     display: flex;
     margin: 2% 5%;
