@@ -70,7 +70,7 @@ form  .fillup .bi-eye-slash{
     margin-left: 10%;
     font-size: large;
 }
-form input[type="text"], [type="password"]{
+form input[type="email"], [type="password"]{
     border: none;
     outline: 0;
     background: transparent;
@@ -90,7 +90,7 @@ form a{
     font: normal 400 12px/normal 'Inter';
     text-decoration: none;
     color: #000000;
-    margin-top: -10px;
+    margin-top: 1px;
 }
 
 .btn-container{
@@ -103,20 +103,17 @@ form a{
     justify-content: center;
     background: var(--shadedColor);
     border: none;
-    padding: 13px;
+    padding: 10px;
     width: 18rem;
     border-radius: 20px;
     font: normal 700 15px/normal 'Inter';
+    margin-top:5%;
 }
 .btn-container button:hover{
     background: var(--hoverColor);
     transition: all .3s ease;
 }
-.sign-log p{
-    text-align: center;
-    font: italic 400 12px/normal 'Inter';
-    margin-top: 3%;
-}
+
 .sign-log span{
     color: #104ADF;
     cursor: pointer;

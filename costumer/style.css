@@ -70,7 +70,7 @@ form  .fillup .bi-eye-slash{
     margin-left: 10%;
     font-size: large;
 }
-form input[type="text"], [type="password"]{
+form input[type="email"], [type="password"]{
     border: none;
     outline: 0;
     background: transparent;

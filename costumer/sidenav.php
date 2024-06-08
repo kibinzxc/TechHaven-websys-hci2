@@ -116,22 +116,10 @@
 </style>
 
 <body>
-    <header class="nav">
-        <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
-        </div>
-        <div class="nav-middle">
-            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
-        </div>
-        <div class="nav-right">
-            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
-            <i class="bi bi-cart3"></i>
-            <i class="bi bi-person-circle"></i>
-        </div>
-    </header>
+
 
     <div class="side-nav">
-    <i class="bi bi-house-door-fill"></i> <a href="homepage.php">Home</a>
+    <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>
     <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
     <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
     <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>

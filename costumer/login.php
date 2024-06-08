@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $login_success = login($email, $password);
 
     if ($login_success) {
-        header("Location: dashboard.php");
+        header("Location: index.php");
         exit();
     } else {
         $error_message = "Invalid email or password.";
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
     <title><?php echo "Admin | Tech Haven"; ?></title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
     <section class="container">
         <div class="box">
-            <h3>Administrator</h3>
+            <h3>Login</h3>
             <form action="login.php" method="post">
                 <label>Email</label>
                 <div class="fillup">
@@ -95,6 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p><a href="#">Forget Password?</a></p>
                 <div class="btn-container">
                     <button type="submit">Login</button>
+                </div>
+                <div class="sign-log">
+                    <p> Don’t have an account yet? <span id="register">Create Account</span></p>
                 </div>
             </form>
         </div>
