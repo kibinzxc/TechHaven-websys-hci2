@@ -8,8 +8,8 @@
     <title>
         <?php echo "View Product list"; ?>
     </title>
-    <link rel="stylesheet" href="user.css">
-    <link rel="stylesheet" href="../portal/font.css">
+    <link rel="stylesheet" href="../costumer/css/user.css">
+    <link rel="stylesheet" href=".../costumer/css/font.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
 </head>

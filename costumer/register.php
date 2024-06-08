@@ -9,9 +9,9 @@
         <?php echo "Register to Tech Haven"; ?>
     </title>
     <!--css--->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../costumer/css/style.css">
     <!--font--->
-    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="../costumer/css/font.css">    
     <!--icons--->
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
