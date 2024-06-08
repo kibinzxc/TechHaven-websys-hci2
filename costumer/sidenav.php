@@ -1,4 +1,46 @@
 <style>
+.nav {
+    background: var(--lightColor);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    font: italic 600 20px/normal 'Inter';
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+.nav img {
+    width: 10%;
+    position: absolute;
+}
+
+.nav-middle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 450px;
+    padding: 0.5px;
+    background-color: var(--shadedColor);
+    border-radius: 20px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.nav-right {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 3%;
+}
+
+.nav-right i {
+    margin: 5px;
+    cursor: pointer;
+}
+
     .side-nav {
     position: fixed;
     margin-top: 7%;
@@ -25,8 +67,8 @@
 .side-nav a {
     font-size: 8px;
     font-family: 'Poppins', sans-serif;
-    color: #000; /* Default text color */
-    text-decoration: none; /* Remove underline */
+    color: #000; 
+    text-decoration: none; 
 }
 
 .side-nav i:hover {
@@ -69,26 +111,15 @@
         transform: rotate(180deg);
     }
 }
+
+
 </style>
 
 <body>
-    <header class="nav">
-        <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
-            <h4>Tech Haven</h4>
-        </div>
-        <div class="nav-middle">
-            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
-        </div>
-        <div class="nav-right">
-            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
-            <i class="bi bi-cart3"></i>
-            <i class="bi bi-person-circle"></i>
-        </div>
-    </header>
+
 
     <div class="side-nav">
-    <i class="bi bi-house-door-fill"></i> <a href="homepage.php">Home</a>
+    <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>
     <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
     <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
     <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>

@@ -6,7 +6,7 @@
 
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
     <title>
-        <?php echo "Login to Tech Haven"; ?>
+        <?php echo "View Product list"; ?>
     </title>
     <link rel="stylesheet" href="user.css">
     <link rel="stylesheet" href="../portal/font.css">
@@ -14,6 +14,19 @@
 
 </head>
 <body>
+    <header class="nav">
+        <div class="nav-left">
+            <img src="tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
+        </div>
+        <div class="nav-middle">
+            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
+        </div>
+        <div class="nav-right">
+            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
+            <i class="bi bi-cart3"></i>
+            <i class="bi bi-person-circle"></i>
+        </div>
+    </header>
     <?php include 'sidenav.php'; ?>
     <section class="container">
         <div class="search-filters">
@@ -92,6 +105,56 @@
                 </div>
             </div>
             <div class="product-list" id="product-list">
+
+            <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item.png">
+                        <h5>Mouse</h5>
+                        <p>Rakk Aporo RGB Gaming Mouse</p>
+                        <div class="price">₱350.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div>
+
+                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item.png" alt="Product 1">
+                        <h5>Product 1</h5>
+                        <p>Rakk Aporo RGB Gaming Mouse</p>
+                        <div class="price">₱350.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div> 
                 
                 <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
                     <div class="product-header">
@@ -106,10 +169,35 @@
                             <i class="bi bi-heart"></i>
                         </div>
                     </div>
-                    <img src="item-2.png" style="height: 100px;">
+                    <img src="item-2.png" style="height: 130px;">
                         <h5>Keyboard</h5>
                         <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
                         <div class="price">₱2,395.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div>
+
+                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item.png">
+                        <h5>Mouse</h5>
+                        <p>Rakk Aporo RGB Gaming Mouse</p>
+                        <div class="price">₱350.00</div>
                     <div class="btn-item">
                         <button class="add-cart">
                             <i class="bi bi-cart-plus-fill"></i> Add to cart 
@@ -166,7 +254,82 @@
                         </button>
                         <button class="buy">BUY NOW</button>
                     </div>
-                </div>   
+                </div> 
+
+                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item.png" alt="Product 1">
+                        <h5>Product 1</h5>
+                        <p>Rakk Aporo RGB Gaming Mouse</p>
+                        <div class="price">₱350.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div> 
+
+                <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item-2.png" style="height: 130px;">
+                        <h5>Keyboard</h5>
+                        <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
+                        <div class="price">₱2,395.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div>
+
+                <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
+                    <div class="product-header">
+                        <div class="stars">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="heart">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                    </div>
+                    <img src="item-2.png" style="height: 130px;">
+                        <h5>Keyboard</h5>
+                        <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
+                        <div class="price">₱2,395.00</div>
+                    <div class="btn-item">
+                        <button class="add-cart">
+                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                        </button>
+                        <button class="buy">BUY NOW</button>
+                    </div>
+                </div>
             </div>
             <div class="page-num">
                 <a href="#">&laquo;</a>
