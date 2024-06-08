@@ -15,6 +15,19 @@
 </head>
 <body>
     <header class="nav">
+        <div class="nav-left">
+            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
+        </div>
+        <div class="nav-middle">
+            <input type="text" placeholder="Search..." class="search-bar">
+        </div>
+        <div class="homepage-nav-right">
+            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
+            <button class="btn-login" id="login-button">Login</button>
+        </div>  
+    </header>       
+    <section>
+    
             <div class="nav-left">
                 <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
             </div>
@@ -43,6 +56,7 @@
     <section>
 
 
+
     </section>
     
 </body>
@@ -50,6 +64,7 @@
 <script>
     const toggle = document.getElementById('dark-mode-toggle');
     const logo = document.getElementById('logo');
+    const loginButton = document.getElementById('login-button');
 
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
@@ -67,5 +82,9 @@
             toggle.classList.remove('rotate');
         }, 400);
     });
-    </script>
+
+    loginButton.addEventListener('click', () => {
+        window.location.href = 'login.php';
+    });
+</script>
 </html>
