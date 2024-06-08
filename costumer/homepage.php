@@ -17,7 +17,6 @@
     <header class="nav">
             <div class="nav-left">
                 <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
-                <h4>Tech Haven</h4>
             </div>
             <div class="nav-middle">
                 <input type="text" placeholder="Search..." class="search-bar">
@@ -40,8 +39,6 @@
                 <button class="btn-shop-now">Shop Now</button>
             </div>
         </div>
-
-<?php include 'sidenav.php'; ?>
     
     <section>
 
