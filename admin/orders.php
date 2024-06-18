@@ -79,10 +79,26 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Users">
-                         <i class="bi bi-person-fill"></i>
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                         <i class="bi bi-envelope-plus-fill"></i>
                      </a>
-                </li>   
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Users">
+                         <i class="bi bi-people-fill"></i>
+                     </a>
+                </li>
+                <hr>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
+                         <i class="bi bi-bell-fill"></i>
+                     </a>
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                         <i class="bi bi-person-fill-gear"></i>
+                     </a>
+                </li>
               </ul>
           </div>
     </aside>

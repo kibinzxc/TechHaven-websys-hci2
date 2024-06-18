@@ -6,7 +6,7 @@
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
     <title><?php echo "Login to Tech Haven"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="../portal/font.css">
+    <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <style>
@@ -79,10 +79,26 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Users">
-                         <i class="bi bi-person-fill"></i>
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                         <i class="bi bi-envelope-plus-fill"></i>
                      </a>
-                </li>   
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Users">
+                         <i class="bi bi-people-fill"></i>
+                     </a>
+                </li>
+                <hr>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
+                         <i class="bi bi-bell-fill"></i>
+                     </a>
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                         <i class="bi bi-person-fill-gear"></i>
+                     </a>
+                </li>
               </ul>
           </div>
     </aside>
