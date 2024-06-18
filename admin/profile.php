@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Admin | Feedbacks"; ?></title>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title><?php echo "Admin | Profile"; ?></title>
+    <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    
+    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -74,7 +76,7 @@
                     </a>    
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="feedbacks.php" class="sidebar-link tooltip-trigger active" data-tooltip="Feedbacks">
+                     <a href="feedbacks.php" class="sidebar-link tooltip-trigger" data-tooltip="Feedbacks">
                          <i class="bi bi-chat-square-dots-fill"></i>
                      </a>
                 </li>   
@@ -95,8 +97,13 @@
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                     <a href="users.php" class="sidebar-link tooltip-trigger active" data-tooltip="Edit Profile">
                          <i class="bi bi-person-fill-gear"></i>
+                     </a>
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
               </ul>
@@ -104,75 +111,28 @@
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-        <h1>All Feedbacks</h1><br>
+        <h1>Admin Profile</h1><br>
         <div class = "wrapper-dashboard">
-        <h3>Customers' Feedbacks</h3><br>
-        <table id="example" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>ID</th>
-                        <th>Product</th>
-                        <th>Ratings</th>
-                        <th>CustomerID</th>
-                        <th>Message</th>
-                        <th>Date & Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // Database connection
-                    $servername = "localhost"; // your server name
-                    $username = "root"; // your database username
-                    $password = ""; // your database password
-                    $dbname = "th_db"; // your database name
+        <h3 style="text-align:center;">Account Information</h3><br>
 
-                    // Create connection
-                    $conn = new mysqli($servername, $username, $password, $dbname);
-
-                    // Check connection
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $sql = "SELECT feedbackID, prod_name, ratings, customerID, message, date_created FROM feedback";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        $counter = 1;
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $counter . "</td>";
-                            echo "<td>" . $row["feedbackID"] . "</td>";
-                            echo "<td>" . $row["prod_name"] . "</td>";
-                            echo "<td>" . $row["ratings"] . "</td>";
-                            echo "<td>" . $row["customerID"] . "</td>";
-                            echo "<td>" . $row["message"] . "</td>";
-                            $date = new DateTime($row["date_created"]);
-                            echo "<td>" . $date->format('j, F Y g:i A') . "</td>";
-                            echo "</tr>";
-                            $counter++;
-                        }
-                    } else {
-                        echo "<tr><td colspan='8'>No results found</td></tr>";
-                    }
-                    $conn->close();
-                    ?>
-                </tbody>
-            </table>
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#example').DataTable();
-                });
-            </script>
+        <div class="container2">
+    <div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="user@example.com" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" value="********" readonly>
+                </div>
+                <a href="edit_profile.php" class="btn-edit"><i class="bi bi-pencil-fill"></i> Edit Profile</a>
+            </form>
         </div>
     </div>
+</div>
     </section>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
