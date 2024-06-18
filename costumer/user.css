@@ -244,7 +244,7 @@ body.dark-mode {
 .homepage-nav-right {
     display: flex;
     align-items: center;
-    margin-right: 4%;
+    margin-right: 2%;
 }
 
 .homepage-nav-right   .btn-login {
