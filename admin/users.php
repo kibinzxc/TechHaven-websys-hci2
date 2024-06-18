@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    
+    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -99,6 +101,11 @@
                          <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
+                     </a>
+                </li>
               </ul>
           </div>
     </aside>
@@ -151,7 +158,7 @@
                         echo "<td>" . $row["address"] . "</td>";
                         echo "<td>";
                         echo "<a href='edit.php?id=" . $row["customerID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
-                        echo "<a href='delete.php?id=" . $row["customerID"] . "' class='bi bi-trash-fill' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
+                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["customerID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
                         echo "</td>";
                         echo "</tr>";
                         $counter++;
@@ -163,18 +170,19 @@
                 ?>
             </tbody>
         </table>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
-        </script>
-    </div>
+       <?php include 'delete_modal.php'; ?>
+            <script src="delete_script.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
+                });
+            </script>
+        </div>
     </div>
     </section>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
