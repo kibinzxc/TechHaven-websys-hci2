@@ -111,8 +111,8 @@ body.dark-mode {
 .side-nav a {
     font-size: 8px;
     font-family: 'Poppins', sans-serif;
-    color: #000; /* Default text color */
-    text-decoration: none; /* Remove underline */
+    color: #000; 
+    text-decoration: none; 
 }
 
 .side-nav i:hover {
@@ -155,6 +155,8 @@ body.dark-mode {
         transform: rotate(180deg);
     }
 }
+
+
 </style>
 <head>
 <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -171,12 +173,12 @@ body.dark-mode {
         <div class="nav-right">
             <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
             <i class="bi bi-cart3"></i>
-              <a href="profile.php"><i class="bi bi-person-circle"></i></a>
+            <i class="bi bi-person-circle"></i>
         </div>
     </header>
 
     <div class="side-nav">
-   
+    <i class="bi bi-house-door-fill"></i> <a href="homepage.php">Home</a>
     <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
     <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
     <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>
