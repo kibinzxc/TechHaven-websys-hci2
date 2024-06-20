@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Login to Tech Haven"; ?></title>
+    <title><?php echo "Inventory | Admin"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="../portal/font.css">
+    <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    
+    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -28,22 +30,61 @@
             color: green !important;
         }
          .dashboard-content {
-        width: 100%; 
-        padding: 20px;
-    }
-    #example {
-        width: 100% !important; 
-        margin: auto;
-    }
-    #example th, #example td {
-        text-align: center; 
-    }
+            width: 100%; 
+            padding: 20px;
+        }
+        #example, #example2 {
+            width: 100% !important; 
+            margin: auto;
+        }
+        #example th, #example td, #example2 th, #example2 td {
+            text-align: center; 
+        }
+        .heading {
+            display:inline-block;
+        }
+        .button-link {
+            width: auto;
+            height: 38px;
+            flex-shrink: 0;
+            display: inline-block;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            color:white;
+            padding:10px;
+            margin-left:10px;
+            font-weight:bold;
+            border-radius:5px;
+            background-color: #008686;
+        }
+
+        .button-link:hover {
+            background-color: #006666; /* Button background color on hover */
+        }
+
+        .heading-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* This will push the .button-link to the right */
+        }
+
+        .heading-container h3 {
+            margin-right: 10px; /* Space between heading and button */
+        }
+        .flex-parent {
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            justify-content: start; /* Align items to the start of the container */
+            gap: 20px; /* Adjust the gap between the <h3> and .heading-container as needed */
+        }
+
     </style>
 </head>
 <body>
     <header class="nav">
         <div class="nav-left">
-             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
+            <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
             <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
@@ -54,7 +95,7 @@
         <div class="sidebar">
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                <a href="dashboard.php" class="sidebar-link tooltip-trigger" data-tooltip="Dashboard">
+                    <a href="dashboard.php" class="sidebar-link tooltip-trigger" data-tooltip="Dashboard">
                           <i class="bi bi-bar-chart-line-fill"></i>
                      </a>
                 </li>
@@ -64,14 +105,14 @@
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="products.php" class="sidebar-link tooltip-trigger" data-tooltip="Products">
+                     <a href="products.php" class="sidebar-link tooltip-trigger active" data-tooltip="Products">
                           <i class="bi bi-box-seam-fill"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="inventory.php" class="sidebar-link tooltip-trigger active" data-tooltip="Inventory">
+                     <a href="inventory.php" class="sidebar-link tooltip-trigger" data-tooltip="Inventory">
                           <i class="bi bi-inboxes-fill"></i>
-                        </a>    
+                    </a>    
                 </li>
                 <li class="sidebar-list-item">
                      <a href="feedbacks.php" class="sidebar-link tooltip-trigger" data-tooltip="Feedbacks">
@@ -99,63 +140,124 @@
                          <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
+                <li class="sidebar-list-item">
+                     <a href="products.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
+                     </a>
+                </li>
               </ul>
           </div>
     </aside>
     <div class="tooltip-text"></div>
-    <div class="dashboard-content">
-        <h1>Inventory</h1>
-        <p>Welcome to the Tech Haven Admin Dashboard</p><br>
-       <table id="example" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
-        <tr>
-            <td>Garrett Winters</td>
-            <td>Accountant</td>
-            <td>Tokyo</td>
-            <td>63</td>
-            <td>2011/07/25</td>
-            <td>$170,750</td>
-        </tr>
-        <tr>
-            <td>Ashton Cox</td>
-            <td>Junior Technical Author</td>
-            <td>San Francisco</td>
-            <td>66</td>
-            <td>2009/01/12</td>
-            <td>$86,000</td>
-        </tr>
-        <!-- Add more rows as needed -->
-    </tbody>
-</table>
+     <div class="dashboard-content">
+    <div class="heading-container">
+        <h1>Products</h1>
+            <div class="heading-buttons">
+                <a href="#" class="button-link"><i class="bi bi-pencil-square"></i> Update</a>
+            </div>
+        </div><br>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>
+        <div class="tables-container">
+            <div class="table-wrapper">
+            <div class = "wrappery">
+                <h3><span style="color:#008686;">Most</span> Selling Products</h3><br>
+                
+            </div>
+            </div>
+            <div class="table-wrapper">
+                <div class = "wrappery">
+                <h3><span style="color:#b30000;">Least</span> Selling Products</h3><br>
+                
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class = "wrapper-dashboard">
+        <h3>Categories</h3><br>
+       <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>QTY</th>
+                    <th>Sold(pcs)</th>
+                    <th>Last Update</th>
+                    <th>Updated By</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Database connection
+                $servername = "localhost"; // your server name
+                $username = "root"; // your database username
+                $password = ""; // your database password
+                $dbname = "th_db"; // your database name
+
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $sql = "SELECT invID,prod_name,prodID,price,qty,sold,last_update,updated_by FROM prod_inventory";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $counter = 1;
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $counter . "</td>";
+                        echo "<td>" . $row["prod_name"] . "</td>";
+                        echo "<td>" . $row["prodID"] . "</td>";
+                        echo "<td>IN STOCK</td>";
+                        echo "<td>" . $row["price"] . "</td>";
+                        echo "<td>" . $row["qty"] . "</td>";
+                        echo "<td>" . $row["sold"] . "</td>";
+
+                        // Calculate the time difference with timezone adjustment
+                        $date = new DateTime($row["last_update"], new DateTimeZone('Asia/Manila'));
+                        $now = new DateTime(null, new DateTimeZone('Asia/Manila'));
+                        $interval = $now->diff($date);
+
+                        if ($interval->y > 0) {
+                            $timeAgo = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+                        } elseif ($interval->m > 0) {
+                            $timeAgo = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+                        } elseif ($interval->d > 0) {
+                            $timeAgo = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+                        } elseif ($interval->h > 0) {
+                            $timeAgo = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+                        } elseif ($interval->i > 0) {
+                            $timeAgo = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+                        } else {
+                            $timeAgo = $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
+                        }
+
+                        echo "<td>" . $timeAgo . "</td>";
+                        echo "<td>" . $row["updated_by"] . "</td>";
+                        echo "<td>";
+                        echo "<a href='edit.php?id=" . $row["invID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
+                        echo "</td>";
+                        echo "</tr>";
+                        $counter++;
+                    }
+                } else {
+                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                }
+                $conn->close();
+                ?>
+            </tbody>
+        </table>
     </div>
     </section>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
@@ -174,6 +276,13 @@
                     tooltipText.style.display = 'none';
                 });
             });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
         });
     </script>
 </body>

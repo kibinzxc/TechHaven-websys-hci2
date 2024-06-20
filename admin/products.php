@@ -60,7 +60,7 @@
         }
 
         .button-link:hover {
-            background-color: #008686; /* Button background color on hover */
+            background-color: #91DDCF; /* Button background color on hover */
         }
 
         .heading-container {
@@ -140,7 +140,7 @@
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                     <a href="products.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
                          <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
