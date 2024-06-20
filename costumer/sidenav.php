@@ -50,6 +50,9 @@ body.dark-mode {
 .nav img {
     width: 60px;
 }
+.nav-left{
+    padding-left:20px;
+}
 
 .nav-left, .nav-middle, .nav-right {
     display: flex;

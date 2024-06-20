@@ -40,6 +40,7 @@
             border-right: solid 1px black;
             width: 40%;
             height: 100%;
+            padding: 50px;
 
        }
 
@@ -188,6 +189,22 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .right .pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto; /* Center the circle horizontally */
+    border: solid 2px black;
+   
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the entire circle */
+}
     </style>
 <body>
    
@@ -215,13 +232,11 @@
 
             </div>
             <div class="right">
-                <div class="pic">
+    <div class="pic">
+    <img src="sample.jpg" alt="Profile Picture" class="profile-img">
+    </div>
+</div>
 
-
-
-
-                </div>
-            </div>
         </div>
    </div>
 
