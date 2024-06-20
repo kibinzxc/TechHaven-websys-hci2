@@ -36,26 +36,11 @@
 
         }
 
-       .right{
-            border-right: solid 1px black;
-            width: 40%;
-            height: 100%;
-            padding: 50px;
-
-       }
-
+  
        body {
             font-family: 'Poppins', sans-serif;
         }
-        
-        .left {
-           
-            width: 60%;
-            border-right: solid 1px black;
-            height: 100%;
-            padding: 20px;
-        }
-
+ 
         .left div {
             margin-bottom: 10px;
             width: 100%;
@@ -80,19 +65,74 @@
             color: #000;
         }
 
-        .info{
-            width: 100%;
-            height: 78%;
-            display: flex;
-            flex-direction: row;
-        }
+        .info {
+                width: 100%;
+                height: 78%;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .left, .right {
+                box-sizing: border-box; /* Include padding and border in element's total width and height */
+            }
+
+            .left {
+                width: 60%;
+                border-right: solid 1px black;
+                height: 100%;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .right {
+                width: 40%;
+                height: 100%;
+                padding: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .left .info-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .left .info-item strong {
+                width: 150px;
+                display: inline-block;
+            }
+
+            .left .info-item span {
+                margin-left: 10px;
+            }
+
+            button {
+                margin-top: 20px;
+            }
+
+            .pic {
+                border-radius: 50%;
+                overflow: hidden;
+                width: 150px;
+                height: 150px;
+            }
+
+            .profile-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+          
         /* General button styling */
         button {
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
             padding: 10px 20px;
             color: #fff;
-            background-color: #007bff; /* Bootstrap primary color */
+            background-color: black; /* Bootstrap primary color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -221,21 +261,30 @@
              </div>
         </div>
 
-        <div class="info">
-            <div class="left">
-            <div><strong>Name:</strong> <span id="name">John Doe</span></div>
-                <div><strong>Email:</strong> <span id="email">john.doe@example.com</span></div>
-                <div><strong>Phone Number:</strong> <span id="phone">123-456-7890</span></div>
-                <div><strong>Gender:</strong> <span id="gender">Male</span></div>
-                <button onclick="openEditModal()">Edit</button>
-            
-
-            </div>
+      
+            <div class="info">
+                <div class="left">
+                    <div class="info-item">
+                        <strong>Name:</strong> <span id="name">John Doe</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Email:</strong> <span id="email">john.doe@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Phone Number:</strong> <span id="phone">123-456-7890</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Gender:</strong> <span id="gender">Male</span>
+                    </div>
+                    <button onclick="openEditModal()">Edit</button>
+                </div>
+           
+        
             <div class="right">
-    <div class="pic">
-    <img src="sample.jpg" alt="Profile Picture" class="profile-img">
-    </div>
-</div>
+                <div class="pic">
+                    <img src="sample.jpg" alt="Profile Picture" class="profile-img">
+                 </div>
+            </div>
 
         </div>
    </div>
