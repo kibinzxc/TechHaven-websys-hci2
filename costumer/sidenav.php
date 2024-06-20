@@ -157,6 +157,19 @@ body.dark-mode {
 }
 
 
+.nav-right a {
+            color: black; /* Set the color to black */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        .nav-right a:hover {
+            color: black; /* Maintain black color on hover */
+        }
+        
+        .nav-right i {
+            color: black; /* Ensure all icons are black */
+        }
+
 </style>
 <head>
 <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -164,8 +177,8 @@ body.dark-mode {
 <body>
     <header class="nav">
         <div class="nav-left">
-            <img src="../portal/tech-haven-logo.png" alt="Tech Haven Logo" id="logo">
-            <h4>Tech Haven</h4>
+        <img src="tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
+           
         </div>
         <div class="nav-middle">
             <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
@@ -173,7 +186,9 @@ body.dark-mode {
         <div class="nav-right">
             <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
             <i class="bi bi-cart3"></i>
-            <i class="bi bi-person-circle"></i>
+            <a href="profile.php">
+                <i class="bi bi-person-circle"></i>
+            </a>
         </div>
     </header>
 
