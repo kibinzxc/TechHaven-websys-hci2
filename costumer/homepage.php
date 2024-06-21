@@ -16,7 +16,7 @@
 <body>
     <header class="nav">
         <div class="nav-left">
-            <img src="../costumer/tech-haven-logo.png" id="logo">
+        <img src="../costumer/tech-haven-logo.png" id="logo">
         </div>
         <div class="nav-middle">
             <input type="text" placeholder="Search..." class="search-bar">
@@ -139,56 +139,7 @@
                             <button class="buy">BUY NOW</button>
                         </div>
                     </div> 
-
-                    <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                        <div class="product-header">
-                            <div class="stars">
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                            <div class="heart">
-                                <i class="bi bi-heart"></i>
-                            </div>
-                        </div>
-                        <img src="item.png" alt="Product 1">
-                            <h5>Product 1</h5>
-                            <p>Rakk Aporo RGB Gaming Mouse</p>
-                            <div class="price">₱350.00</div>
-                        <div class="btn-item">
-                            <button class="add-cart">
-                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                            </button>
-                            <button class="buy">BUY NOW</button>
-                        </div>
-                    </div> 
-
-                    <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                        <div class="product-header">
-                            <div class="stars">
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                            <div class="heart">
-                                <i class="bi bi-heart"></i>
-                            </div>
-                        </div>
-                        <img src="item.png" alt="Product 1">
-                            <h5>Product 1</h5>
-                            <p>Rakk Aporo RGB Gaming Mouse</p>
-                            <div class="price">₱350.00</div>
-                        <div class="btn-item">
-                            <button class="add-cart">
-                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                            </button>
-                            <button class="buy">BUY NOW</button>
-                        </div>
-                    </div> 
+                  
                     
                 </div>
             </div>

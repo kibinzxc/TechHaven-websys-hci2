@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-function login($email, $password) {
+function login($email, $password)
+{
     $servername = "localhost";
     $username = "root";
     $db_password = "";
@@ -70,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <header class="nav">
-        <img src="../assets/img/tech-haven-logo2.png" id="logo">
+    <img src="../assets/img/tech-haven-logo2.png" id="logo">
     </header>
     <section class="container">
         <div class="box">
@@ -114,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         });
 
+        
         const logo = document.getElementById('logo');
         logo.addEventListener('click', () => {
             window.location.href = 'homepage.php';
