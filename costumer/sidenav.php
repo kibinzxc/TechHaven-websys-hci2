@@ -48,7 +48,7 @@ body.dark-mode {
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 .nav img {
-    width: 60px;
+    width: 150px;
 }
 .nav-left{
     padding-left:20px;
