@@ -55,6 +55,7 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
+    z-index: 1;
     border: black solid 2px;
 }
 
@@ -72,7 +73,7 @@
 }
 
 .side-nav i:hover {
-    color: #007bff;
+    color: #5C5C5C;
 }
 
 .dark-mode {
@@ -119,11 +120,11 @@
 
 
     <div class="side-nav">
-    <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>
-    <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
-    <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
-    <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>
-    <i class="bi bi-clipboard2-check-fill"></i> <a href="orders.php"> Orders</a>
-    <i class="bi bi-chat-left-text-fill"></i><a href="support.php"> Support</a>
+        <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>
+        <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
+        <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
+        <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>
+        <i class="bi bi-clipboard2-check-fill"></i> <a href="orders.php"> Orders</a>
+        <i class="bi bi-chat-left-text-fill"></i><a href="support.php"> Support</a>
     </div>
 </body>

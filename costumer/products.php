@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
+    <link rel="short icon" href="../costumer/logo.jpg" type="x-icon">
     <title>
         <?php echo "View Product list"; ?>
     </title>
-    <link rel="stylesheet" href="../costumer/css/user.css">
-    <link rel="stylesheet" href=".../costumer/css/font.css">
+    <link rel="stylesheet" href="../costumer/css/users.css">
+    <link rel="stylesheet" href="../costumer/css/font.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
 </head>
@@ -97,16 +97,13 @@
                     </select>
                 </div>
                 <div class="num_page">
-                    <a href="#">&laquo;</a>
-                    <a class="active" href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">&raquo;</a>
+                    <span class="current">1/10</span>
+                    <button class="prev" disabled>&lt;</button>
+                    <button class="next">&gt;</button>
                 </div>
             </div>
             <div class="product-list" id="product-list">
-
-            <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
                     <div class="product-header">
                         <div class="stars">
                             <i class="bi bi-star"></i>
@@ -134,9 +131,9 @@
                 <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
                     <div class="product-header">
                         <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
@@ -351,11 +348,11 @@
             if (document.body.classList.contains('dark-mode')) {
                 toggle.classList.remove('bi-moon-fill');
                 toggle.classList.add('bi-sun-fill');
-                logo.src = '../costumer/logo-dark.png';
+                logo.src = '../costumer/tech-haven-logo2.png';
             } else {
                 toggle.classList.remove('bi-sun-fill');
                 toggle.classList.add('bi-moon-fill');
-                logo.src = '../portal/tech-haven-logo.png';
+                logo.src = '../costumer/tech-haven-logo2.png';
             }
             setTimeout(() => {
                 toggle.classList.remove('rotate');

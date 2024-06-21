@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <header class="nav">
-        <img src="../assets/img/tech-haven-logo2.png" alt="">
+        <img src="../assets/img/tech-haven-logo2.png" id="logo">
     </header>
     <section class="container">
         <div class="box">
@@ -112,6 +112,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 icon.classList.toggle('bi-eye');
                 icon.classList.toggle('bi-eye-slash');
             });
+        });
+
+        const logo = document.getElementById('logo');
+        logo.addEventListener('click', () => {
+            window.location.href = 'homepage.php';
         });
     </script>
 </body>

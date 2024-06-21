@@ -6,27 +6,116 @@
 
     <link rel="shortcut icon" href="../portal/logo.jpg" type="image/x-icon">
     <title>Homepage TechHaven</title>
-    <link rel="stylesheet" href="user.css">
-    <link rel="stylesheet" href="../portal/font.css">
+    <link rel="stylesheet" href="../costumer/css/user.css">
+    <link rel="stylesheet" href="../costumer/css/font.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
-    <header class="nav">
+<header class="nav">
         <div class="nav-left">
             <img src="tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-middle">
-            <input type="text" placeholder="Search..." class="search-bar">
+            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
         </div>
-        <div class="homepage-nav-right">
+        <div class="nav-right">
             <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
-            <button class="btn-login" type="button" id="loginButton">Login</button>
-        </div>  
+            <i class="bi bi-cart3"></i>
+            <i class="bi bi-person-circle"></i>
+        </div>
     </header>   
 <?php include 'sidenav.php'; ?>
+<section>
+<div class="homepage-content">
+            <div class="content">
+                <img src="homepagepic.png" alt="Homepage Picture">
+            </div>
+            <div class="right">
+                <h1><span>Elevate</span> your experience, <br>Discover your <span>sanctuary</span></h1>
+                <button class="btn-shop-now" id="products">Shop Now</button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="product-list" id="product-list">
+                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                        <div class="product-header">
+                            <div class="stars">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <div class="heart">
+                                <i class="bi bi-heart"></i>
+                            </div>
+                        </div>
+                        <img src="item.png">
+                            <h5>Mouse</h5>
+                            <p>Rakk Aporo RGB Gaming Mouse</p>
+                            <div class="price">₱350.00</div>
+                        <div class="btn-item">
+                            <button class="add-cart">
+                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                            </button>
+                            <button class="buy">BUY NOW</button>
+                        </div>
+                    </div>
+
+                    <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
+                        <div class="product-header">
+                            <div class="stars">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <div class="heart">
+                                <i class="bi bi-heart"></i>
+                            </div>
+                        </div>
+                        <img src="item.png" alt="Product 1">
+                            <h5>Product 1</h5>
+                            <p>Rakk Aporo RGB Gaming Mouse</p>
+                            <div class="price">₱350.00</div>
+                        <div class="btn-item">
+                            <button class="add-cart">
+                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                            </button>
+                            <button class="buy">BUY NOW</button>
+                        </div>
+                    </div> 
+
+                    <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
+                        <div class="product-header">
+                            <div class="stars">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <div class="heart">
+                                <i class="bi bi-heart"></i>
+                            </div>
+                        </div>
+                        <img src="item-2.png" style="height: 130px;">
+                            <h5>Keyboard</h5>
+                            <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
+                            <div class="price">₱2,395.00</div>
+                        <div class="btn-item">
+                            <button class="add-cart">
+                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
+                            </button>
+                            <button class="buy">BUY NOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+    
     <section>
-        <!-- Content goes here -->
-    </section>
     
     <script>
         const toggle = document.getElementById('dark-mode-toggle');

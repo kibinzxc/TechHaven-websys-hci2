@@ -23,6 +23,7 @@
 }
 .nav img{
     width: 150px;
+    cursor: pointer;
 }
 
 .container {
