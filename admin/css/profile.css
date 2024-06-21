@@ -22,9 +22,6 @@
     height: 4rem;
     font: italic 600 20px/normal 'Inter';
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-    border-bottom: 2px solid #D3D3D3;
-
-
 }
 .nav img {
     width: 150px;
@@ -55,11 +52,11 @@
 .sidebar {
     margin-top:0;
     width: 60px;
-    height: 917px;
+    height: 100vh;
     flex-shrink: 0;
     background: var(--lightColor);
+    box-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.25);
     padding:10px;
-    border-right: 2px solid #D3D3D3;
 }
 
 
@@ -120,12 +117,15 @@
 
 .container {
     display: flex;
+    
 
 }
 .dashboard-content {
             padding: 20px;
             font: 12px/normal 'Inter';
-            background-color: #EFEFEF;
+            background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png');
+            height: 100vh
+            
         }
 
         .widget {
@@ -142,26 +142,64 @@
         .widget p {
             margin-bottom: 0;
         }
-        .wrapper-dashboard{
-            width: 100%;
-            height: auto;
-            flex-shrink: 0;
-            padding:20px;
-            border-radius: 15px;
-            background: #FFF;
-            box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.25);
-        }
-        .tables-container {
-            display: flex;
-            gap: 20px; /* Space between the two tables */
-            
-        }
-        .table-wrapper {
-            flex: 1;
-        }
-        .wrappery{
-            background: #FFF;
-            box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.25);
-            padding:20px;
-            border-radius: 15px;
-        }
+.wrapper-dashboard{
+width: 50%;
+height: auto;
+flex-shrink: 0;
+padding:20px;
+border-radius: 15px;
+background: #FFF;
+box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.25);
+margin: 0 auto;
+
+}
+.container2 {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+
+/* Optional: Style for form inputs */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Optional: Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-6 {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+.btn-edit {
+    background-color: #008686;
+    color: #fff; 
+    margin-right:10px;
+    text-decoration: none;
+    padding:5px;
+    border-radius: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #014b4b; /* Darker shade on hover */
+    color: #fff;
+}
+
+.btn-save {
+    background-color: #28a745; /* Bootstrap success color */
+    color: #fff; /* White text */
+}
+
+.btn-save:hover {
+    background-color: #218838; /* Darker shade on hover */
+    color: #fff;
+}

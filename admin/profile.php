@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Login to Tech Haven"; ?></title>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title><?php echo "Admin | Profile"; ?></title>
+    <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    
+    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -28,16 +30,16 @@
             color: green !important;
         }
          .dashboard-content {
-        width: 100%; 
-        padding: 20px;
-    }
-    #example {
-        width: 100% !important; 
-        margin: auto;
-    }
-    #example th, #example td {
-        text-align: center; 
-    }
+            width: 100%; 
+            padding: 20px;
+        }
+        #example {
+            width: 100% !important; 
+            margin: auto;
+        }
+        #example th, #example td {
+            text-align: center; 
+        }
     </style>
 </head>
 <body>
@@ -54,7 +56,7 @@
         <div class="sidebar">
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                <a href="dashboard.php" class="sidebar-link tooltip-trigger active" data-tooltip="Dashboard">
+                    <a href="dashboard.php" class="sidebar-link tooltip-trigger" data-tooltip="Dashboard">
                           <i class="bi bi-bar-chart-line-fill"></i>
                      </a>
                 </li>
@@ -71,7 +73,7 @@
                 <li class="sidebar-list-item">
                      <a href="inventory.php" class="sidebar-link tooltip-trigger" data-tooltip="Inventory">
                           <i class="bi bi-inboxes-fill"></i>
-                        </a>    
+                    </a>    
                 </li>
                 <li class="sidebar-list-item">
                      <a href="feedbacks.php" class="sidebar-link tooltip-trigger" data-tooltip="Feedbacks">
@@ -95,8 +97,13 @@
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                     <a href="users.php" class="sidebar-link tooltip-trigger active" data-tooltip="Edit Profile">
                          <i class="bi bi-person-fill-gear"></i>
+                     </a>
+                </li>
+                <li class="sidebar-list-item">
+                     <a href="users.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
               </ul>
@@ -104,58 +111,28 @@
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-        <h1>Dashboard</h1>
-        <p>Welcome to the Tech Haven Admin Dashboard</p><br>
-       <table id="example" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
-        <tr>
-            <td>Garrett Winters</td>
-            <td>Accountant</td>
-            <td>Tokyo</td>
-            <td>63</td>
-            <td>2011/07/25</td>
-            <td>$170,750</td>
-        </tr>
-        <tr>
-            <td>Ashton Cox</td>
-            <td>Junior Technical Author</td>
-            <td>San Francisco</td>
-            <td>66</td>
-            <td>2009/01/12</td>
-            <td>$86,000</td>
-        </tr>
-        <!-- Add more rows as needed -->
-    </tbody>
-</table>
+        <h1>Admin Profile</h1><br>
+        <div class = "wrapper-dashboard">
+        <h3 style="text-align:center;">Account Information</h3><br>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>
+        <div class="container2">
+    <div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="user@example.com" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" value="********" readonly>
+                </div>
+                <a href="edit_profile.php" class="btn-edit"><i class="bi bi-pencil-fill"></i> Edit Profile</a>
+            </form>
+        </div>
     </div>
+</div>
     </section>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var tooltipTriggers = document.querySelectorAll('.tooltip-trigger');

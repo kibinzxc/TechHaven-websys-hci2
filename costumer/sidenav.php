@@ -1,4 +1,43 @@
 <style>
+    * {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+:root {
+    --lightColor: #F5F5F5;
+    --shadedColor: #E7E7E7;
+    --darkModeNav: #292929;
+    --darkBody: #5C5C5C;
+}
+
+body.dark-mode {
+    background-color: var(--darkBody);
+    color: white;
+}
+.dark-mode .nav {
+    background-color: var(--darkModeNav);
+}
+.dark-mode .search-bar {
+    background-color: var(--lightColor);
+}
+.dark-mode .nav-right i {
+    color: var(--lightColor);
+}
+
+.rotate {
+    animation: rotate 0.5s ease-in-out;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .nav {
     background: var(--lightColor);
     display: flex;
@@ -9,8 +48,15 @@
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 .nav img {
-    width: 10%;
-    position: absolute;
+    width: 60px;
+}
+.nav-left{
+    padding-left:20px;
+}
+
+.nav-left, .nav-middle, .nav-right {
+    display: flex;
+    align-items: center;
 }
 
 .nav-middle {
@@ -40,6 +86,7 @@
     margin: 5px;
     cursor: pointer;
 }
+
 
     .side-nav {
     position: fixed;
@@ -114,10 +161,40 @@
 }
 
 
+.nav-right a {
+            color: black; /* Set the color to black */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        .nav-right a:hover {
+            color: black; /* Maintain black color on hover */
+        }
+        
+        .nav-right i {
+            color: black; /* Ensure all icons are black */
+        }
+
 </style>
-
+<head>
+<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+</head>
 <body>
-
+    <header class="nav">
+        <div class="nav-left">
+        <img src="tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
+           
+        </div>
+        <div class="nav-middle">
+            <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
+        </div>
+        <div class="nav-right">
+            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
+            <i class="bi bi-cart3"></i>
+            <a href="profile.php">
+                <i class="bi bi-person-circle"></i>
+            </a>
+        </div>
+    </header>
 
     <div class="side-nav">
         <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>

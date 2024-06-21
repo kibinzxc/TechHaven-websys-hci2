@@ -26,8 +26,7 @@
             <button class="btn-login" id="login-button">Login</button>
         </div>  
     </header>       
-    
-    
+        
     <section>
         <div class="homepage-content">
             <div class="content">
