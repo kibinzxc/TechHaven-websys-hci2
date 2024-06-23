@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="short icon" href="../costumer/logo.jpg" type="x-icon">
+
+
     <title>
         <?php echo "Homepage TechHaven"; ?>
     </title>
@@ -16,7 +18,7 @@
 <body>
     <header class="nav">
         <div class="nav-left">
-        <img src="../costumer/tech-haven-logo.png" id="logo">
+        <img src="tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-middle">
             <input type="text" placeholder="Search..." class="search-bar">
@@ -190,11 +192,11 @@
         if (document.body.classList.contains('dark-mode')) {
             toggle.classList.remove('bi-moon-fill');
             toggle.classList.add('bi-sun-fill');
-            logo.src = '../costumer/logo-dark.png';
+            logo.src = 'tech-haven-logo2.png';
         } else {
             toggle.classList.remove('bi-sun-fill');
             toggle.classList.add('bi-moon-fill');
-            logo.src = '../portal/tech-haven-logo.png';
+            logo.src = 'tech-haven-logo2.png';
         }
         setTimeout(() => {
             toggle.classList.remove('rotate');

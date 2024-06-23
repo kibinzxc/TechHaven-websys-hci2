@@ -367,6 +367,19 @@
                 searchProducts();
             }
         });
+
+        function handleProductClick(productName) {
+        // Navigate to view-prod.php with the product name as a query parameter
+            window.location.href = `view-prod.php?product=${encodeURIComponent(productName)}`;
+        }
+    
+        // Add click event listeners to all product items
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const productName = item.getAttribute('data-name');
+                handleProductClick(productName);
+            });
+        });
     </script>
 </body>
 </html>
