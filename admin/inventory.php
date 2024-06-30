@@ -78,6 +78,77 @@
             justify-content: start; /* Align items to the start of the container */
             gap: 20px; /* Adjust the gap between the <h3> and .heading-container as needed */
         }
+        .product-item {
+            background-color: #f0f0f0; /* Gray background color */
+            padding: 15px; /* Padding around each product */
+            margin-bottom: 10px; /* Space between products */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for depth */
+        }
+
+        .product-item img {
+            max-width: 100px; /* Adjust max width for product images */
+            max-height: 100px; /* Adjust max height for product images */
+            margin-right: 15px; /* Optional: Space between image and text */
+            vertical-align: middle; /* Align image vertically */
+        }
+
+        .product-details {
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            color:#343434;
+        }
+
+        .product-details h4 {
+            margin-bottom: 5px; /* Optional: Adjust space between title and details */
+        }
+        
+        .tableDish .table tbody tr td {
+            padding: 10px;
+        }
+
+        .tableDish .table tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+        /* CSS for Stock Status */
+        .in-stock {
+            background-color: rgba(0, 151, 151, 0.15);
+            color: #006D6D;
+        }
+
+        .low-stock {
+            background-color: rgba(255, 156, 7, 0.15);
+            color: #DB7600;
+        }
+
+        .out-of-stock {
+            background-color: rgba(242, 0, 0, 0.15);
+            color: #B70000;
+        }
+
+        /* Table Styling */
+        #example th, #example td {
+            text-align: center;
+        }
+
+        #example .in-stock {
+            background-color: rgba(0, 151, 151, 0.15);
+            color: #006D6D;
+            font-weight:600;
+        }
+
+        #example .low-stock {
+            background-color: rgba(255, 156, 7, 0.15);
+            color: #DB7600;
+            font-weight:600;
+        }
+
+        #example .out-of-stock {
+            background-color: rgba(242, 0, 0, 0.15);
+            color: #B70000;
+            font-weight:600;
+        }
+
 
     </style>
 </head>
@@ -105,12 +176,12 @@
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="products.php" class="sidebar-link tooltip-trigger active" data-tooltip="Products">
+                     <a href="products.php" class="sidebar-link tooltip-trigger" data-tooltip="Products">
                           <i class="bi bi-box-seam-fill"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="inventory.php" class="sidebar-link tooltip-trigger" data-tooltip="Inventory">
+                     <a href="inventory.php" class="sidebar-link tooltip-trigger  active" data-tooltip="Inventory">
                           <i class="bi bi-inboxes-fill"></i>
                     </a>    
                 </li>
@@ -161,13 +232,97 @@
             <div class="table-wrapper">
             <div class = "wrappery">
                 <h3><span style="color:#008686;">Most</span> Selling Products</h3><br>
-                
+                <?php
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "th_db";
+                    
+                    // Create connection
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT pi.prod_name, pi.price, pi.sold, p.img
+                            FROM prod_inventory pi
+                            JOIN products p ON pi.prodID = p.prodID
+                            ORDER BY pi.sold DESC
+                            LIMIT 5";
+
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="product-item">
+                                    <div class="product-details" style="display:inline-block; width:100%;">
+                                        <img src="../assets/img/' . htmlspecialchars($row["img"]) . '" alt="' . htmlspecialchars($row["prod_name"]) . '" style="width:50px; height:50px;float:left;">
+                                        <div style="float:left;">
+                                            <h2 style="margin-bottom:5px;">' . htmlspecialchars($row["prod_name"]) . '</h2>
+                                            <p>Sold: <span style="font-weight:bold;">' . htmlspecialchars($row["sold"]) . '</span> pcs</p>
+                                        </div>
+                                        <div style="float:right;">
+                                        <p style="font-size:15px; font-weight:bold;">₱' . number_format($row["price"], 2). '</p>
+                                        </div>
+                                    </div>
+                                  </div>';
+                        }
+                    } else {
+                        echo '<div>No data available</div>';
+                    }
+
+                    // Close the connection
+                    $conn->close();
+                ?>
             </div>
             </div>
             <div class="table-wrapper">
                 <div class = "wrappery">
                 <h3><span style="color:#b30000;">Least</span> Selling Products</h3><br>
-                
+                <?php
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "th_db";
+                    
+                    // Create connection
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT pi.prod_name, pi.price, pi.sold, p.img
+                            FROM prod_inventory pi
+                            JOIN products p ON pi.prodID = p.prodID
+                            ORDER BY pi.sold ASC
+                            LIMIT 5";
+
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="product-item">
+                                    <div class="product-details" style="display:inline-block; width:100%;">
+                                        <img src="../assets/img/' . htmlspecialchars($row["img"]) . '" alt="' . htmlspecialchars($row["prod_name"]) . '" style="width:50px; height:50px;float:left;">
+                                        <div style="float:left;">
+                                            <h2 style="margin-bottom:5px;">' . htmlspecialchars($row["prod_name"]) . '</h2>
+                                            <p>Sold: <span style="font-weight:bold;">' . htmlspecialchars($row["sold"]) . '</span> pcs</p>
+                                        </div>
+                                        <div style="float:right;">
+                                        <p style="font-size:15px; font-weight:bold;">₱' . number_format($row["price"], 2). '</p>
+                                        </div>
+                                    </div>
+                                  </div>';
+                        }
+                    } else {
+                        echo '<div>No data available</div>';
+                    }
+
+                    // Close the connection
+                    $conn->close();
+                ?>
             </div>
         </div>
     </div>
@@ -191,35 +346,42 @@
             </thead>
             <tbody>
                 <?php
-                // Database connection
-                $servername = "localhost"; // your server name
-                $username = "root"; // your database username
-                $password = ""; // your database password
-                $dbname = "th_db"; // your database name
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "th_db";
 
                 // Create connection
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
-                // Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT invID,prod_name,prodID,price,qty,sold,last_update,updated_by FROM prod_inventory";
+                $sql = "SELECT invID, prod_name, prodID, price, qty, sold, last_update, updated_by
+                        FROM prod_inventory";
+
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
                     $counter = 1;
                     // output data of each row
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $counter . "</td>";
-                        echo "<td>" . $row["prod_name"] . "</td>";
-                        echo "<td>" . $row["prodID"] . "</td>";
-                        echo "<td>IN STOCK</td>";
-                        echo "<td>" . $row["price"] . "</td>";
-                        echo "<td>" . $row["qty"] . "</td>";
-                        echo "<td>" . $row["sold"] . "</td>";
+                        $stock_status = '';
+
+                        // Determine stock status based on qty
+                        if ($row['qty'] > 0) {
+                            if ($row['qty'] >= 20) {
+                                $stock_status = 'IN STOCK';
+                                $status_class = 'in-stock';
+                            } else {
+                                $stock_status = 'LOW STOCK';
+                                $status_class = 'low-stock';
+                            }
+                        } else {
+                            $stock_status = 'OUT OF STOCK';
+                            $status_class = 'out-of-stock';
+                        }
 
                         // Calculate the time difference with timezone adjustment
                         $date = new DateTime($row["last_update"], new DateTimeZone('Asia/Manila'));
@@ -240,17 +402,27 @@
                             $timeAgo = $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
                         }
 
+                        // Output each row with dynamic stock status class
+                        echo "<tr>";
+                        echo "<td>" . $counter . "</td>";
+                        echo "<td>" . htmlspecialchars($row["prod_name"]) . "</td>";
+                        echo "<td>" . $row["prodID"] . "</td>";
+                        echo "<td class='" . $status_class . "'>" . $stock_status . "</td>";
+                        echo "<td>₱" . number_format($row["price"], 2) . "</td>";
+                        echo "<td>" . $row["qty"] . "</td>";
+                        echo "<td>" . $row["sold"] . "</td>";
                         echo "<td>" . $timeAgo . "</td>";
                         echo "<td>" . $row["updated_by"] . "</td>";
-                        echo "<td>";
-                        echo "<a href='edit.php?id=" . $row["invID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
-                        echo "</td>";
+                        echo "<td><a href='edit.php?id=" . $row["invID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a></td>";
                         echo "</tr>";
+
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='10'>No results found</td></tr>";
                 }
+
+                // Close the connection
                 $conn->close();
                 ?>
             </tbody>

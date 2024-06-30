@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2024 at 12:35 PM
+-- Generation Time: Jun 21, 2024 at 01:47 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -92,6 +92,7 @@ INSERT INTO `customerinfo` (`customerID`, `name`, `email`, `contactNum`, `addres
 
 CREATE TABLE `feedback` (
   `feedbackID` int(100) NOT NULL,
+  `prodID` int(50) NOT NULL,
   `prod_name` varchar(100) NOT NULL,
   `ratings` int(50) NOT NULL,
   `customerID` int(100) NOT NULL,
@@ -103,9 +104,8 @@ CREATE TABLE `feedback` (
 -- Dumping data for table `feedback`
 --
 
-INSERT INTO `feedback` (`feedbackID`, `prod_name`, `ratings`, `customerID`, `message`, `date_created`) VALUES
-(1, 'RAKK Ilis RGB Mechanical Keyboard Gateron Yellow\r\n', 5, 20001, 'The product is in good condition. I love it!! I will order again soon', '2024-06-18 15:57:08'),
-(2, 'Rakk Aporo RGB Gaming Mouse', 3, 20001, 'The product is good however I saw some dents. The price is good', '2024-06-18 16:04:24');
+INSERT INTO `feedback` (`feedbackID`, `prodID`, `prod_name`, `ratings`, `customerID`, `message`, `date_created`) VALUES
+(3, 151556, 'Rakk Alkus RGB Gaming Mouse', 5, 20001, 'the product was great', '2024-06-21 11:47:38');
 
 -- --------------------------------------------------------
 
@@ -183,7 +183,8 @@ ALTER TABLE `customerinfo`
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`feedbackID`);
+  ADD PRIMARY KEY (`feedbackID`),
+  ADD KEY `productfeed` (`prodID`);
 
 --
 -- Indexes for table `products`
@@ -224,7 +225,7 @@ ALTER TABLE `customerinfo`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `feedbackID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `feedbackID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -241,6 +242,12 @@ ALTER TABLE `prod_inventory`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `productfeed` FOREIGN KEY (`prodID`) REFERENCES `products` (`prodID`);
 
 --
 -- Constraints for table `prod_inventory`

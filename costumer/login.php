@@ -43,7 +43,7 @@ function login($email, $password)
 }
 
 // Handle form submission
-$error_message = "";
+$loginError = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit();
     } else {
-        $error_message = "Invalid email or password.";
+        $loginError = true;
     }
 }
 ?>
@@ -88,12 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" name="password" placeholder="Type your Password" required>
                     <i class="bi bi-eye-slash"></i>
                 </div>
-                <?php
-                if ($error_message) {
-                    echo "<p style='color:red;text-align:center;margin-top:-10px;font-size:12px;'>$error_message</p>";
-                }
-                ?>
                 <p><a href="#">Forget Password?</a></p>
+                <div id="popup">
+                    <p id="popup-message"></p>
+                </div>
                 <div class="btn-container">
                     <button type="submit">Login</button>
                 </div>
@@ -104,21 +102,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
     <script>
-        document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
-            icon.style.marginLeft = '10%';
-            icon.style.fontSize = 'large';
-            icon.addEventListener('click', function() {
-                var passwordInput = icon.previousElementSibling;
-                passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-                icon.classList.toggle('bi-eye');
-                icon.classList.toggle('bi-eye-slash');
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
+                icon.style.marginLeft = '10%';
+                icon.style.fontSize = 'large';
+                icon.addEventListener('click', function() {
+                    var passwordInput = icon.previousElementSibling;
+                    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                    icon.classList.toggle('bi-eye');
+                    icon.classList.toggle('bi-eye-slash');
+                });
             });
-        });
 
-        
-        const logo = document.getElementById('logo');
-        logo.addEventListener('click', () => {
-            window.location.href = 'homepage.php';
+            const logo = document.getElementById('logo');
+            logo.addEventListener('click', () => {
+                window.location.href = 'homepage.php';
+            });
+
+            const register = document.getElementById('register');
+            register.addEventListener('click', () => {
+                window.location.href = 'register.php';
+            });
+            
+            // Display popup if login was unsuccessful
+            <?php if ($loginError): ?>
+                                                var popup = document.getElementById("popup");
+                                                var popupMessage = document.getElementById("popup-message");
+
+                                                // Set the error message
+                                                popupMessage.innerText = "Wrong credentials. Invalid email or password.";
+
+                                                // Style the popup
+                                                popup.style.display = "block";
+                                                popup.style.backgroundColor = '#f8d7da';
+                                                popup.style.color = '#842029';
+                                                popup.style.border = '2px solid #f5c2c7';
+                                                popup.style.padding = '10px';
+                                                popup.style.font = 'normal 500 13px/normal "Poppins"';
+                                                popup.style.borderRadius = '5px';
+                                                popup.style.textAlign = 'center';
+
+                                                // Close the popup after 7 seconds
+                                                setTimeout(function () {
+                                                    popup.style.display = "none";
+                                                }, 7000);
+            <?php endif; ?>
         });
     </script>
 </body>
