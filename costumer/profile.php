@@ -4,7 +4,7 @@ include 'dbcon.php';
 $customerID = $_SESSION['id'];
 
 // Fetch customer data from the database
-$sql = "SELECT name, email, contactNum, address, gender, phone_num FROM customerinfo WHERE customerID = '$customerID'";
+$sql = "SELECT name, email, contactNum, address FROM customerinfo WHERE customerID = '$customerID'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
