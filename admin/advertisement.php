@@ -79,12 +79,12 @@ checkAuth();
                     </a>    
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="feedbacks.php" class="sidebar-link tooltip-trigger active" data-tooltip="Feedbacks">
+                     <a href="feedbacks.php" class="sidebar-link tooltip-trigger " data-tooltip="Feedbacks">
                          <i class="bi bi-chat-square-dots-fill"></i>
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger active" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -110,17 +110,17 @@ checkAuth();
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-        <h1>All Feedbacks</h1><br>
+        <h1>All Messages </h1><br>
         <div class = "wrapper-dashboard">
-        <h3>Customers' Feedbacks</h3><br>
+        <h3>Customers' Messages/Inquiries</h3><br>
         <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>ID</th>
-                        <th>Product</th>
-                        <th>Ratings</th>
-                        <th>CustomerID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
                         <th>Message</th>
                         <th>Date & Time</th>
                     </tr>
@@ -141,7 +141,7 @@ checkAuth();
                         die("Connection failed: " . $conn->connect_error);
                     }
 
-                    $sql = "SELECT feedbackID, prod_name, ratings, customerID, message, date_created FROM feedback";
+                    $sql = "SELECT * FROM messages";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -150,11 +150,11 @@ checkAuth();
                         while($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $counter . "</td>";
-                            echo "<td>" . $row["feedbackID"] . "</td>";
-                            echo "<td>" . $row["prod_name"] . "</td>";
-                            echo "<td>" . $row["ratings"] . "</td>";
-                            echo "<td>" . $row["customerID"] . "</td>";
-                            echo "<td>" . $row["message"] . "</td>";
+                            echo "<td>" . $row["msgID"] . "</td>";
+                            echo "<td>" . $row["email"] . "</td>";
+                            echo "<td>" . $row["name"] . "</td>";
+                            echo "<td>" . $row["contactNum"] . "</td>";
+                            echo "<td>" . $row["Message"] . "</td>";
                             $date = new DateTime($row["date_created"]);
                             echo "<td>" . $date->format('j, F Y g:i A') . "</td>";
                             echo "</tr>";

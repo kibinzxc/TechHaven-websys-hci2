@@ -11,38 +11,59 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderID = $_GET['id'];
-    $newStatus = "delivered";   
+    $newStatus = "delivered";
     $sql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
-    
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['success'] = "Order status updated successfully!";
-            $sql = "SELECT * FROM orders_prod where orderID = $orderID";
-    $result = $conn->query($sql);
-    $results = $conn->query($sql);
-    $rowz = $results->fetch_assoc();
-    $uid = $rowz['customerID'];
-    $sql2 = "SELECT * FROM customerinfo where customerID = $uid";
-    $resultz = $conn->query($sql2);
-    $rows2 = $resultz->fetch_assoc();
-    //data are uid, title, category, description, image, status
-    $title = "Order ID#$order_id Status Update";
-    $category = "Order status";
-    $description = 
-"Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!";
-    $image = "thankyou.png";
-    $status = "unread";
-    $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
-    $result3 = $conn->query($sql3);
-            echo '<script type="text/javascript">
-        window.close();
-    </script>';
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
-    //send message to the user to notify about the status of their order
-    
-    
 
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Order status updated successfully!";
+        
+        // Retrieve the order details
+        $sql = "SELECT items, customerID, shipID, total_amount FROM orders_prod WHERE orderID = $orderID";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            $order = $result->fetch_assoc();
+            $items = json_decode($order['items'], true);
+            $customerID = $order['customerID'];
+            $shipID = $order['shipID'];
+            $totalAmount = $order['total_amount'];
+
+            // Insert into complete_orders
+            $completeOrderSql = "INSERT INTO complete_orders (orderID, customerID, deliveryID, items, total_amount) VALUES ('$orderID', '$customerID', '$shipID', '" . json_encode($items) . "', '$totalAmount')";
+            if ($conn->query($completeOrderSql) !== TRUE) {
+                echo "Error inserting into complete_orders: " . $conn->error;
+            }
+            
+            foreach ($items as $item) {
+                $prodName = $conn->real_escape_string($item['name']);
+                $qty = $item['qty'];
+                
+                // Update inventory: add 1 to sold column and subtract the quantity from the inventory
+                $updateInventorySql = "UPDATE prod_inventory SET qty = qty - $qty, sold = sold + $qty WHERE prod_name = '$prodName'";
+                if ($conn->query($updateInventorySql) !== TRUE) {
+                    echo "Error updating inventory for product '$prodName': " . $conn->error;
+                }
+            }
+        }
+
+        // Send message to the user to notify about the status of their order
+        $sql2 = "SELECT * FROM customerinfo WHERE customerID = $customerID";
+        $resultz = $conn->query($sql2);
+        $rows2 = $resultz->fetch_assoc();
+        
+        // Data for notification
+        $title = "Order ID#$orderID Status Update";
+        $category = "Order status";
+        $description = "Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!";
+        $image = "thankyou.png";
+        $status = "unread";
+        $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$customerID', '$title', '$category', '$description', '$image', '$status')";
+        $conn->query($sql3);
+
+        echo '<script type="text/javascript">window.close();</script>';
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
     
     exit();
 }
@@ -406,7 +427,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3>Order #<?php echo $rowz['orderID']?></h3>
         <form action="" method="post">
             <button type="submit" class="button-link">
-                <i class="bi bi-check2-circle"></i> Process Order
+                <i class="bi bi-check2-circle"></i> Delivered
             </button>
         </form>
     </div><br>

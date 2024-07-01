@@ -55,11 +55,12 @@
 .sidebar {
     margin-top:0;
     width: 60px;
-    height: 917px;
+    min-height: 900px;
     flex-shrink: 0;
     background: var(--lightColor);
     padding:10px;
     border-right: 2px solid #D3D3D3;
+    height:auto;
 }
 
 

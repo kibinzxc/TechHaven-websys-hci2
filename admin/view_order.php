@@ -11,39 +11,62 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderID = $_GET['id'];
-    $newStatus = "processing";   
-    $sql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
     
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['success'] = "Order status updated successfully!";
-            $sql = "SELECT * FROM orders_prod where orderID = $orderID";
+    // Fetch order details
+    $sql = "SELECT * FROM orders_prod WHERE orderID = $orderID";
     $result = $conn->query($sql);
-    $results = $conn->query($sql);
-    $rowz = $results->fetch_assoc();
-    $uid = $rowz['customerID'];
-    $sql2 = "SELECT * FROM customerinfo where customerID = $uid";
-    $resultz = $conn->query($sql2);
-    $rows2 = $resultz->fetch_assoc();
-    //data are uid, title, category, description, image, status
-    $title = "Order ID#$order_id Status Update";
-    $category = "Order status";
-    $description = 
-"Your order is now being prepared. We\'re carefully putting it together with the best ingredients for a great experience. Thanks for your patience, we\'ll have it ready for you soon!";
-    $image = "preparing.png";
-    $status = "unread";
-    $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
-    $result3 = $conn->query($sql3);
-            echo '<script type="text/javascript">
-        window.close();
-    </script>';
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
-    //send message to the user to notify about the status of their order
-    
-    
+    if ($result->num_rows > 0) {
+        $order = $result->fetch_assoc();
+        $items = json_decode($order['items'], true);
 
-    
+        // Check inventory for each item
+        $insufficientStock = false;
+        foreach ($items as $item) {
+            $prodName = $conn->real_escape_string($item['name']);
+            $qty = $item['qty'];
+            
+            $checkInventorySql = "SELECT qty FROM prod_inventory WHERE prod_name = '$prodName'";
+            $inventoryResult = $conn->query($checkInventorySql);
+            if ($inventoryResult->num_rows > 0) {
+                $inventory = $inventoryResult->fetch_assoc();
+                if ($inventory['qty'] < $qty) {
+                    $insufficientStock = true;
+                    break;
+                }
+            } else {
+                $insufficientStock = true;
+                break;
+            }
+        }
+
+        if ($insufficientStock) {
+            echo "No stock available for one or more items. Kindly restock first before proceeding.";
+        } else {
+            // Update order status
+            $newStatus = "processing";   
+            $updateOrderSql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
+            
+            if ($conn->query($updateOrderSql) === TRUE) {
+                $_SESSION['success'] = "Order status updated successfully!";
+                
+                // Send notification to the user
+                $uid = $order['customerID'];
+                $title = "Order ID#$orderID Status Update";
+                $category = "Order status";
+                $description = "Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!";
+                $image = "preparing.png";
+                $status = "unread";
+                $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
+                $conn->query($sql3);
+
+                echo '<script type="text/javascript">window.close();</script>';
+            } else {
+                echo "Error updating record: " . $conn->error;
+            }
+        }
+    } else {
+        echo "Order not found.";
+    }
     exit();
 }
 ?>

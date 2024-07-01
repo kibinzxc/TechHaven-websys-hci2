@@ -84,7 +84,7 @@ checkAuth();
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -122,7 +122,6 @@ checkAuth();
                     <th>Email</th>
                     <th>Contact Number</th>
                     <th>Address</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -155,15 +154,12 @@ checkAuth();
                         echo "<td>" . $row["email"] . "</td>";
                         echo "<td>" . $row["contactNum"] . "</td>";
                         echo "<td>" . $row["address"] . "</td>";
-                        echo "<td>";
-                        echo "<a href='edit.php?id=" . $row["customerID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
-                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["customerID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
-                        echo "</td>";
+
                         echo "</tr>";
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='6'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>

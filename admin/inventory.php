@@ -195,7 +195,7 @@ checkAuth();
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 
     $servername = "localhost";
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: dashboard.php');
         exit();
     } else {
-        echo 'Invalid email or password';
+        $error_message= 'Invalid email or password';
     }
 
     // Close the connection
@@ -68,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label>Email</label>
                 <div class="fillup">
                     <i class="bi bi-person"></i>
-                    <input type="email" name="email" placeholder="Type your Email" required>
+                    <input type="email" name="email" placeholder="Type your Email" >
                 </div>
                 <label>Password</label>
                 <div class="fillup">
                     <i class="bi bi-lock"></i>
-                    <input type="password" name="password" placeholder="Type your Password" required>
+                    <input type="password" name="password" placeholder="Type your Password" >
                     <i class="bi bi-eye-slash"></i>
                 </div>
                 <?php
@@ -81,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo "<p style='color:red;text-align:center;margin-top:-10px;font-size:12px;'>$error_message</p>";
                 }
                 ?>
-                <p><a href="#">Forget Password?</a></p>
                 <div class="btn-container">
                     <button type="submit">Login</button>
                 </div>

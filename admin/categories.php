@@ -16,9 +16,7 @@ checkAuth();
     
     <style>
         /* Hide the default browser tooltip */
-        .sidebar{
-        height:auto;
-        }
+        
         .tooltip-text {
             position: absolute;
             display: none;
@@ -208,24 +206,18 @@ checkAuth();
     <div class="heading-container">
         <h1>Products</h1>
             <div class="heading-buttons">
-                <a href="#" class="button-link" onclick="openNewProductWindow()"><i class="bi bi-plus-lg"></i> Add Product</a>
-                <a href="categories.php" class="button-link" target="_blank"><i class="bi bi-list-task"></i> View Categories</a>
+                <a href="#" class="button-link" onclick="openNewCatWindow()"><i class="bi bi-plus-lg"></i> Add Category</a>
+                <a href="products.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
         
         <div class = "wrapper-dashboard">
-        <h3>All Products</h3><br>
-       <table id="example2" class="display" style="width:100%">
+        <h3>Categories</h3><br>
+       <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Code</th>
-                    <th>Category</th>
-                    <th>Product Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Brand</th>
-                    <th>Image</th>
+                    <th>Category Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -245,7 +237,7 @@ checkAuth();
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT prodID, category, prod_name, prod_desc,prod_price, brand,img,date_created,date_updated FROM products";
+                $sql = "SELECT categoryID, name, date_created, added_by FROM category";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -254,37 +246,31 @@ checkAuth();
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $counter . "</td>";
-                        echo "<td>" . $row["prodID"] . "</td>";
-                        echo "<td>" . $row["category"] . "</td>";
-                        echo "<td>" . $row["prod_name"] . "</td>";
-                        echo "<td>" . $row["prod_desc"] . "</td>";
-                        echo "<td>₱" . number_format($row["prod_price"], 2) . "</td>";
-                        echo "<td>" . $row["brand"] . "</td>";
-                        echo "<td><img src='../assets/img/" . $row["img"] . "' alt='" . $row["prod_name"] . "' style='width: 150px; height: 100px;'></td>";
+                        echo "<td>" . $row["name"] . "</td>";
                         echo "<td>";
-                        echo "<a href='#' onclick='openEditWindow(" . $row["prodID"] . ")' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
-                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["prodID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
+                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["categoryID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
                         echo "</td>";
                         echo "</tr>";
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='9'>No results found</td></tr>";
+                    echo "<tr><td colspan='3'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>
             </tbody>
         </table>
-       <?php include 'delete_modal_prod.php'; ?>
+       <?php include 'delete_modal_cat.php'; ?>
             <script src="delete_script.js"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
             <script>
                 $(document).ready(function() {
                     $('#example').DataTable();
-                    $('#example2').DataTable();
                 });
             </script>
+
+    
         </div>
     </div>
     </section>
