@@ -2,24 +2,39 @@
 session_start();
 include 'dbcon.php';
 
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM customerinfo WHERE email = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 1) {
-        $_SESSION['name'] = $email;
-        $_SESSION['id'] = $customerID;
-        header("Location: index.php");
-        exit();
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-}
+
+    $stmt = $conn->prepare("SELECT password FROM admin WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($stored_hashed_password);
+        $stmt->fetch();
+
+        $hashed_password = md5($password);
+
+        // Verify password
+        if ($hashed_password === $stored_hashed_password) {
+            $stmt->close();
+            $conn->close();
+            return true;
+        } else {
+            $stmt->close();
+            $conn->close();
+            return false;
+        }
+    } else {
+        $stmt->close();
+        $conn->close();
+        return false;
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <i class="bi bi-eye-slash"></i>
                 </div>
                 <p><a href="#">Forget Password?</a></p>
+                <div id="popup">
+                    <p id="popup-message"></p>
+                </div>
                 <div class="btn-container">
                     <button type="submit">Login</button>
                 </div>
@@ -61,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </section>
-<script>
+    <script>
     document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
         icon.style.marginLeft = '10%';
         icon.style.fontSize = 'large';

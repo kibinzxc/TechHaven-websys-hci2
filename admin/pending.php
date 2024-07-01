@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-
     
     <?php include 'logout.php'; ?>
     <style>
-       .tooltip-text {
+        /* Hide the default browser tooltip */
+        .tooltip-text {
             position: absolute;
             display: none;
             background-color: #5C5C5C;
@@ -62,20 +62,20 @@
             padding:5px;
             margin-left:10px;
             border:none;
-            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; /* Add transition for smooth effect */
              cursor:pointer;
 
         }
         
         .button-link2 .bi {
-            transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out; 
+            transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out; /* Add transition for smooth effect */
             
         }
 
 
         .button-link2:hover .bi {
-            color: #007575;
-            opacity: 0.7; 
+            color: #007575; /* Change icon color on hover */
+            opacity: 0.7; /* Reduce icon opacity on hover */
            
         }
         .button-link {
@@ -116,12 +116,7 @@
         .flex-parent h3 {
             margin: 0; /* Remove any default margin */
             transition: transform 0.2s ease-in-out; /* Add transition for smooth effect */
-            display: flex;
-            align-items: center;
-        }
 
-        .flex-parent h3 .button-link2 {
-            margin-left: 15px; /* Adjust the distance between "New Orders" and buttons */
         }
         .card-container {
             display: flex;
@@ -140,19 +135,13 @@
             background: #FFF;
             box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.25);
             height:120px;
-            transition: transform 0.3s ease; 
-           
                 
-        }
-        .card:hover {
-            transform: scale(1.05); /* Scale up the card slightly on hover */
         }
 
         .card h2 {
             margin: 0;
             font-size: 16px;
             color: #007575;
-        
         }
 
         .card p {
@@ -162,14 +151,9 @@
             font-weight:600;
             letter-spacing:1.6px;
         }
-        .card a{
-            text-decoration:none;
-        }
         .sidebar{
         height:auto;
         }
-
-
     </style>
 </head>
 <body>
@@ -244,46 +228,10 @@
         <div class="heading-container">
             <h1>Orders</h1>
             <div class="heading-buttons">
-            <a href="pending.php" class="button-link" target="_blank">
-                <i class="bi bi-gear-wide-connected"></i> Processing
-            </a>
-            <a href="#" class="button-link" target="_blank">
-                <i class="bi bi-box-seam-fill"></i> Delivery
-            </a>
-            <a href="#" class="button-link" target="_blank">
-                <i class="bi bi-bag-check-fill"></i> Completed
-            </a>
-            <a href="#" class="button-link" target="_blank">
-                <i class="bi bi-list-check"></i> View All Orders
-            </a>
+                <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
-        <div class="card-container">
-        <div class="card">
-            <a href="new_orders.php" target="_blank">
-                <h2>New Orders</h2>
-                <p>22</p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="processing.php" target="_blank">
-                <h2>Processing</h2>
-                <p>117</p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="delivery.php"  target="_blank">
-                <h2>To be Delivered</h2>
-                <p>20</p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="completed.php" target="_blank">
-                <h2>Completed</h2>
-                <p>174</p>
-            </a>
-        </div>
-        </div>
+       
 
         <div class="wrapper-dashboard" style="margin-bottom:20px;">
             <div class="flex-parent">
@@ -327,11 +275,7 @@
                                 echo "<tr>";
                                 echo "<td>" . $counter . "</td>";
                                 echo "<td>" . $row["orderID"] . "</td>";
-                                echo "<td>";
-                                $dateTime = new DateTime($row["order_date"]);
-                                $formattedDate = $dateTime->format('F j, Y g:i A');
-                                echo $formattedDate;
-                                echo "</td>";
+                                echo "<td>" . $row["order_date"] . "</td>";
                                 
                                 // Check status and modify if it is pending
                                 if ($row["status"] == "placed") {
@@ -341,10 +285,10 @@
                                 }
                                 
                                 echo "<td>";
-                                echo "<a href='#' onclick=\"openWindow('view_order.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
-                                    <span style='font-size:13px;'>View Order</span>
-                                    <i class='bi bi-arrow-right'></i>
-                                </a>";
+                                echo "<a href='view_order.php?id=" . $row["orderID"] . "' title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
+                                        <span style='font-size:13px;'>View Order</span>
+                                        <i class='bi bi-arrow-right'></i>
+                                    </a>";
                                 echo "</td>";  // Missing </td> for the link column
                                 echo "</tr>";
                                 $counter++;
@@ -461,22 +405,16 @@
         });
 
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
+            $('#example2').DataTable();
+            $('#example3').DataTable();
+            $('#example4').DataTable();
         });
-    </script>
-    <script>
-    function openWindow(url) {
-        var width = 1000; // Width of the new window
-        var height = 1000; // Height of the new window
-        var left = (screen.width - width) / 2; // Center the window horizontally
-        var top = (screen.height - height) / 2; // Center the window vertically
-
-        window.open(url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left);
-    }
     </script>
 </body>
 </html>
