@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $login_success = login($email, $password);
 
     if ($login_success) {
+        $_SESSION['email'] = $email; // Store email in session
         header("Location: index.php");
         exit();
     } else {

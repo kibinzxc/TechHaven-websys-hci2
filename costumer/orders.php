@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-   <link rel="stylesheet" href="../costumer/css/users.css">
    <link rel="stylesheet" href="../costumer/css/user.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
    
@@ -19,15 +18,15 @@
 
     }
   .mainbox {
-    height: 80vh;
-    width: 90vw;
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    padding-left: 120px;
-    justify-content: center;
-}
+            height: 80vh;
+            width: 90vw;
+            margin: auto;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 120px;
+            justify-content: center;
+        }
 
     .tab{
         height: 15%;
