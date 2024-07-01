@@ -1,180 +1,186 @@
 <style>
-    * {
-    margin: 0;
-    box-sizing: border-box;
-    padding: 0;
-}
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            padding: 0;
+        }
 
-:root {
-    --lightColor: #F5F5F5;
-    --shadedColor: #E7E7E7;
-    --darkModeNav: #292929;
-    --darkBody: #5C5C5C;
-}
+        :root {
+            --lightColor: #F5F5F5;
+            --shadedColor: #E7E7E7;
+            --darkModeNav: #292929;
+            --darkBody: #5C5C5C;
+        }
 
-body.dark-mode {
-    background-color: var(--darkBody);
-    color: white;
-}
-.dark-mode .nav {
-    background-color: var(--darkModeNav);
-}
-.dark-mode .search-bar {
-    background-color: var(--lightColor);
-}
-.dark-mode .nav-right i {
-    color: var(--lightColor);
-}
+        body.dark-mode {
+            background-color: var(--darkBody);
+            color: white;
+        }
 
-.rotate {
-    animation: rotate 0.5s ease-in-out;
-}
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+        .dark-mode .nav {
+            background-color: var(--darkModeNav);
+        }
 
-.nav {
-    background: var(--lightColor);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 4rem;
-    font: italic 600 20px/normal 'Inter';
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-}
-.nav img {
-    width: 150px;
-}
-.nav-left{
-    padding-left:20px;
-}
+        .dark-mode .search-bar {
+            background-color: var(--lightColor);
+        }
 
-.nav-left, .nav-middle, .nav-right {
-    display: flex;
-    align-items: center;
-}
+        .dark-mode .nav-right i {
+            color: var(--lightColor);
+        }
 
-.nav-middle {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
+        .rotate {
+            animation: rotate 0.5s ease-in-out;
+        }
 
-.search-bar {
-    width: 100%;
-    max-width: 450px;
-    padding: 0.5px;
-    background-color: var(--shadedColor);
-    border-radius: 20px;
-    padding: 5px;
-    border: none;
-    outline: none;
-}
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-.nav-right {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 3%;
-}
+        .nav {
+            background: var(--lightColor);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+            font: italic 600 20px/normal 'Inter';
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+        }
 
-.nav-right i {
-    margin: 5px;
-    cursor: pointer;
-}
+        .nav img {
+            width: 150px;
+        }
 
+        .nav-left {
+            padding-left: 20px;
+        }
 
-    .side-nav {
-    position: fixed;
-    margin-top: 7%;
-    left: -6px;
-    width: 60px;
-    height: 250px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    z-index: 1;
-    border: black solid 2px;
-}
+        .nav-left,
+        .nav-middle,
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
 
-.side-nav i {
-    font-size: 18px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
+        .nav-middle {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
 
-.side-nav a {
-    font-size: 8px;
-    font-family: 'Poppins', sans-serif;
-    color: #000; 
-    text-decoration: none; 
-}
+        .search-bar {
+            width: 100%;
+            max-width: 450px;
+            padding: 0.5px;
+            background-color: var(--shadedColor);
+            border-radius: 20px;
+            padding: 5px;
+            border: none;
+            outline: none;
+        }
 
-.side-nav i:hover {
-    color: #5C5C5C;
-}
+        .nav-right {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 3%;
+        }
 
-.dark-mode {
-    background-color: #2c2c2c;
-    color: #fff;
-}
+        .nav-right i {
+            margin: 5px;
+            cursor: pointer;
+        }
 
-.dark-mode .nav {
-    background-color: #1c1c1c;
-}
+        .side-nav {
+            position: fixed;
+            margin-top: 7%;
+            left: -6px;
+            width: 60px;
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 1;
+            border: black solid 2px;
+        }
 
-.dark-mode .side-nav {
-    background-color: #333;
-}
+        .side-nav i {
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
 
-.dark-mode .search-bar {
-    background-color: #555;
-    color: #fff;
-    border: 1px solid #444;
-}
+        .side-nav a {
+            font-size: 8px;
+            font-family: 'Poppins', sans-serif;
+            color: #000;
+            text-decoration: none;
+            text-align: center; /* Center align text */
+        }
 
-.dark-mode .nav-right i,
-.dark-mode .side-nav i {
-    color: #fff;
-}
+        .side-nav i:hover {
+            color: #5C5C5C;
+        }
 
-.rotate {
-    animation: rotate 0.4s ease-in-out;
-}
+        .dark-mode {
+            background-color: #2c2c2c;
+            color: #fff;
+        }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(180deg);
-    }
-}
+        .dark-mode .nav {
+            background-color: #1c1c1c;
+        }
 
+        .dark-mode .side-nav {
+            background-color: #333;
+        }
 
-.nav-right a {
+        .dark-mode .search-bar {
+            background-color: #555;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .dark-mode .nav-right i,
+        .dark-mode .side-nav i {
+            color: #fff;
+        }
+
+        .rotate {
+            animation: rotate 0.4s ease-in-out;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(180deg);
+            }
+        }
+
+        .nav-right a {
             color: black; /* Set the color to black */
             text-decoration: none; /* Remove underline */
         }
-        
+
         .nav-right a:hover {
             color: black; /* Maintain black color on hover */
         }
-        
+
         .nav-right i {
             color: black; /* Ensure all icons are black */
         }
-
-</style>
+    </style>
 <head>
 <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
@@ -197,11 +203,34 @@ body.dark-mode {
     </header>
 
     <div class="side-nav">
-        <i class="bi bi-house-door-fill"></i> <a href="index.php">Home</a>
-        <i class="bi bi-box-seam-fill"><a href="products.php"></i> Products</a>
-        <i class="bi bi-heart-fill"></i><a href="wishlist.php"> Wishlist</a>
-        <i class="bi bi-cart-fill"></i><a href="cart.php"> Cart</a>
-        <i class="bi bi-clipboard2-check-fill"></i> <a href="orders.php"> Orders</a>
-        <i class="bi bi-chat-left-text-fill"></i><a href="support.php"> Support</a>
+    <a href="index.php">
+    <i class="bi bi-house-door-fill"></i><br>
+    Home
+</a>
+
+<a href="products.php">
+    <i class="bi bi-box-seam-fill"></i><br>
+    Products
+</a>
+
+<a href="wishlist.php">
+    <i class="bi bi-heart-fill"></i><br>
+    Wishlist
+</a>
+
+<a href="cart.php">
+    <i class="bi bi-cart-fill"></i><br>
+    Cart
+</a>
+
+<a href="orders.php">
+    <i class="bi bi-clipboard2-check-fill"></i><br>
+    Orders
+</a>
+
+<a href="support.php">
+    <i class="bi bi-chat-left-text-fill"></i><br>
+    Support
+</a>
     </div>
 </body>

@@ -1,3 +1,7 @@
+<?php
+include 'auth_check.php';
+checkAuth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,8 +50,9 @@
             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
-            <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
-            <i class="bi bi-person-circle tooltip-trigger" data-tooltip="Profile"></i>
+        <p style="font-size: 0.8rem; font-style: normal; margin-top:5px;">
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>
+        </p> 
         </div>
     </header>
     <section class="container">
@@ -79,7 +84,7 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -89,14 +94,15 @@
                      </a>
                 </li>
                 <hr>
+
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
-                         <i class="bi bi-bell-fill"></i>
+                     <a href="profile.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                         <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
-                         <i class="bi bi-person-fill-gear"></i>
+                     <a href="logout.php" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
               </ul>

@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -276,7 +281,7 @@
                             <i class="bi bi-star"></i>
                         </div>
                         <div class="heart">
-                            <i class="bi bi-heart"></i>
+                            <i class="bi bi-heart heart-icon" data-filled="false"></i>
                         </div>
                     </div>
                     <img src="item-2.png" style="height: 130px;">
@@ -327,6 +332,16 @@
     </section>
 
     <script>
+
+        document.querySelectorAll('.heart i').forEach(heartIcon => {
+            heartIcon.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent the click event from bubbling up to the product item
+                heartIcon.classList.toggle('bi-heart');
+                heartIcon.classList.toggle('bi-heart-fill');
+                heartIcon.classList.toggle('heart-filled');
+            });
+        });
+
         const toggle = document.getElementById('dark-mode-toggle');
         const logo = document.getElementById('logo');
 
@@ -380,6 +395,8 @@
                 handleProductClick(productName);
             });
         });
+
+        
     </script>
 </body>
 </html>

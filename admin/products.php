@@ -1,3 +1,7 @@
+<?php
+include 'auth_check.php';
+checkAuth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,6 @@
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     
-    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -43,24 +46,23 @@
         .heading{
             display:inline-block;}
         .button-link {
-            width: 125px;
-            height: 35px;
+            width: auto;
+            height: 38px;
             flex-shrink: 0;
             display: inline-block;
             font-size: 13px;
-            border: 1px solid #000;
-            background: #FFF;
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
             text-align: center;
-            text-decoration: none; /* Space between buttons */
-            color:black;
+            text-decoration: none;
+            color:white;
             padding:10px;
             margin-left:10px;
+            font-weight:bold;
+            border-radius:5px;
+            background-color: #008686;
         
         }
-
         .button-link:hover {
-            background-color: #91DDCF; /* Button background color on hover */
+            background-color: #006666; /* Button background color on hover */
         }
 
         .heading-container {
@@ -79,6 +81,27 @@
             gap: 20px; /* Adjust the gap between the <h3> and .heading-container as needed */
         }
     </style>
+    <script>
+        function openNewProductWindow() {
+            // Calculate the center position for the popup window
+            var popupWidth = 800;
+            var popupHeight = 1000;
+            var screenWidth = window.screen.width;
+            var screenHeight = window.screen.height;
+
+            var left = (screenWidth - popupWidth) / 2;
+            var top = (screenHeight - popupHeight) / 2;
+
+            // Open new window with specific dimensions and centered position
+            var newWindow = window.open('add_prod.php', '_blank', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + left + ',top=' + top);
+            
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('Popup blocked! Please allow popups for this site.');
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="nav">
@@ -86,8 +109,9 @@
             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
-            <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
-            <i class="bi bi-person-circle tooltip-trigger" data-tooltip="Profile"></i>
+        <p style="font-size: 0.8rem; font-style: normal; margin-top:5px;">
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>
+        </p> 
         </div>
     </header>
     <section class="container">
@@ -119,7 +143,7 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -129,18 +153,14 @@
                      </a>
                 </li>
                 <hr>
+
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
-                         <i class="bi bi-bell-fill"></i>
-                     </a>
-                </li>
-                <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                     <a href="profile.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
                          <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="products.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                     <a href="logout.php" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
                          <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
@@ -152,7 +172,7 @@
     <div class="heading-container">
         <h1>Products</h1>
             <div class="heading-buttons">
-                <a href="#" class="button-link">Add Product</a>
+                <a href="#" class="button-link" onclick="openNewProductWindow()">Add Product</a>
                 <a href="#" class="button-link">Add Category</a>
             </div>
         </div><br>
@@ -165,7 +185,6 @@
                     <th>No.</th>
                     <th>Category ID</th>
                     <th>Category Name</th>
-                    <th>Date Created</th>
                     <th>Added By</th>
                     <th>Actions</th>
                 </tr>
@@ -197,7 +216,6 @@
                         echo "<td>" . $counter . "</td>";
                         echo "<td>" . $row["categoryID"] . "</td>";
                         echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>" . $row["date_created"] . "</td>";
                         echo "<td>" . $row["added_by"] . "</td>";
                         echo "<td>";
                         echo "<a href='edit.php?id=" . $row["categoryID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
@@ -207,7 +225,7 @@
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='5'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>
@@ -224,7 +242,7 @@
             </script>
         </div><br><br>
         <div class = "wrapper-dashboard">
-        <h3>All</h3><br>
+        <h3>All Products</h3><br>
        <table id="example2" class="display" style="width:100%">
             <thead>
                 <tr>
