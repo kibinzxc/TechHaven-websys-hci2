@@ -43,7 +43,59 @@ checkAuth();
         #example th, #example td {
             text-align: center; 
         }
+ .heading{
+            display:inline-block;}
+        .button-link {
+            width: auto;
+            height: 38px;
+            flex-shrink: 0;
+            display: inline-block;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            color:white;
+            padding:10px;
+            margin-left:10px;
+            font-weight:bold;
+            border-radius:5px;
+            background-color: #008686;
+        
+        }
+        .button-link:hover {
+            background-color: #006666; /* Button background color on hover */
+        }
+
+        .heading-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* This will push the .button-link to the right */
+        }
+
+        .heading-container h3 {
+            margin-right: 10px; /* Space between heading and button */
+        }
     </style>
+<script>
+        function openNewProductWindow() {
+            // Calculate the center position for the popup window
+            var popupWidth = 800;
+            var popupHeight = 1000;
+            var screenWidth = window.screen.width;
+            var screenHeight = window.screen.height;
+
+            var left = (screenWidth - popupWidth) / 2;
+            var top = (screenHeight - popupHeight) / 2;
+
+            // Open new window with specific dimensions and centered position
+            var newWindow = window.open('add_user.php', '_blank', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + left + ',top=' + top);
+            
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('Popup blocked! Please allow popups for this site.');
+            }
+        }
+</script>
 </head>
 <body>
     <header class="nav">
@@ -110,7 +162,13 @@ checkAuth();
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-        <h1>Registered Customers</h1><br>
+            <div class="heading-container">
+        <h1>Customers</h1>
+            <div class="heading-buttons">
+                <a href="#" class="button-link" onclick="openNewProductWindow()"><i class="bi bi-plus-lg"></i> Add Customer</a>
+            </div>
+        </div>
+<br>
         <div class = "wrapper-dashboard">
         <h3>Customers' Information</h3><br>
        <table id="example" class="display" style="width:100%">
@@ -122,6 +180,7 @@ checkAuth();
                     <th>Email</th>
                     <th>Contact Number</th>
                     <th>Address</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -154,12 +213,14 @@ checkAuth();
                         echo "<td>" . $row["email"] . "</td>";
                         echo "<td>" . $row["contactNum"] . "</td>";
                         echo "<td>" . $row["address"] . "</td>";
-
+                        echo "<td>";
+                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["customerID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
+                        echo "</td>";
                         echo "</tr>";
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='6'>No results found</td></tr>";
+                    echo "<tr><td colspan='7'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>
