@@ -1,10 +1,14 @@
+<?php
+include 'auth_check.php';
+checkAuth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Login to Tech Haven"; ?></title>
+    <title><?php echo "Admin | Tech Haven"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -46,15 +50,16 @@
             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
-            <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
-            <i class="bi bi-person-circle tooltip-trigger" data-tooltip="Profile"></i>
+        <p style="font-size: 0.8rem; font-style: normal; margin-top:5px;">
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>
+        </p> 
         </div>
     </header>
     <section class="container">
         <div class="sidebar">
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                <a href="dashboard.php" class="sidebar-link tooltip-trigger active" data-tooltip="Dashboard">
+                    <a href="dashboard.php" class="sidebar-link tooltip-trigger active" data-tooltip="Dashboard">
                           <i class="bi bi-bar-chart-line-fill"></i>
                      </a>
                 </li>
@@ -71,7 +76,7 @@
                 <li class="sidebar-list-item">
                      <a href="inventory.php" class="sidebar-link tooltip-trigger" data-tooltip="Inventory">
                           <i class="bi bi-inboxes-fill"></i>
-                        </a>    
+                    </a>    
                 </li>
                 <li class="sidebar-list-item">
                      <a href="feedbacks.php" class="sidebar-link tooltip-trigger" data-tooltip="Feedbacks">
@@ -79,7 +84,7 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -89,14 +94,15 @@
                      </a>
                 </li>
                 <hr>
+
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
-                         <i class="bi bi-bell-fill"></i>
+                     <a href="profile.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                         <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
-                         <i class="bi bi-person-fill-gear"></i>
+                     <a href="logout.php" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                         <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
               </ul>
@@ -106,6 +112,7 @@
     <div class="dashboard-content">
         <h1>Dashboard</h1>
         <p>Welcome to the Tech Haven Admin Dashboard</p><br>
+         <h1>Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></h1>
        <table id="example" class="display" style="width:100%">
     <thead>
         <tr>

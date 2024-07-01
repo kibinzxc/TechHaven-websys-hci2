@@ -1,3 +1,33 @@
+<?php
+include 'auth_check.php';
+checkAuth();
+
+    $servername = "localhost";
+    $username = "root";
+    $db_password = "";
+    $dbname = "th_db";
+
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
+$email = $_SESSION['email'];
+$query = "SELECT * FROM admin WHERE email = '$email'";
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $name = $user['name'];
+    $email = $user['email'];
+    // Password should not be displayed for security reasons
+    // Use a placeholder or leave it empty
+    $passwordPlaceholder = '********';
+} else {
+    // Handle error if user not found (though it should not happen if user is logged in)
+    $name = 'N/A';
+    $email = 'N/A';
+    $passwordPlaceholder = 'N/A';
+}
+
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +40,6 @@
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     
-    <?php include 'logout.php'; ?>
     <style>
         /* Hide the default browser tooltip */
         .tooltip-text {
@@ -48,8 +77,9 @@
             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
-            <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
-            <i class="bi bi-person-circle tooltip-trigger" data-tooltip="Profile"></i>
+        <p style="font-size: 0.8rem; font-style: normal; margin-top:5px;">
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>
+        </p> 
         </div>
     </header>
     <section class="container">
@@ -81,7 +111,7 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -91,18 +121,14 @@
                      </a>
                 </li>
                 <hr>
+
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
-                         <i class="bi bi-bell-fill"></i>
-                     </a>
-                </li>
-                <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger active" data-tooltip="Edit Profile">
+                     <a href="profile.php" class="sidebar-link tooltip-trigger active" data-tooltip="Edit Profile">
                          <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="users.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                     <a href="logout.php" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
                          <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
@@ -118,14 +144,18 @@
         <div class="container2">
     <div class="row">
         <div class="col-md-6">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" value="user@example.com" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" value="********" readonly>
-                </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($passwordPlaceholder); ?>" readonly>
+            </div>
                 <a href="edit_profile.php" class="btn-edit"><i class="bi bi-pencil-fill"></i> Edit Profile</a>
             </form>
         </div>

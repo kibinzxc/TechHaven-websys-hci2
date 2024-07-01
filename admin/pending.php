@@ -1,3 +1,7 @@
+<?php
+include 'auth_check.php';
+checkAuth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +13,10 @@
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    
-    <?php include 'logout.php'; ?>
+
+
     <style>
-        /* Hide the default browser tooltip */
-        .tooltip-text {
+       .tooltip-text {
             position: absolute;
             display: none;
             background-color: #5C5C5C;
@@ -62,20 +65,20 @@
             padding:5px;
             margin-left:10px;
             border:none;
-            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; /* Add transition for smooth effect */
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
              cursor:pointer;
 
         }
         
         .button-link2 .bi {
-            transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out; /* Add transition for smooth effect */
+            transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out; 
             
         }
 
 
         .button-link2:hover .bi {
-            color: #007575; /* Change icon color on hover */
-            opacity: 0.7; /* Reduce icon opacity on hover */
+            color: #007575;
+            opacity: 0.7; 
            
         }
         .button-link {
@@ -116,7 +119,12 @@
         .flex-parent h3 {
             margin: 0; /* Remove any default margin */
             transition: transform 0.2s ease-in-out; /* Add transition for smooth effect */
+            display: flex;
+            align-items: center;
+        }
 
+        .flex-parent h3 .button-link2 {
+            margin-left: 15px; /* Adjust the distance between "New Orders" and buttons */
         }
         .card-container {
             display: flex;
@@ -135,13 +143,19 @@
             background: #FFF;
             box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.25);
             height:120px;
+            transition: transform 0.3s ease; 
+           
                 
+        }
+        .card:hover {
+            transform: scale(1.05); /* Scale up the card slightly on hover */
         }
 
         .card h2 {
             margin: 0;
             font-size: 16px;
             color: #007575;
+        
         }
 
         .card p {
@@ -151,9 +165,14 @@
             font-weight:600;
             letter-spacing:1.6px;
         }
+        .card a{
+            text-decoration:none;
+        }
         .sidebar{
         height:auto;
         }
+
+
     </style>
 </head>
 <body>
@@ -162,8 +181,9 @@
             <img src="../assets/img/tech-haven-logo2.png" alt="Tech Haven Logo" id="logo">
         </div>
         <div class="nav-right">
-            <i class="bi bi-bell-fill tooltip-trigger" data-tooltip="Notifications"></i>
-            <i class="bi bi-person-circle tooltip-trigger" data-tooltip="Profile"></i>
+        <p style="font-size: 0.8rem; font-style: normal; margin-top:5px;">
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>
+        </p> 
         </div>
     </header>
     <section class="container">
@@ -195,7 +215,7 @@
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -205,18 +225,14 @@
                      </a>
                 </li>
                 <hr>
+
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Notifications">
-                         <i class="bi bi-bell-fill"></i>
-                     </a>
-                </li>
-                <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
+                     <a href="profile.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
                          <i class="bi bi-person-fill-gear"></i>
                      </a>
                 </li>
                 <li class="sidebar-list-item">
-                     <a href="products.php?logout=1" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
+                     <a href="logout.php" class="sidebar-link tooltip-trigger" data-tooltip="Logout">
                          <i class="bi bi-box-arrow-right"></i>
                      </a>
                 </li>
@@ -228,14 +244,14 @@
         <div class="heading-container">
             <h1>Orders</h1>
             <div class="heading-buttons">
-                <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
+           <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
-       
+        
 
         <div class="wrapper-dashboard" style="margin-bottom:20px;">
             <div class="flex-parent">
-                <h3>New Orders</h3>
+                <h3>Processing</h3>
                 <button id="toggleRecent" class="button-link2" style="float:right;">Hide Table <i class="bi bi-caret-up-fill"></i></button>
             </div><br>
             <div id="recentTable" style="display: block;">
@@ -265,7 +281,7 @@
                             die("Connection failed: " . $conn->connect_error);
                         }
 
-                        $sql = "SELECT orderID, order_date, status FROM orders_prod";
+                        $sql = "SELECT orderID, order_date, status FROM orders_prod where status='processing'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -275,20 +291,24 @@
                                 echo "<tr>";
                                 echo "<td>" . $counter . "</td>";
                                 echo "<td>" . $row["orderID"] . "</td>";
-                                echo "<td>" . $row["order_date"] . "</td>";
+                                echo "<td>";
+                                $dateTime = new DateTime($row["order_date"]);
+                                $formattedDate = $dateTime->format('F j, Y g:i A');
+                                echo $formattedDate;
+                                echo "</td>";
                                 
                                 // Check status and modify if it is pending
-                                if ($row["status"] == "placed") {
-                                    echo "<td style='color:#4D869C; font-weight:bold;'>New Order</td>";
+                                if ($row["status"] == "processing") {
+                                    echo "<td style='color:#F4A261; font-weight:bold;'>Processing</td>";
                                 } else {
                                     echo "<td>" . $row["status"] . "</td>";
                                 }
                                 
                                 echo "<td>";
-                                echo "<a href='view_order.php?id=" . $row["orderID"] . "' title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
-                                        <span style='font-size:13px;'>View Order</span>
-                                        <i class='bi bi-arrow-right'></i>
-                                    </a>";
+                                echo "<a href='#' onclick=\"openWindow('view_order2.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
+                                    <span style='font-size:13px;'>View Order</span>
+                                    <i class='bi bi-arrow-right'></i>
+                                </a>";
                                 echo "</td>";  // Missing </td> for the link column
                                 echo "</tr>";
                                 $counter++;
@@ -405,16 +425,22 @@
         });
 
     </script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
-            $('#example2').DataTable();
-            $('#example3').DataTable();
-            $('#example4').DataTable();
         });
+    </script>
+    <script>
+    function openWindow(url) {
+        var width = 1000; // Width of the new window
+        var height = 1000; // Height of the new window
+        var left = (screen.width - width) / 2; // Center the window horizontally
+        var top = (screen.height - height) / 2; // Center the window vertically
+
+        window.open(url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left);
+    }
     </script>
 </body>
 </html>

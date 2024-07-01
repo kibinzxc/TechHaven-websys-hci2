@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-function login($email, $password) {
     $servername = "localhost";
     $username = "root";
     $db_password = "";
@@ -9,52 +8,42 @@ function login($email, $password) {
 
     $conn = new mysqli($servername, $username, $db_password, $dbname);
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT password FROM admin WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($stored_hashed_password);
-        $stmt->fetch();
-
-        $hashed_password = md5($password);
-
-        // Verify password
-        if ($hashed_password === $stored_hashed_password) {
-            $stmt->close();
-            $conn->close();
-            return true;
-        } else {
-            $stmt->close();
-            $conn->close();
-            return false;
-        }
-    } else {
-        $stmt->close();
-        $conn->close();
-        return false;
-    }
+// Redirect to dashboard if already logged in
+if (isset($_SESSION['loggedin'])) {
+    header('Location: dashboard.php');
+    exit();
 }
 
-// Handle form submission
-$error_message = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Handle user login
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $login_success = login($email, $password);
+    // Escape input data to prevent SQL injection
+    $email = $conn->real_escape_string($email);
+    $password = md5($conn->real_escape_string($password));
 
-    if ($login_success) {
-        header("Location: dashboard.php");
+    // Execute the query
+    $query = "SELECT * FROM admin WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($query);
+
+    // Check the result
+    if ($result->num_rows > 0) {
+        // Fetch user details
+        $user = $result->fetch_assoc();
+        
+        $_SESSION['loggedin'] = true;
+        $_SESSION['name'] = $user['name']; // Store the user's name in the session
+        $_SESSION['email'] = $email; // Store the user's email in the session
+
+        header('Location: dashboard.php');
         exit();
     } else {
-        $error_message = "Invalid email or password.";
+        echo 'Invalid email or password';
     }
+
+    // Close the connection
+    $conn->close();
 }
 ?>
 <!DOCTYPE html>
