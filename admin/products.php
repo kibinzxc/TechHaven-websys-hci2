@@ -46,24 +46,23 @@ checkAuth();
         .heading{
             display:inline-block;}
         .button-link {
-            width: 125px;
-            height: 35px;
+            width: auto;
+            height: 38px;
             flex-shrink: 0;
             display: inline-block;
             font-size: 13px;
-            border: 1px solid #000;
-            background: #FFF;
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
             text-align: center;
-            text-decoration: none; /* Space between buttons */
-            color:black;
+            text-decoration: none;
+            color:white;
             padding:10px;
             margin-left:10px;
+            font-weight:bold;
+            border-radius:5px;
+            background-color: #008686;
         
         }
-
         .button-link:hover {
-            background-color: #91DDCF; /* Button background color on hover */
+            background-color: #006666; /* Button background color on hover */
         }
 
         .heading-container {
@@ -82,6 +81,27 @@ checkAuth();
             gap: 20px; /* Adjust the gap between the <h3> and .heading-container as needed */
         }
     </style>
+    <script>
+        function openNewProductWindow() {
+            // Calculate the center position for the popup window
+            var popupWidth = 800;
+            var popupHeight = 1000;
+            var screenWidth = window.screen.width;
+            var screenHeight = window.screen.height;
+
+            var left = (screenWidth - popupWidth) / 2;
+            var top = (screenHeight - popupHeight) / 2;
+
+            // Open new window with specific dimensions and centered position
+            var newWindow = window.open('add_prod.php', '_blank', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + left + ',top=' + top);
+            
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('Popup blocked! Please allow popups for this site.');
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="nav">
@@ -152,7 +172,7 @@ checkAuth();
     <div class="heading-container">
         <h1>Products</h1>
             <div class="heading-buttons">
-                <a href="#" class="button-link">Add Product</a>
+                <a href="#" class="button-link" onclick="openNewProductWindow()">Add Product</a>
                 <a href="#" class="button-link">Add Category</a>
             </div>
         </div><br>
@@ -165,7 +185,6 @@ checkAuth();
                     <th>No.</th>
                     <th>Category ID</th>
                     <th>Category Name</th>
-                    <th>Date Created</th>
                     <th>Added By</th>
                     <th>Actions</th>
                 </tr>
@@ -197,7 +216,6 @@ checkAuth();
                         echo "<td>" . $counter . "</td>";
                         echo "<td>" . $row["categoryID"] . "</td>";
                         echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>" . $row["date_created"] . "</td>";
                         echo "<td>" . $row["added_by"] . "</td>";
                         echo "<td>";
                         echo "<a href='edit.php?id=" . $row["categoryID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
@@ -207,7 +225,7 @@ checkAuth();
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='5'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>
@@ -224,7 +242,7 @@ checkAuth();
             </script>
         </div><br><br>
         <div class = "wrapper-dashboard">
-        <h3>All</h3><br>
+        <h3>All Products</h3><br>
        <table id="example2" class="display" style="width:100%">
             <thead>
                 <tr>

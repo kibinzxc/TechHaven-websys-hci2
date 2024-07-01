@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

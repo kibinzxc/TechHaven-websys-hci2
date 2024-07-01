@@ -31,16 +31,63 @@ if ($result->num_rows > 0) {
     $passwordPlaceholder = 'N/A';
 }
 
+// Function to validate password complexity
+function validatePassword($password) {
+    // Password must be at least 8 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character
+    if (strlen($password) < 8) {
+        return "Password must be at least 8 characters long";
+    }
+    if (!preg_match('/[A-Z]/', $password)) {
+        return "Password must contain at least one uppercase letter";
+    }
+    if (!preg_match('/[a-z]/', $password)) {
+        return "Password must contain at least one lowercase letter";
+    }
+    if (!preg_match('/\d/', $password)) {
+        return "Password must contain at least one digit";
+    }
+    if (!preg_match('/[@$!%*?&]/', $password)) {
+        return "Password must contain at least one special character (@, $, !, %, *, ?, &)";
+    }
+    return true; // Password meets all requirements
+}
+
+// Handle form submission
+$passwordMessage = ""; // Initialize message variable
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $newPassword = $_POST['password'];
+
+    // Validate password complexity
+    $validationResult = validatePassword($newPassword);
+    if ($validationResult === true) {
+        // Hash the password using MD5 before storing (not recommended for new systems, consider using stronger hashing methods like bcrypt)
+        $hashedPassword = md5($newPassword);
+
+        // Update the password in the database
+        $updateQuery = "UPDATE admin SET password = '$hashedPassword' WHERE email = '$email'";
+        if ($conn->query($updateQuery) === TRUE) {
+            // Set session variable to indicate success
+            $_SESSION['password_change_success'] = true;
+            header("Location: profile.php");
+            exit(); // Ensure no further output is sent
+        } else {
+            $passwordMessage = "Error updating password: " . $conn->error;
+        }
+    } else {
+        // Password validation failed, set error message
+        $passwordMessage = $validationResult;
+    }
+}
+
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Admin | Profile"; ?></title>
+    <title><?php echo "Admin | Edit Profile"; ?></title>
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -78,6 +125,16 @@ $conn->close();
         #example th,
         #example td {
             text-align: center;
+        }
+
+        .btn-edit {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .cancel {
+            background-color: gray;
         }
     </style>
 </head>
@@ -133,7 +190,7 @@ $conn->close();
                 <hr>
 
                 <li class="sidebar-list-item">
-                    <a href="profile.php" class="sidebar-link tooltip-trigger active" data-tooltip="Edit Profile">
+                    <a href="profile.php" class="sidebar-link tooltip-trigger" data-tooltip="Edit Profile">
                         <i class="bi bi-person-fill-gear"></i>
                     </a>
                 </li>
@@ -154,23 +211,26 @@ $conn->close();
             <div class="container2">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($passwordPlaceholder); ?>" disabled>
-                        </div>
-                        <a href="edit_profile.php" class="btn-edit"><i class="bi bi-pencil-fill"></i> Change Password</a><br>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">New Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" value="">
+                            </div>
+                            <button type="submit" class="btn-edit">Save</button>
+                            <a href="profile.php" class="btn-edit cancel">Cancel</a>
+                        </form>
+                        <br>
                         <?php
-                        if (isset($_SESSION['password_change_success'])) {
-                            echo "<p style='color: green;'>Password changed successfully</p>";
-                            unset($_SESSION['password_change_success']); // Clear the success message
+                        if (!empty($passwordMessage)) {
+                            echo "<p style='color: maroon;'>$passwordMessage</p>";
                         }
                         ?>
                     </div>

@@ -1,4 +1,9 @@
 
+<?php
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
+
+?>
 <style>
 :root {
     --lightColor: #F5F5F5;
@@ -81,7 +86,44 @@ body.dark-mode {
     margin: 5px;
     cursor: pointer;
 }
+.nav-right .profile-dropdown {
+            position: relative;
+        }
+        .nav-right .profile-dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+        .nav-right .profile-dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .nav-right .profile-dropdown .profile-text {
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            color: black;
+        }
+        .nav-right .profile-dropdown .dropdown-content {
+            padding: 10px 15px;
+            margin: 0;
+        }
+        .nav-right .profile-dropdown .dropdown-content button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: black;
+            text-decoration: underline;
+            padding: 0;
+            text-decoration: none;
+        }
 
+        .nav-right .profile-dropdown .dropdown-content:hover{
+            background:var(--shadedColor);
+        }
 
     .side-nav {
     position: fixed;
@@ -185,9 +227,14 @@ body.dark-mode {
         <div class="nav-right">
             <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
             <i class="bi bi-cart3"></i>
-            <a href="profile.php">
-                <i class="bi bi-person-circle"></i>
-            </a>
+            <div class="profile-dropdown">
+                <a href="profile.php" class="profile-icon">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+                <div class="dropdown-content" onclick="logout()">
+                    <button class="btn">Logout</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -200,3 +247,9 @@ body.dark-mode {
         <i class="bi bi-chat-left-text-fill"></i><a href="support.php"> Support</a>
     </div>
 </body>
+    <script>
+        function logout() {
+            window.location.href = 'homepage.php';
+        }
+    </script>
+
