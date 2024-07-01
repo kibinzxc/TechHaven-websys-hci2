@@ -1,8 +1,4 @@
-<?php
-include 'dbcon.php';
-$customerID = $_SESSION['id'];
 
-?>
 <style>
 :root {
     --lightColor: #F5F5F5;
