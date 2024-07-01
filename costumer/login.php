@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
-        $_SESSION['name'] = $email;
+        $_SESSION['email'] = $email;
         $_SESSION['id'] = $customerID;
         header("Location: index.php");
         exit();

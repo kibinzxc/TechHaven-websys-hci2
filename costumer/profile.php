@@ -1,10 +1,20 @@
 <?php
 session_start();
 include 'dbcon.php';
-$customerID = $_SESSION['id'];
+$email = $_SESSION['email'];
+
+
+
+// Redirect to login page if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 
 // Fetch customer data from the database
-$sql = "SELECT name, email, contactNum, address, gender, phone_num FROM customerinfo WHERE customerID = '$customerID'";
+$sql = "SELECT name, email, contactNum, address FROM customerinfo WHERE email = '$email'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -16,10 +26,11 @@ if ($result->num_rows > 0) {
     $email = $row['email'];
     $contactNum = $row['contactNum'];
     $address = $row['address'];
-    $gender = $row['gender'];
-    $phone = $row['phone'];
+
+    $phone = $row['contactNum'];
 } else {
     echo "Customer data not found!";
+
     exit();
 }
 ?>
@@ -108,6 +119,7 @@ if ($result->num_rows > 0) {
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
+     
             }
 
             .right {
@@ -123,6 +135,8 @@ if ($result->num_rows > 0) {
                 display: flex;
                 align-items: center;
                 margin-bottom: 10px;
+                margin-top: 10px;
+                padding-top: 10px;
             }
 
             .left .info-item strong {
@@ -294,10 +308,10 @@ if ($result->num_rows > 0) {
                 <strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($email); ?></span>
             </div>
             <div class="info-item">
-                <strong>Phone Number:</strong> <span id="phone"><?php echo htmlspecialchars($phoneNumber); ?></span>
+                <strong>Phone Number:</strong> <span id="phone"><?php echo htmlspecialchars($contactNum); ?></span>
             </div>
             <div class="info-item">
-                <strong>Gender:</strong> <span id="gender"><?php echo htmlspecialchars($gender); ?></span>
+                <strong>Gender:</strong> <span id="gender"><?php echo htmlspecialchars($address); ?></span>
             </div>
             <!-- Add other fields as needed -->
             <button onclick="openEditModal()">Edit</button>
