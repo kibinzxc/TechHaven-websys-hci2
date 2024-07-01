@@ -63,6 +63,17 @@ if ($result->num_rows > 0) {
             
         }
 
+        .subtitle{
+            margin-top:38px;
+            padding-left: 30px;
+            margin-bottom:20px;
+        }
+
+        .title{
+            
+            padding-left: 30px;
+           
+        }
         .upper{
             border-bottom: solid 1px black;
             height: 22%;
@@ -137,6 +148,7 @@ if ($result->num_rows > 0) {
                 margin-bottom: 10px;
                 margin-top: 10px;
                 padding-top: 10px;
+                padding-left: 20px;
             }
 
             .left .info-item strong {
@@ -180,7 +192,9 @@ if ($result->num_rows > 0) {
 
         /* Hover effect */
         button:hover {
-            background-color: #0056b3; /* Darker shade for hover effect */
+            background-color: white; /* Darker shade for hover effect */
+            color:black;
+            border: solid 1px black;
         }
 
         /* Focus effect */
@@ -284,6 +298,65 @@ if ($result->num_rows > 0) {
     height: 100%;
     object-fit: cover; /* Ensure the image covers the entire circle */
 }
+
+
+/* Styles for the pop-up form container */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000; /* Ensure the pop-up is on top */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Adjust width */
+    max-height: 80vh; /* Limit maximum height to 80% of viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+}
+/* Styles for form elements inside the pop-up */
+.form-popup input[type=text],
+.form-popup input[type=email],
+.form-popup input[type=date],
+.form-popup input[type=file],
+.form-popup button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-popup button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-popup button:hover {
+    opacity: 0.8;
+}
+
+.btn.cancel {
+    background-color: #f44336;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-group > div {
+    width: calc(50% - 10px); /* Adjust width as needed */
+}
+
+.input-group > div + div {
+    margin-left: 20px; /* Adjust spacing between email and phone number fields */
+}
     </style>
 <body>
    
@@ -314,7 +387,7 @@ if ($result->num_rows > 0) {
                 <strong>Gender:</strong> <span id="gender"><?php echo htmlspecialchars($address); ?></span>
             </div>
             <!-- Add other fields as needed -->
-            <button onclick="openEditModal()">Edit</button>
+            <button onclick="openEditForm()">Edit</button>
         </div>
         
         <div class="right">
@@ -326,64 +399,60 @@ if ($result->num_rows > 0) {
 </div>
 
  
-   
-    <!-- Edit Modal -->
-    <div id="editForm" class="form-popup">
-            <form action="admin-manage-resolution.php" method="POST" class="form-container" enctype="multipart/form-data">
-                <h2>Edit Resolution</h2>  
+<div id="editForm" class="form-popup">
+    <form action="updateInfo.php" method="POST" class="form-container">
+        <h2>Edit Customer Information</h2>  
 
-                <label for="title"><b>Title</b></label>
-                <input type="text" name="title" placeholder="Enter Title" id="title" required>
+        <label for="name"><b>Name</b></label>
+        <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name); ?>" required>
 
-                <label for="dateCreated"><b>Date Created</b></label>
-                <input type="date" name="dateCreated" id="dateCreated" required>
-
-                <label for="dateImplemented"><b>Date Implemented</b></label>
-                <input type="date" name="dateImplemented" id="dateImplemented" required>
-
-                <label for="officialCopy"><b>Official Copy</b></label>
-                <input type="file" name="officialCopy" id="officialCopy" accept=".pdf, .doc, .docx">
-
-                <!-- Add an additional field for identifying the resolution being edited -->
-                <input type="hidden" name="editResolutionID" id="editResolutionID">
-
-                <button type="submit" name="editResolution" class="fa-solid fa-pencil">Save Changes</button>
-                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
-            </form>
+        <div class="input-group">
+            <div>
+                <label for="email"><b>Email</b></label>
+                <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+            </div>
+            <div>
+                <label for="contactNum"><b>Phone Number</b></label>
+                <input type="text" name="contactNum" id="contactNum" value="<?php echo htmlspecialchars($contactNum); ?>" required>
+            </div>
         </div>
 
+        <label for="address"><b>Address</b></label>
+        <input type="text" name="address" id="address" value="<?php echo htmlspecialchars($address); ?>" required>
 
-        <script>
-             // Function to open the edit form
-             function openEditForm(resolutionID) {
-                // Assuming $resolutions is a PHP array containing resolution details
-                var resolutions = <?php echo json_encode($resolutions); ?>;
-                var resolution = resolutions.find(function (r) {
-                    return r.resolutionID == resolutionID;
-                });
+        <button type="submit" class="fa-solid fa-pencil">Save Changes</button>
+        <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+    </form>
+</div>
 
-                if (resolution) {
-                    document.getElementById("title").value = resolution.title;
-                    document.getElementById("dateCreated").value = resolution.dateCreated;
-                    document.getElementById("dateImplemented").value = resolution.dateImplemented;
 
-                    // Set the resolution ID value in the hidden field
-                    document.getElementById("editResolutionID").value = resolution.resolutionID;
 
-                    // Show the edit form
-                    document.getElementById("editForm").style.display = "block";
-                } else {
-                    console.log("Resolution not found for ID: " + resolutionID);
-                }
-            }
+<script>
+    // Function to open the edit form
+    function openEditForm() {
+        // Assuming PHP variables are echoed into JavaScript for initialization
+        var name = "<?php echo htmlspecialchars($name); ?>";
+        var email = "<?php echo htmlspecialchars($email); ?>";
+        var contactNum = "<?php echo htmlspecialchars($contactNum); ?>";
+        var address = "<?php echo htmlspecialchars($address); ?>";
 
-            // Function to close the edit form
-            function closeEditForm() {
-                // Hide the edit form
-                document.getElementById("editForm").style.display = "none";
-            }
+        // Populate form fields with current data
+        document.getElementById("name").value = name;
+        document.getElementById("email").value = email;
+        document.getElementById("contactNum").value = contactNum;
+        document.getElementById("address").value = address;
 
+        // Show the edit form
+        document.getElementById("editForm").style.display = "block";
+    }
+
+    // Function to close the edit form
+    function closeEditForm() {
+        // Hide the edit form
+        document.getElementById("editForm").style.display = "none";
+    }
 </script>
+
    
     
 </body>
