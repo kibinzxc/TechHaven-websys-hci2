@@ -1,3 +1,28 @@
+<?php
+session_start();
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
+
+// Fetch customer data from the database
+$sql = "SELECT name, email, contactNum, address, gender, phone_num FROM customerinfo WHERE customerID = '$customerID'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Fetch data as associative array
+    $row = $result->fetch_assoc();
+
+    // Assign fetched data to variables
+    $name = $row['name'];
+    $email = $row['email'];
+    $contactNum = $row['contactNum'];
+    $address = $row['address'];
+    $gender = $row['gender'];
+    $phone = $row['phone'];
+} else {
+    echo "Customer data not found!";
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,44 +275,41 @@
    
 <?php include 'sidenav.php'; ?>
 
-   <div class="mainbox">
-
-        <div class="upper">
-            <div class="title">
-                <h1> My Profile</h1>
-             </div>
-             <div class="subtitle">
-                <h3> Manage and Protect Your account</h3>
-             </div>
+<div class="mainbox">
+    <div class="upper">
+        <div class="title">
+            <h1>My Profile</h1>
         </div>
+        <div class="subtitle">
+            <h3>Manage and Protect Your Account</h3>
+        </div>
+    </div>
 
-      
-            <div class="info">
-                <div class="left">
-                    <div class="info-item">
-                        <strong>Name:</strong> <span id="name">John Doe</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Email:</strong> <span id="email">john.doe@example.com</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Phone Number:</strong> <span id="phone">123-456-7890</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Gender:</strong> <span id="gender">Male</span>
-                    </div>
-                    <button onclick="openEditModal()">Edit</button>
-                </div>
-           
-        
-            <div class="right">
-                <div class="pic">
-                    <img src="sample.jpg" alt="Profile Picture" class="profile-img">
-                 </div>
+    <div class="info">
+        <div class="left">
+            <div class="info-item">
+                <strong>Name:</strong> <span id="name"><?php echo htmlspecialchars($name); ?></span>
             </div>
-
+            <div class="info-item">
+                <strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($email); ?></span>
+            </div>
+            <div class="info-item">
+                <strong>Phone Number:</strong> <span id="phone"><?php echo htmlspecialchars($phoneNumber); ?></span>
+            </div>
+            <div class="info-item">
+                <strong>Gender:</strong> <span id="gender"><?php echo htmlspecialchars($gender); ?></span>
+            </div>
+            <!-- Add other fields as needed -->
+            <button onclick="openEditModal()">Edit</button>
         </div>
-   </div>
+        
+        <div class="right">
+            <div class="pic">
+                <img src="sample.jpg" alt="Profile Picture" class="profile-img">
+            </div>
+        </div>
+    </div>
+</div>
 
  
    

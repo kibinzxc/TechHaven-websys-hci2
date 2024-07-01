@@ -1,60 +1,23 @@
 <?php
 session_start();
+include 'dbcon.php';
 
-function login($email, $password)
-{
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "th_db";
 
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT password FROM admin WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($stored_hashed_password);
-        $stmt->fetch();
-
-        $hashed_password = md5($password);
-
-        // Verify password
-        if ($hashed_password === $stored_hashed_password) {
-            $stmt->close();
-            $conn->close();
-            return true;
-        } else {
-            $stmt->close();
-            $conn->close();
-            return false;
-        }
-    } else {
-        $stmt->close();
-        $conn->close();
-        return false;
-    }
-}
-
-// Handle form submission
-$error_message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $login_success = login($email, $password);
+    $sql = "SELECT * FROM customerinfo WHERE email = ? AND password = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($login_success) {
+    if ($result->num_rows == 1) {
+        $_SESSION['name'] = $email;
+        $_SESSION['id'] = $customerID;
         header("Location: index.php");
         exit();
-    } else {
-        $error_message = "Invalid email or password.";
     }
 }
 ?>
@@ -88,11 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" name="password" placeholder="Type your Password" required>
                     <i class="bi bi-eye-slash"></i>
                 </div>
-                <?php
-                if ($error_message) {
-                    echo "<p style='color:red;text-align:center;margin-top:-10px;font-size:12px;'>$error_message</p>";
-                }
-                ?>
                 <p><a href="#">Forget Password?</a></p>
                 <div class="btn-container">
                     <button type="submit">Login</button>
@@ -103,23 +61,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </section>
-    <script>
-        document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
-            icon.style.marginLeft = '10%';
-            icon.style.fontSize = 'large';
-            icon.addEventListener('click', function() {
-                var passwordInput = icon.previousElementSibling;
-                passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-                icon.classList.toggle('bi-eye');
-                icon.classList.toggle('bi-eye-slash');
-            });
+<script>
+    document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
+        icon.style.marginLeft = '10%';
+        icon.style.fontSize = 'large';
+        icon.addEventListener('click', function() {
+            var passwordInput = icon.previousElementSibling;
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
         });
-
-        
-        const logo = document.getElementById('logo');
-        logo.addEventListener('click', () => {
-            window.location.href = 'homepage.php';
-        });
-    </script>
+    });
+    
+    const logo = document.getElementById('logo');
+    logo.addEventListener('click', () => {
+        window.location.href = 'homepage.php';
+    });
+</script>
 </body>
 </html>

@@ -1,10 +1,9 @@
-<style>
-    * {
-    margin: 0;
-    box-sizing: border-box;
-    padding: 0;
-}
+<?php
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
 
+?>
+<style>
 :root {
     --lightColor: #F5F5F5;
     --shadedColor: #E7E7E7;

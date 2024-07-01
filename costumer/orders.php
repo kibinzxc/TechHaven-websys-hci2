@@ -2,12 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-   <link rel="stylesheet" href="../costumer/css/users.css">
-   <link rel="stylesheet" href="../costumer/css/user.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+
+    <link rel="short icon" href="../costumer/logo.jpg" type="x-icon">
+    <title>
+        <?php echo "Orderlist"; ?>
+    </title>
+    <link rel="stylesheet" href="../costumer/css/users.css">
+    <link rel="stylesheet" href="../costumer/css/font.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
    
 </head>
 
