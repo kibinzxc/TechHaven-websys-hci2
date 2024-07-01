@@ -244,21 +244,10 @@ checkAuth();
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-        <div class="heading-container">
-            <h1>Orders</h1>
+    <div class="heading-container">
+            <h1>All Orders Data</h1>
             <div class="heading-buttons">
-            <a href="pending.php" class="button-link" target="_blank">
-                <i class="bi bi-gear-wide-connected"></i> Processing
-            </a>
-            <a href="delivery.php" class="button-link" target="_blank">
-                <i class="bi bi-box-seam-fill"></i> Delivery
-            </a>
-            <a href="success_orders.php" class="button-link" target="_blank">
-                <i class="bi bi-bag-check-fill"></i> Completed
-            </a>
-            <a href="all_orders.php" class="button-link" target="_blank">
-                <i class="bi bi-list-check"></i> View All Orders
-            </a>
+           <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
         <div class="card-container">
@@ -311,7 +300,7 @@ checkAuth();
 
         <div class="wrapper-dashboard" style="margin-bottom:20px;">
             <div class="flex-parent">
-                <h3>New Orders</h3>
+                <h3>All Orders</h3>
                 <button id="toggleRecent" class="button-link2" style="float:right;">Hide Table <i class="bi bi-caret-up-fill"></i></button>
             </div><br>
             <div id="recentTable" style="display: block;">
@@ -341,7 +330,7 @@ checkAuth();
                             die("Connection failed: " . $conn->connect_error);
                         }
 
-                        $sql = "SELECT orderID, order_date, status FROM orders_prod where status='placed'";
+                        $sql = "SELECT orderID, order_date, status FROM orders_prod;";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -360,12 +349,18 @@ checkAuth();
                                 // Check status and modify if it is pending
                                 if ($row["status"] == "placed") {
                                     echo "<td style='color:#4D869C; font-weight:bold;'>New Order</td>";
-                                } else {
+                                }else if($row["status"] == "processing") {
+                                    echo "<td style='color:#F4A261; font-weight:bold;'>Processing</td>";
+                                }else if($row["status"] == "delivery") {
+                                    echo "<td style='color:#288a72; font-weight:bold;'>To Be Delivered</td>";
+                                }else if($row["status"] == "delivered") {
+                                    echo "<td style='color:#4a9e2e; font-weight:bold;'>Complete</td>";
+                                }  else {
                                     echo "<td>" . $row["status"] . "</td>";
                                 }
                                 
                                 echo "<td>";
-                                echo "<a href='#' onclick=\"openWindow('view_order.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
+                                echo "<a href='#' onclick=\"openWindow('view_order_last.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
                                     <span style='font-size:13px;'>View Order</span>
                                     <i class='bi bi-arrow-right'></i>
                                 </a>";

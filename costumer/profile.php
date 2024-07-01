@@ -1,52 +1,28 @@
 <?php
-
-// Initialize an array to store the customer information
-$customerInfo = array();
-
-// Session start (if not already started)
 session_start();
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
 
-// Check if the user is logged in by verifying if the email session variable is set
-if (!isset($_SESSION['email'])) {
-    // If not logged in, redirect to the login page or display an error message
-    header("Location: login.php");
+// Fetch customer data from the database
+$sql = "SELECT name, email, contactNum, address, gender, phone_num FROM customerinfo WHERE customerID = '$customerID'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Fetch data as associative array
+    $row = $result->fetch_assoc();
+
+    // Assign fetched data to variables
+    $name = $row['name'];
+    $email = $row['email'];
+    $contactNum = $row['contactNum'];
+    $address = $row['address'];
+    $gender = $row['gender'];
+    $phone = $row['phone'];
+} else {
+    echo "Customer data not found!";
     exit();
 }
-
-// Get the email from the session
-$email = $_SESSION['email'];
-
-// Database connection details
-$servername = "localhost";
-$username = "root";
-$db_password = "";
-$dbname = "th_db";
-
-// Create a new database connection
-$conn = new mysqli($servername, $username, $db_password, $dbname);
-
-// Check for connection errors
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Query to fetch customer information
-$query = "SELECT name, contactNum, address FROM customerinfo WHERE email = '$email'";
-$result = mysqli_query($conn, $query);
-
-// Check if the query was successful
-if ($result) {
-    // Fetch customer data
-    $customerInfo = mysqli_fetch_assoc($result);
-} else {
-    // Handle the case where the query fails
-    echo "Error executing query: " . mysqli_error($conn);
-}
-
-// Close the database connection
-mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,37 +283,41 @@ mysqli_close($conn);
         <div class="subtitle">
             <h3>Manage and Protect Your Account</h3>
         </div>
-    </div>
 
-    <div class="info">
-        <div class="left">
-            <div class="info-item">
-                <strong>Name:</strong> <span id="name"><?php echo htmlspecialchars($user_data['name']); ?></span>
+      
+            <div class="info">
+                <div class="left">
+                    <div class="info-item">
+                        <strong>Name:</strong> <span id="name">John Doe</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Email:</strong> <span id="email">john.doe@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Phone Number:</strong> <span id="phone">123-456-7890</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Gender:</strong> <span id="gender">Male</span>
+                    </div>
+                    <button onclick="openEditModal()">Edit</button>
+                </div>
+           
+        
+            <div class="right">
+                <div class="pic">
+                    <img src="sample.jpg" alt="Profile Picture" class="profile-img">
+                 </div>
             </div>
-            <div class="info-item">
-                <strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($email); ?></span>
-            </div>
-            <div class="info-item">
-                <strong>Phone Number:</strong> <span id="phone"><?php echo htmlspecialchars($user_data['contactNum']); ?></span>
-            </div>
-            <div class="info-item">
-                <strong>Default Address:</strong> <span id="gender"><?php echo htmlspecialchars($user_data['address']); ?></span>
-            </div>
-            <button onclick="openEditModal()">Edit</button>
+
         </div>
+   </div>
 
-        <div class="right">
-            <div class="pic">
-                <img src="sample.jpg" alt="Profile Picture" class="profile-img">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Modal -->
-<div id="editForm" class="form-popup">
-    <form action="admin-manage-resolution.php" method="POST" class="form-container" enctype="multipart/form-data">
-        <h2>Edit Resolution</h2>  
+ 
+   
+    <!-- Edit Modal -->
+    <div id="editForm" class="form-popup">
+            <form action="admin-manage-resolution.php" method="POST" class="form-container" enctype="multipart/form-data">
+                <h2>Edit Resolution</h2>  
 
         <label for="title"><b>Title</b></label>
         <input type="text" name="title" placeholder="Enter Title" id="title" required>
