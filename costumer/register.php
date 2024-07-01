@@ -23,36 +23,46 @@
     </header>
 
     <section class="container">
-    <div class="box">
-        <h3>Register</h3>
-        <form method="" onsubmit="return validateForm()">
-            <label>Email</label>
-            <div class="fillup">
-                <i class="bi bi-person"></i>                    
-                <input type="text" placeholder="Type your Email" required>
+        <div class="box">
+            <h3>Register</h3>
+            <form method="" onsubmit="return validateForm()">
+                <label>Email</label>
+                <div class="fillup">
+                    <i class="bi bi-person"></i>                    
+                    <input type="text" placeholder="Type your Email" required>
+                </div>
+                <label>Password</label>
+                <div class="fillup">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" name="password" placeholder="Type your Password" required oninput="checkPasswordStrength(this)">
+                    <i class="bi bi-eye-slash"></i>
+                </div>
+                <label>Confirm Password</label>
+                <div class="fillup">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" name="confirm_password" placeholder="Confirm your Password" required oninput="checkPasswordStrength(this)">
+                    <i class="bi bi-eye-slash"></i>
+                </div>
+
+                <div>
+                    <div class="terms">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="terms-and-conditions.php"><b>Terms and Conditions</b></a></label>
+                    </div>
+                </div>
+
+                <div id="password-strength" style="display:none;"></div>
+                <div class="btn-container">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+
+            <div class="sign-log">
+                <p>Already have an account? <span id="login">Login</span></p>
             </div>
-            <label>Password</label>
-            <div class="fillup">
-                <i class="bi bi-lock"></i>
-                <input type="password" name="password" placeholder="Type your Password" required oninput="checkPasswordStrength(this)">
-                <i class="bi bi-eye-slash"></i>
-            </div>
-            <label>Confirm Password</label>
-            <div class="fillup">
-                <i class="bi bi-lock"></i>
-                <input type="password" name="confirm_password" placeholder="Confirm your Password" required oninput="checkPasswordStrength(this)">
-                <i class="bi bi-eye-slash"></i>
-            </div>
-            <div id="password-strength" style="display:none;"></div>
-            <div class="btn-container">
-                <button type="submit">Register</button>
-            </div>
-        </form>
-        <div class="sign-log">
-            <p>Already have an account? <span id="login">Login</span></p>
         </div>
-    </div>
-</section>
+
+    </section>
 <script>
     function validateForm() {
         if (!passwordsMatch()) {
@@ -63,8 +73,23 @@
             strength.style.border = '2px solid #f5c2c7';
             return false;
         }
-        return true; // Allow form submission
+        return true; 
+
+        /***For Terms and Conditions validation ***/
+        if (!passwordsMatch()) {
+    
+        return false;
+        }
+
+        const termsCheckbox = document.getElementById('terms');
+        if (!termsCheckbox.checked) {
+            alert('Please accept the Terms and Conditions.');
+            return false;
+        }
+
+        return true;
     }
+
 
     function passwordsMatch() {
         const password = document.getElementsByName('password')[0].value;
@@ -132,7 +157,7 @@
     });
 
     document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
-        icon.style.marginLeft = '10%';
+        icon.style.marginLeft = '5%';
         icon.style.fontSize = 'large';
 
         icon.addEventListener('click', function() {
@@ -142,6 +167,10 @@
             icon.classList.toggle('bi-eye-slash');
         });
     });
+
+
+
+
 </script>
 </body>
 </html>
