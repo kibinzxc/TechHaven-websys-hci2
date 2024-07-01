@@ -157,19 +157,15 @@
     });
 
     document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
-        icon.style.marginLeft = '10%';
+        icon.style.marginLeft = '5%';
         icon.style.fontSize = 'large';
+
         icon.addEventListener('click', function() {
             var passwordInput = icon.previousElementSibling;
             passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
             icon.classList.toggle('bi-eye');
             icon.classList.toggle('bi-eye-slash');
         });
-    });
-    
-    const logo = document.getElementById('logo');
-    logo.addEventListener('click', () => {
-        window.location.href = 'homepage.php';
     });
 
 
