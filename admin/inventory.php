@@ -224,7 +224,9 @@ checkAuth();
     <div class="heading-container">
         <h1>Products</h1>
             <div class="heading-buttons">
-                <a href="#" class="button-link"><i class="bi bi-pencil-square"></i> Update</a>
+            <a href="#" class="button-link" onclick="openNewWindow()">
+                <i class="bi bi-pencil-square"></i> Update
+            </a>
             </div>
         </div><br>
 
@@ -328,7 +330,7 @@ checkAuth();
     </div>
     <br><br>
     <div class = "wrapper-dashboard">
-        <h3>Categories</h3><br>
+        <h3>Inventory</h3><br>
        <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
@@ -341,7 +343,6 @@ checkAuth();
                     <th>Sold(pcs)</th>
                     <th>Last Update</th>
                     <th>Updated By</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -413,13 +414,12 @@ checkAuth();
                         echo "<td>" . $row["sold"] . "</td>";
                         echo "<td>" . $timeAgo . "</td>";
                         echo "<td>" . $row["updated_by"] . "</td>";
-                        echo "<td><a href='edit.php?id=" . $row["invID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a></td>";
                         echo "</tr>";
 
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='10'>No results found</td></tr>";
+                    echo "<tr><td colspan='9'>No results found</td></tr>";
                 }
 
                 // Close the connection
@@ -456,6 +456,23 @@ checkAuth();
         $(document).ready(function() {
             $('#example').DataTable();
         });
+        
+    </script>
+    <script>
+        function openNewWindow() {
+            // Define window dimensions
+            var width = 700;
+            var height = 1000;
+
+            // Calculate window position to center it on the screen
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+
+            var url = 'update_prod.php';
+
+            // Open new window with specified dimensions, position, and URL
+            window.open(url, '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
+        }
     </script>
 </body>
 </html>
