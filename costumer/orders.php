@@ -28,15 +28,15 @@ $customerID = $_SESSION['id'];
 
     }
   .mainbox {
-    height: 80vh;
-    width: 90vw;
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    padding-left: 120px;
-    justify-content: center;
-}
+            height: 80vh;
+            width: 90vw;
+            margin: auto;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 120px;
+            justify-content: center;
+        }
 
     .tab{
         height: 15%;
