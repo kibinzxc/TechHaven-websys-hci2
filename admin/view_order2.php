@@ -11,7 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderID = $_GET['id'];
-    $newStatus = "processing";   
+    $newStatus = "delivery";   
     $sql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
     
         if ($conn->query($sql) === TRUE) {
@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultz = $conn->query($sql2);
     $rows2 = $resultz->fetch_assoc();
     //data are uid, title, category, description, image, status
-    $title = "Order ID#$order_id Status Update";
+    $title = "Order ID#$orderID Status Update";
     $category = "Order status";
     $description = 
-"Your order is now being prepared. We\'re carefully putting it together with the best ingredients for a great experience. Thanks for your patience, we\'ll have it ready for you soon!";
-    $image = "preparing.png";
+"Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!";
+    $image = "delivery.png";
     $status = "unread";
     $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
     $result3 = $conn->query($sql3);

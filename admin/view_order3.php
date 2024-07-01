@@ -11,7 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderID = $_GET['id'];
-    $newStatus = "processing";   
+    $newStatus = "delivered";   
     $sql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
     
         if ($conn->query($sql) === TRUE) {
@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = "Order ID#$order_id Status Update";
     $category = "Order status";
     $description = 
-"Your order is now being prepared. We\'re carefully putting it together with the best ingredients for a great experience. Thanks for your patience, we\'ll have it ready for you soon!";
-    $image = "preparing.png";
+"Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!";
+    $image = "thankyou.png";
     $status = "unread";
     $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
     $result3 = $conn->query($sql3);
@@ -328,15 +328,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .custom1-warning {
-            background-color: blue; /* Existing styles */
+            background-color: #288a72; /* Existing styles */
+            color: white;
         }
 
         .bg-success {
-            background-color: green; /* Existing styles */
+            background-color: :#4a9e2e; /* Existing styles */
+            color: white;
         }
 
         .bg-secondary {
             background-color: gray; /* Existing styles */
+            color: white;
         }
 
         .bg-placed {
