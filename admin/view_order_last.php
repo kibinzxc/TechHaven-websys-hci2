@@ -436,8 +436,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div style="padding:10px 0 0 30px">
                                                     <p>Name: <?php echo $rows['name']?></p> 
                                                     <p>Address: <?php 
-                                                        $shipID = $rowz['shipID'];
-                                                     $sql2 = "SELECT * FROM shipping where shipID = $shipID";
+                                                        $customerID = $rowz['customerID'];
+                                                     $sql2 = "SELECT * FROM customerinfo where customerID = $customerID";
                                                     $resultz = $conn->query($sql2);
                                                     $rows2 = $resultz->fetch_assoc();     
                                                     echo $rows2['address'];
