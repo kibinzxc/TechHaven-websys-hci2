@@ -7,11 +7,17 @@ $nameErr = $emailErr = $passwordErr = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
-    if (empty($_POST["first_name"]) || empty($_POST["last_name"])) {
-        $nameErr = "Both first name and last name are required";
+    // Validate first name
+    if (empty($_POST["first_name"])) {
+        $nameErr = "First name is required";
     } else {
         $first_name = test_input($_POST["first_name"]);
+    }
+
+    // Validate last name
+    if (empty($_POST["last_name"])) {
+        $nameErr = "Last name is required";
+    } else {
         $last_name = test_input($_POST["last_name"]);
     }
 
@@ -32,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $contact_number = test_input($_POST["contact_number"]);
         if (!preg_match("/^[0-9]{11}$/", $contact_number)) {
-            $contact_numberErr = "Invalid contact number format";
+            $contact_number = "Invalid contact number format";
         }
     }
 
@@ -41,8 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $address = "";
     } else {
         $address = test_input($_POST["address"]);
-        // Capitalize the address
-        $address = ucwords(strtolower($address));
     }
 
     // Validate password
@@ -81,21 +85,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $first_name = $conn->real_escape_string($first_name);
         $last_name = $conn->real_escape_string($last_name);
         $email = $conn->real_escape_string($email);
-        $contact_number = $conn->real_escape_string($contact_number);
-        $address = $conn->real_escape_string($address);
-
-        // Hash the password using MD5 (not recommended for production, use bcrypt or Argon2 for secure hashing)
-        $hashed_password = md5($user_password);
+        $user_password = $conn->real_escape_string($user_password);
 
         // Combine first name and last name into one name
         $name = $first_name . ' ' . $last_name;
 
+        // Hash the password using MD5 (consider using bcrypt or Argon2 for better security)
+        $hashed_password = md5($user_password);
+
         // Insert new user into database
-        $insertUserQuery = "INSERT INTO customerInfo (name, email, contactNum, address, password) 
-                           VALUES ('$name', '$email', '$contact_number', '$address', '$hashed_password')";
+        $insertUserQuery = "INSERT INTO admin (name, email, password, role) 
+                        VALUES ('$name', '$email', '$hashed_password', 'admin')";
 
         if ($conn->query($insertUserQuery) === TRUE) {
-            echo "New user added successfully.";
+            echo "New admin user added successfully.";
         } else {
             echo "Error: " . $insertUserQuery . "<br>" . $conn->error;
         }
@@ -119,7 +122,7 @@ function test_input($data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New User</title>
+    <title>Add New Admin User</title>
     <style>
         /* Additional CSS styles based on provided design */
         body {
@@ -198,25 +201,19 @@ function test_input($data) {
 <body>
 
 <div class="dashboard-content">
-    <h2>Add New User</h2>
+    <h2>Add New Admin User</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" placeholder="Enter first name"  required>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter first name" value="<?php echo $first_name; ?>" required>
         <span class="error"><?php echo $nameErr; ?></span><br><br>
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" placeholder="Enter last name" required>
+        <input type="text" id="last_name" name="last_name" placeholder="Enter last name" value="<?php echo $last_name; ?>" required>
         <span class="error"><?php echo $nameErr; ?></span><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter email" required>
+        <input type="email" id="email" name="email" placeholder="Enter email" value="<?php echo $email; ?>" required>
         <span class="error"><?php echo $emailErr; ?></span><br><br>
-
-        <label for="contact_number">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number" placeholder="09091234524" pattern="[0-9]{11}"><br><br>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" placeholder="House No., Street, etc...." ><br><br>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>

@@ -403,7 +403,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3>Order #<?php echo $rowz['orderID']?></h3>
         <form action="" method="post">
             <button type="submit" class="button-link">
-                <i class="bi bi-check2-circle"></i> Deliver Order
+                <i class="bi bi-check2-circle"></i> Process Order
             </button>
         </form>
     </div><br>

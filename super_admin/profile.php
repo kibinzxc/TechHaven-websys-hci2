@@ -40,7 +40,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Admin | Profile"; ?></title>
+    <title><?php echo "Super Admin | Profile"; ?></title>
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">

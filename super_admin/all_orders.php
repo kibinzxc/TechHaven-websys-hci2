@@ -11,7 +11,7 @@ checkAuth();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Products | Admin"; ?></title>
+    <title><?php echo "Products | Super Admin"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -293,7 +293,7 @@ checkAuth();
         <div class="card">
             <a href="success_orders.php" target="_blank">
                 <h2>Completed</h2>
-                <p><?php echo $countDelivered; ?></p>
+                <p><?php echo $countDelivery; ?></p>
             </a>
         </div>
         </div>

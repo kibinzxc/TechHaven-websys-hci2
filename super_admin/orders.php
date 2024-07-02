@@ -11,7 +11,7 @@ checkAuth();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Products | Admin"; ?></title>
+    <title><?php echo "Products | Super Admin"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -247,7 +247,6 @@ checkAuth();
     <div class="heading-container">
             <h1>All Orders Data</h1>
             <div class="heading-buttons">
-           <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
         <div class="card-container">

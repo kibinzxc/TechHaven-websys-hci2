@@ -1,9 +1,6 @@
 <?php
 include 'auth_check.php';
 checkAuth();
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -244,63 +241,17 @@ checkAuth();
     </aside>
     <div class="tooltip-text"></div>
     <div class="dashboard-content">
-    <div class="heading-container">
-            <h1>All Orders Data</h1>
+        <div class="heading-container">
+            <h1>Orders</h1>
             <div class="heading-buttons">
            <a href="orders.php" class="button-link"><i class="bi bi-arrow-left"></i> Back</a>
             </div>
         </div><br>
-        <div class="card-container">
-        <div class="card">
-            <?php   
-                        // Database connection
-                        $servername = "localhost"; // your server name
-                        $username = "root"; // your database username
-                        $password = ""; // your database password
-                        $dbname = "th_db"; // your database name
-
-                        // Create connection
-                        $conn = new mysqli($servername, $username, $password, $dbname);
-                        function getOrderCount($conn, $status) {
-                            $sql = "SELECT COUNT(*) as count FROM orders_prod WHERE status = '$status'";
-                            $result = $conn->query($sql) or die("Error: " . $conn->error);
-                            $row = $result->fetch_assoc();
-                            return $row['count'];
-                        }
-                        $countPlaced = getOrderCount($conn, 'placed');
-                        $countProcessing = getOrderCount($conn, 'processing');
-                        $countDelivery = getOrderCount($conn, 'delivery');
-                        $countDelivered = getOrderCount($conn, 'delivered');
-                        $conn->close();
-            ?>
-            <a href="orders.php" target="_blank">
-                <h2>New Orders</h2>
-                <p><?php echo $countPlaced; ?></p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="pending.php" target="_blank">
-                <h2>Processing</h2>
-                <p><?php echo $countProcessing; ?></p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="delivery.php"  target="_blank">
-                <h2>To be Delivered</h2>
-                <p><?php echo $countDelivery ?></p>
-            </a>
-        </div>
-        <div class="card">
-            <a href="success_orders.php" target="_blank">
-                <h2>Completed</h2>
-                <p><?php echo $countDelivered; ?></p>
-            </a>
-        </div>
-        </div>
+        
 
         <div class="wrapper-dashboard" style="margin-bottom:20px;">
             <div class="flex-parent">
-                <h3>All Orders</h3>
+                <h3>To be Delivered</h3>
                 <button id="toggleRecent" class="button-link2" style="float:right;">Hide Table <i class="bi bi-caret-up-fill"></i></button>
             </div><br>
             <div id="recentTable" style="display: block;">
@@ -330,7 +281,7 @@ checkAuth();
                             die("Connection failed: " . $conn->connect_error);
                         }
 
-                        $sql = "SELECT orderID, order_date, status FROM orders_prod;";
+                        $sql = "SELECT orderID, order_date, status FROM orders_prod where status='delivery'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -347,20 +298,14 @@ checkAuth();
                                 echo "</td>";
                                 
                                 // Check status and modify if it is pending
-                                if ($row["status"] == "placed") {
-                                    echo "<td style='color:#4D869C; font-weight:bold;'>New Order</td>";
-                                }else if($row["status"] == "processing") {
-                                    echo "<td style='color:#F4A261; font-weight:bold;'>Processing</td>";
-                                }else if($row["status"] == "delivery") {
-                                    echo "<td style='color:#288a72; font-weight:bold;'>To Be Delivered</td>";
-                                }else if($row["status"] == "delivered") {
-                                    echo "<td style='color:#4a9e2e; font-weight:bold;'>Complete</td>";
-                                }  else {
+                                if ($row["status"] == "delivery") {
+                                    echo "<td style='color:#288a72; font-weight:bold;'>To be Delivered</td>";
+                                } else {
                                     echo "<td>" . $row["status"] . "</td>";
                                 }
                                 
                                 echo "<td>";
-                                echo "<a href='#' onclick=\"openWindow('view_order_last.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
+                                echo "<a href='#' onclick=\"openWindow('view_order3.php?id=" . $row["orderID"] . "')\" title='View Order' style='background:#008686; color:white; border-radius:5px; padding:5px 10px;font-size:13px; text-decoration:none;'>
                                     <span style='font-size:13px;'>View Order</span>
                                     <i class='bi bi-arrow-right'></i>
                                 </a>";

@@ -11,7 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderID = $_GET['id'];
-    $newStatus = "delivery";   
+    $newStatus = "delivered";   
     $sql = "UPDATE orders_prod SET status='$newStatus' WHERE orderID = $orderID";
     
         if ($conn->query($sql) === TRUE) {
@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultz = $conn->query($sql2);
     $rows2 = $resultz->fetch_assoc();
     //data are uid, title, category, description, image, status
-    $title = "Order ID#$orderID Status Update";
+    $title = "Order ID#$order_id Status Update";
     $category = "Order status";
     $description = 
-"Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!";
-    $image = "delivery.png";
+"Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!";
+    $image = "thankyou.png";
     $status = "unread";
     $sql3 = "INSERT INTO msg_users (customerID, title, category, description, image, status) VALUES ('$uid', '$title', '$category', '$description', '$image', '$status')";
     $result3 = $conn->query($sql3);
@@ -328,15 +328,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .custom1-warning {
-            background-color: blue; /* Existing styles */
+            background-color: #288a72; /* Existing styles */
+            color: white;
         }
 
         .bg-success {
-            background-color: green; /* Existing styles */
+            background-color: #4a9e2e; /* Existing styles */
+            color: white;
         }
 
         .bg-secondary {
             background-color: gray; /* Existing styles */
+            color: white;
         }
 
         .bg-placed {
@@ -393,6 +396,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $sql = "SELECT * FROM customerinfo where customerID = customerID";
                             $results = $conn->query($sql);
                             $rows = $results->fetch_assoc();
+                            $sql5 = "SELECT date_delivered FROM complete_orders WHERE orderID = '$orderID'";
+                            $result5 = $conn->query($sql5);
+
+                            $date_delivered = "";
+                            if ($result5->num_rows > 0) {
+                                $row5 = $result5->fetch_assoc();
+                                $date_delivered = $row5['date_delivered'];
+                            }
         ?>
         <div class="wrapper-dashboard">
             <div class="flex-parent">
@@ -401,11 +412,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card-body">
 <div class="flex-container">
         <h3>Order #<?php echo $rowz['orderID']?></h3>
-        <form action="" method="post">
-            <button type="submit" class="button-link">
-                <i class="bi bi-check2-circle"></i> Deliver Order
-            </button>
-        </form>
+        
     </div><br>
                                         <div class="row">
                                             <div class="col-sm-6">
@@ -421,6 +428,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <p>Order Date: <?php echo $orderDate; ?></p>
                                                     <p>Order Time: <?php echo $orderTime; ?></p>
                                                     <?php echo $html?>
+                                                    <p>Order Delivered: <?php echo !empty($date_delivered) ? (new DateTime($date_delivered))->format('F j, Y g:i A') : 'Not Yet Delivered'; ?></p>
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">

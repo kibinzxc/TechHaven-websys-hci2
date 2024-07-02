@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate password complexity
     $validationResult = validatePassword($newPassword);
     if ($validationResult === true) {
-        // Hash the password using MD5 before storing (not recommended for new systems, consider using stronger hashing methods like bcrypt)
+        // Hash the password using MD5 before storing (note: MD5 is not recommended for new systems, consider using stronger hashing methods like bcrypt)
         $hashedPassword = md5($newPassword);
 
         // Update the password in the database
@@ -81,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

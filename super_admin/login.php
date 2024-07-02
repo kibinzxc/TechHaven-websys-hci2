@@ -35,12 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['loggedin'] = true;
         $_SESSION['name'] = $user['name']; // Store the user's name in the session
         $_SESSION['email'] = $email; // Store the user's email in the session
-        $_SESSION['role'] = $user['role'];
+
         // Determine user role and redirect accordingly
         if ($user['role'] == 'admin') {
             redirectTo('dashboard.php');
         } elseif ($user['role'] == 'super_admin') {
-            redirectTo('../super_admin/dashboard.php');
+            redirectTo('super_dashboard.php');
         } else {
             $error_message = 'Invalid role assigned';
         }

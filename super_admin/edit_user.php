@@ -1,9 +1,55 @@
 <?php
 session_start();
 
-// Define variables and initialize with empty values
-$first_name = $last_name = $email = $contact_number = $address = $user_password = "";
+// Database connection details
+$db_servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "th_db";
+
+// Initialize variables with empty values
+$first_name = $last_name = $email = $contact_number = $address = $password = "";
 $nameErr = $emailErr = $passwordErr = "";
+$user_id = null; // Initialize user_id variable
+
+// Check if user ID or email is provided in URL (assuming you pass it via GET or POST method)
+if (isset($_GET['id'])) {
+    $user_id = $_GET['id']; // Example: sanitize and validate user input if using in a real application
+
+    // Create connection
+    $conn = new mysqli($db_servername, $db_username, $db_password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch user data based on user ID
+    $query = "SELECT * FROM customerInfo WHERE customerID = $user_id";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        // Fetch user details
+        $user = $result->fetch_assoc();
+
+        // Split name into first name and last name
+        $full_name = $user['name'];
+        $name_parts = explode(' ', $full_name, 2);
+        $first_name = $name_parts[0];
+        $last_name = isset($name_parts[1]) ? $name_parts[1] : '';
+
+        // Assign other fetched data to variables
+        $email = $user['email'];
+        $contact_number = $user['contactNum'];
+        $address = $user['address'];
+
+        // Close the connection
+        $conn->close();
+    } else {
+        echo "User not found.";
+        exit(); // Exit if user not found
+    }
+}
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,9 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $contact_number = "";
     } else {
         $contact_number = test_input($_POST["contact_number"]);
-        if (!preg_match("/^[0-9]{11}$/", $contact_number)) {
-            $contact_numberErr = "Invalid contact number format";
-        }
     }
 
     // Validate address
@@ -45,32 +88,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $address = ucwords(strtolower($address));
     }
 
-    // Validate password
-    if (empty($_POST["password"])) {
-        $passwordErr = "Password is required";
-    } else {
-        $user_password = test_input($_POST["password"]);
+    // Validate password (optional for edit user, only validate if changed)
+    if (!empty($_POST["password"])) {
+        $password = test_input($_POST["password"]);
         // Password validation criteria
-        $uppercase = preg_match('@[A-Z]@', $user_password);
-        $lowercase = preg_match('@[a-z]@', $user_password);
-        $number    = preg_match('@[0-9]@', $user_password);
-        $specialChars = preg_match('@[^\w]@', $user_password);
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
 
-        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($user_password) < 8) {
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             $passwordErr = "Password must be at least 8 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character";
+        } else {
+            $hashed_password = md5($password); // Replace with stronger encryption method
         }
     }
 
-    // If all validations are passed, proceed with database insertion
+    // If all validations are passed, proceed with database update
     if (empty($nameErr) && empty($emailErr) && empty($passwordErr)) {
-        // Database connection details
-        $servername = "localhost"; // Replace with your server name
-        $username = "root"; // Replace with your database username
-        $db_password = ""; // Replace with your database password
-        $dbname = "th_db"; // Replace with your database name
-
         // Create connection
-        $conn = new mysqli($servername, $username, $db_password, $dbname);
+        $conn = new mysqli($db_servername, $db_username, $db_password, $dbname);
 
         // Check connection
         if ($conn->connect_error) {
@@ -84,20 +121,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $contact_number = $conn->real_escape_string($contact_number);
         $address = $conn->real_escape_string($address);
 
-        // Hash the password using MD5 (not recommended for production, use bcrypt or Argon2 for secure hashing)
-        $hashed_password = md5($user_password);
-
         // Combine first name and last name into one name
         $name = $first_name . ' ' . $last_name;
 
-        // Insert new user into database
-        $insertUserQuery = "INSERT INTO customerInfo (name, email, contactNum, address, password) 
-                           VALUES ('$name', '$email', '$contact_number', '$address', '$hashed_password')";
-
-        if ($conn->query($insertUserQuery) === TRUE) {
-            echo "New user added successfully.";
+        // Update user information in database
+        if (!empty($password) && isset($hashed_password)) {
+            // Update with password change
+            $updateUserQuery = "UPDATE customerInfo SET name='$name', email='$email', contactNum='$contact_number', address='$address', password='$hashed_password' WHERE customerID=$user_id";
         } else {
-            echo "Error: " . $insertUserQuery . "<br>" . $conn->error;
+            // Update without password change
+            $updateUserQuery = "UPDATE customerInfo SET name='$name', email='$email', contactNum='$contact_number', address='$address' WHERE customerID=$user_id";
+        }
+
+        if ($conn->query($updateUserQuery) === TRUE) {
+            echo "User information updated successfully.";
+            echo "<script>window.close();</script>"; // Close window after successful update
+        } else {
+            echo "Error updating user information: " . $conn->error;
         }
 
         // Close database connection
@@ -119,7 +159,7 @@ function test_input($data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New User</title>
+    <title>Edit User</title>
     <style>
         /* Additional CSS styles based on provided design */
         body {
@@ -198,31 +238,29 @@ function test_input($data) {
 <body>
 
 <div class="dashboard-content">
-    <h2>Add New User</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <h2>Edit User</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $user_id; ?>" method="post">
+        <input type="hidden" name="user_id" value="<?php echo isset($user_id) ? $user_id : ''; ?>">
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" placeholder="Enter first name"  required>
-        <span class="error"><?php echo $nameErr; ?></span><br><br>
+        <input type="text" id="first_name" name="first_name" value="<?php echo $first_name; ?>" required><br><br>
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" placeholder="Enter last name" required>
-        <span class="error"><?php echo $nameErr; ?></span><br><br>
+        <input type="text" id="last_name" name="last_name" value="<?php echo $last_name; ?>" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter email" required>
-        <span class="error"><?php echo $emailErr; ?></span><br><br>
+        <input type="email" id="email" name="email" value="<?php echo $email; ?>" required><br><br>
 
         <label for="contact_number">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number" placeholder="09091234524" pattern="[0-9]{11}"><br><br>
+        <input type="text" id="contact_number" name="contact_number" value="<?php echo $contact_number; ?>" pattern="[0-9]{11}"><br><br>
 
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" placeholder="House No., Street, etc...." ><br><br>
+        <input type="text" id="address" name="address" value="<?php echo $address; ?>" required><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password"><br><br>
         <span class="error"><?php echo $passwordErr; ?></span><br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Update">
     </form>
 </div>
 

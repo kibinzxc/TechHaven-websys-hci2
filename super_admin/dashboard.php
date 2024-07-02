@@ -66,7 +66,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="short icon" href="../portal/logo.jpg" type="x-icon">
-    <title><?php echo "Admin | Tech Haven"; ?></title>
+    <title><?php echo "Super Admin | Tech Haven"; ?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -349,13 +349,13 @@ $conn->close();
                 $today = date('Y-m-d');
                 $countToday = getTotalOrderCountToday($conn, $today);
                 
-                                $currentMonth = date('m');
+                $currentMonth = date('m');
                 $currentYear = date('Y');
 
                 // Query to get the total sales for the current month
                 $sql6 = "SELECT SUM(total_amount) AS total_sales
-                        FROM complete_orders
-                        WHERE MONTH(date_delivered) = '$currentMonth' AND YEAR(date_delivered) = '$currentYear'";
+                        FROM orders_prod
+                        WHERE MONTH(order_date) = '$currentMonth' AND YEAR(order_date) = '$currentYear'";
 
                 $result6 = $conn->query($sql6);
 
