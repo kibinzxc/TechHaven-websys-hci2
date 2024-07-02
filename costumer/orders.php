@@ -101,8 +101,8 @@ $customerID = $_SESSION['id'];
      
 
         .product.active {
-    display: block; /* Show active product */
-}
+            display: block; /* Show active product */
+        }
 
 
 
@@ -113,6 +113,9 @@ $customerID = $_SESSION['id'];
             display: flex;
             flex-direction: row;
             justify-content: center; 
+            padding-top: 5px;
+            padding-left: 12px;
+
         }
 
 
@@ -195,12 +198,13 @@ $customerID = $_SESSION['id'];
 
 
         .bottom{
-            height:15%;
+            height:15%s;
             width: 100%;
             display: flex;
             justify-content: right;
-            padding-right:20px; 
+            padding-right:28px; 
             color: #046f6f;
+            padding-top: 5px;
         }
 
 </style>
