@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 04:18 AM
+-- Generation Time: Jul 02, 2024 at 04:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`adminID`, `name`, `email`, `password`, `role`) VALUES
 (1, 'Kevin Almirante', 'kevin.almirante@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'admin'),
-(2, 'Gabriel Almirante', 'gabgab@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'super_admin'),
+(2, 'Gabriel Almirante', 'gabgab@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'admin'),
 (3, 'Andrea Miranda', 'miranda.andrea@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'admin'),
 (9, 'Tech Haven\'s Owner', 'super.admin@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'super_admin');
 
