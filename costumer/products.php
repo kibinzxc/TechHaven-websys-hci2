@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'dbcon.php';
+
 $customerID = $_SESSION['id'];
 
 // Fetch products from the database
@@ -12,6 +13,29 @@ $products = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $products[] = $row;
+    }
+}
+
+// Handle adding to cart
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+    $prodID = $_POST['prodID'];
+    $prodName = $_POST['prodName'];
+    $prodPrice = $_POST['prodPrice'];
+    $quantity = 1; // You can change this based on your UI logic
+    $added_at = date('Y-m-d H:i:s'); // Current timestamp
+
+    // Insert into cart table
+    $insertQuery = "INSERT INTO cart (customerID, prodID, prod_name, prod_price, quantity, added_at) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($insertQuery);
+    $stmt->bind_param("iisdss", $customerID, $prodID, $prodName, $prodPrice, $quantity, $added_at);
+    
+    // Execute the statement
+    if ($stmt->execute()) {
+        $success = true;
+    } else {
+        $success = false;
+        echo "Error: " . $stmt->error; // Display error message for debugging
     }
 }
 ?>
@@ -72,9 +96,12 @@ if ($result->num_rows > 0) {
                             <p><?php echo htmlspecialchars($product['prod_name']); ?></p>
                             <div class="price">₱<?php echo number_format($product['prod_price'], 2); ?></div>
                             <div class="btn-item">
-                                <button class="add-cart" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-name="<?php echo htmlspecialchars($product['prod_name']); ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
-                                    <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                                </button>
+                            <form method="post">
+                                <input type="hidden" name="prodID" value="<?php echo $product['prodID']; ?>">
+                                <input type="hidden" name="prodName" value="<?php echo htmlspecialchars($product['prod_name']); ?>">
+                                <input type="hidden" name="prodPrice" value="<?php echo $product['prod_price']; ?>">
+                                <button type="submit" name="add_to_cart">Add to Cart</button>
+                            </form>
                                 <button class="buy">BUY NOW</button>
                             </div>
                         </div>
@@ -111,7 +138,7 @@ if ($result->num_rows > 0) {
             if (document.body.classList.contains('dark-mode')) {
                 toggle.classList.remove('bi-moon-fill');
                 toggle.classList.add('bi-sun-fill');
-                logo.src = '../costumer/tech-haven-logo2.png';
+                logo.src = 'logo_dark.png';
             } else {
                 toggle.classList.remove('bi-sun-fill');
                 toggle.classList.add('bi-moon-fill');
@@ -154,36 +181,7 @@ if ($result->num_rows > 0) {
             });
         });
 
-        document.querySelectorAll('.add-cart').forEach(button => {
-            button.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const prodID = button.getAttribute('data-prod-id');
-                const prodName = button.getAttribute('data-prod-name');
-                const prodPrice = button.getAttribute('data-prod-price');
-                const customerID = <?php echo json_encode($customerID); ?>;
-                const quantity = 1;
-
-                fetch('add_to_cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ customerID, prodID, prodName, prodPrice, quantity })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Product added to cart!');
-                    } else {
-                        alert('Failed to add product to cart.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while adding the product to the cart.');
-                });
-            });
-        });
+        
     </script>
 </body>
 </html>
