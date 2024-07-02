@@ -121,7 +121,7 @@ $conn->close();
                     </a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                    <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                         <i class="bi bi-envelope-plus-fill"></i>
                     </a>
                 </li>
@@ -167,7 +167,7 @@ $conn->close();
                             <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($passwordPlaceholder); ?>" disabled>
                         </div>
                         <a href="edit_profile.php" class="btn-edit"><i class="bi bi-pencil-fill"></i> Change Password</a><br>
-                        <?php
+                        <br><?php
                         if (isset($_SESSION['password_change_success'])) {
                             echo "<p style='color: green;'>Password changed successfully</p>";
                             unset($_SESSION['password_change_success']); // Clear the success message

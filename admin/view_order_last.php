@@ -396,6 +396,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $sql = "SELECT * FROM customerinfo where customerID = customerID";
                             $results = $conn->query($sql);
                             $rows = $results->fetch_assoc();
+                            $sql5 = "SELECT date_delivered FROM complete_orders WHERE orderID = '$orderID'";
+                            $result5 = $conn->query($sql5);
+
+                            $date_delivered = "";
+                            if ($result5->num_rows > 0) {
+                                $row5 = $result5->fetch_assoc();
+                                $date_delivered = $row5['date_delivered'];
+                            }
         ?>
         <div class="wrapper-dashboard">
             <div class="flex-parent">
@@ -420,6 +428,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <p>Order Date: <?php echo $orderDate; ?></p>
                                                     <p>Order Time: <?php echo $orderTime; ?></p>
                                                     <?php echo $html?>
+                                                    <p>Order Delivered: <?php echo !empty($date_delivered) ? (new DateTime($date_delivered))->format('F j, Y g:i A') : 'Not Yet Delivered'; ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">

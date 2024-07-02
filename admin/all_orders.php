@@ -218,7 +218,7 @@ checkAuth();
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -293,7 +293,7 @@ checkAuth();
         <div class="card">
             <a href="success_orders.php" target="_blank">
                 <h2>Completed</h2>
-                <p><?php echo $countDelivery; ?></p>
+                <p><?php echo $countDelivered; ?></p>
             </a>
         </div>
         </div>

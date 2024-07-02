@@ -16,6 +16,9 @@ checkAuth();
     
     <style>
         /* Hide the default browser tooltip */
+        .sidebar{
+        height:auto;
+        }
         .tooltip-text {
             position: absolute;
             display: none;
@@ -40,7 +43,7 @@ checkAuth();
             width: 100% !important; 
             margin: auto;
         }
-        #example th, #example td {
+        #example th, #example td, #example2 th, #example2 td {
             text-align: center; 
         }
         .heading{
@@ -101,6 +104,39 @@ checkAuth();
                 alert('Popup blocked! Please allow popups for this site.');
             }
         }
+        function openNewCatWindow() {
+            // Calculate the center position for the popup window
+            var popupWidth = 500;
+            var popupHeight = 500;
+            var screenWidth = window.screen.width;
+            var screenHeight = window.screen.height;
+
+            var left = (screenWidth - popupWidth) / 2;
+            var top = (screenHeight - popupHeight) / 2;
+
+            // Open new window with specific dimensions and centered position
+            var newWindow = window.open('add_cat.php', '_blank', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + left + ',top=' + top);
+            
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('Popup blocked! Please allow popups for this site.');
+            }
+        }
+            function openEditWindow(prodID) {
+                // Construct the URL
+                var url = 'edit.php?id=' + prodID;
+
+                // Open the new window with specific dimensions
+                var width = 800;
+                var height = 1000;
+                var left = (window.innerWidth - width) / 2;
+                var top = (window.innerHeight - height) / 2;
+                var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',scrollbars=yes';
+
+                // Open the window
+                window.open(url, '_blank', options);
+            }
     </script>
 </head>
 <body>
@@ -143,7 +179,7 @@ checkAuth();
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="advertisement.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -172,75 +208,11 @@ checkAuth();
     <div class="heading-container">
         <h1>Products</h1>
             <div class="heading-buttons">
-                <a href="#" class="button-link" onclick="openNewProductWindow()">Add Product</a>
-                <a href="#" class="button-link">Add Category</a>
+                <a href="#" class="button-link" onclick="openNewProductWindow()"><i class="bi bi-plus-lg"></i> Add Product</a>
+                <a href="categories.php" class="button-link" target="_blank"><i class="bi bi-list-task"></i> View Categories</a>
             </div>
         </div><br>
         
-        <div class = "wrapper-dashboard">
-        <h3>Categories</h3><br>
-       <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
-                    <th>Added By</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Database connection
-                $servername = "localhost"; // your server name
-                $username = "root"; // your database username
-                $password = ""; // your database password
-                $dbname = "th_db"; // your database name
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT categoryID, name, date_created, added_by FROM category";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    $counter = 1;
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $counter . "</td>";
-                        echo "<td>" . $row["categoryID"] . "</td>";
-                        echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>" . $row["added_by"] . "</td>";
-                        echo "<td>";
-                        echo "<a href='edit.php?id=" . $row["categoryID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
-                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["categoryID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
-                        echo "</td>";
-                        echo "</tr>";
-                        $counter++;
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>No results found</td></tr>";
-                }
-                $conn->close();
-                ?>
-            </tbody>
-        </table>
-       <?php include 'delete_modal.php'; ?>
-            <script src="delete_script.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#example').DataTable();
-                });
-            </script>
-        </div><br><br>
         <div class = "wrapper-dashboard">
         <h3>All Products</h3><br>
        <table id="example2" class="display" style="width:100%">
@@ -290,20 +262,20 @@ checkAuth();
                         echo "<td>" . $row["brand"] . "</td>";
                         echo "<td><img src='../assets/img/" . $row["img"] . "' alt='" . $row["prod_name"] . "' style='width: 150px; height: 100px;'></td>";
                         echo "<td>";
-                        echo "<a href='edit.php?id=" . $row["prodID"] . "' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
+                        echo "<a href='#' onclick='openEditWindow(" . $row["prodID"] . ")' class='bi bi-pencil-square' title='Edit' style='color:#008686;font-size:18px;'></a>";
                         echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["prodID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
                         echo "</td>";
                         echo "</tr>";
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='9'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>
             </tbody>
         </table>
-       <?php include 'delete_modal.php'; ?>
+       <?php include 'delete_modal_prod.php'; ?>
             <script src="delete_script.js"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>

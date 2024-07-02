@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
 <script>
+    
     document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
         icon.style.marginLeft = '10%';
         icon.style.fontSize = 'large';
@@ -85,6 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     logo.addEventListener('click', () => {
         window.location.href = 'homepage.php';
     });
+
+    
 </script>
 
 </body>

@@ -31,14 +31,16 @@
     justify-content: center;
     align-items: center;
     height: 90vh;
+    border: none;
 }
 
 .box {
     background: var(--lightColor);
-    height: 30rem;
+    height: 32rem;
     width: 25rem;
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
     border-radius: 10px;   
+    border: none;
 }
 .box h3{
     text-align: center;
@@ -60,28 +62,37 @@ form label{
 }
 form .fillup{
     width: 100%;
+    position: relative;
     border-bottom: 2px solid #000000;
-    margin-bottom: 5%;
+    margin-bottom: 6%;
 }
 form .fillup i{
-    margin-right: 3%;
     font-size: 1.3rem;
+    border: none;
 }
 form  .fillup .bi-eye-slash{
-    margin-left: 10%;
+    margin-left: 5%;
     font-size: large;
-}
-form input[type="email"], [type="password"]{
+    cursor:pointer;
+    position: absolute;
+    right: 10%;
     border: none;
-    outline: 0;
+}
+.fillup input{
+    border: none;
+    background-color: transparent;
+}
+form input[type="text"], [type="password"]{
+    border: none;
     background: transparent;
     font: normal 400 14px/normal 'Inter';
     margin-bottom: 3%;
+    outline: none;
 }
 form input::placeholder {
     font: italic 400 12px/normal 'Inter';
 }
-form .fillup:focus-within {
+form .fillup {
     border-bottom: 2px solid var(--focus);
     color: var(--focus);
 }
@@ -97,7 +108,7 @@ form a{
 .btn-container{
     display: flex;
     justify-content: center;
-    margin-top: 5%;
+    margin-top: 8%;
 }
 .btn-container button{
     display: flex;
@@ -113,6 +124,27 @@ form a{
     background: var(--hoverColor);
     transition: all .3s ease;
 }
+
+.terms {
+    margin: 3px;
+    display: ruby;    
+}
+.terms label{
+    font: 500 13px/normal 'Inter';
+}
+
+.terms input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+.terms a{
+    color: #3161da;
+    cursor: pointer;
+    text-decoration: underline;
+    font: bold 13px/normal 'Inter';
+}
+
 .sign-log p{
     text-align: center;
     font: italic 400 12px/normal 'Inter';
@@ -121,4 +153,44 @@ form a{
 .sign-log span{
     color: #104ADF;
     cursor: pointer;
+}
+
+
+
+
+/***Tersm and conditions**/
+
+.terms-and-condition-container {
+    max-width: 90%;
+    margin: 0px 70px;
+    padding: 40px;
+}
+.title-terms-condition {
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.title-terms-condition h1 {
+    font: bold 23px/normal 'Inter';
+    margin: 20px 0px;
+}
+
+.description-list ul  {
+    padding-left: 90px;
+}
+
+.section {
+    margin-top: 20px;
+}
+.section h2 {
+    margin-bottom: 10px;
+    font: bold 18px/normal 'Inter';
+}
+
+.content-semi-heading p{
+    padding-left: 40px;
+}
+.section-containner, .content-terms-condition p{
+    font: 400 16px/normal 'Inter';
 }
