@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 04:20 AM
+-- Generation Time: Jul 02, 2024 at 09:12 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,6 +44,31 @@ INSERT INTO `admin` (`adminID`, `name`, `email`, `password`, `role`) VALUES
 (2, 'Gabriel Almirante', 'gabgab@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'admin'),
 (3, 'Andrea Miranda', 'miranda.andrea@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'admin'),
 (9, 'Tech Haven\'s Owner', 'super.admin@gmail.com', '2c103f2c4ed1e59c0b4e2e01821770fa', 'super_admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `cartID` int(100) NOT NULL,
+  `customerID` int(100) NOT NULL,
+  `prodID` int(50) NOT NULL,
+  `prod_name` varchar(255) NOT NULL,
+  `prod_price` int(50) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `img` text NOT NULL,
+  `added_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cartID`, `customerID`, `prodID`, `prod_name`, `prod_price`, `quantity`, `img`, `added_at`) VALUES
+(30003, 20004, 151563, 'Rakk Pirah Wireless Mechanical Keyboard', 2796, 1, '../assets/img/For Ordering (4).png', '2024-07-02 09:08:29'),
+(30004, 20004, 151561, 'Redragon M612 Predator', 899, 1, '../assets/img/For Ordering (2).png', '2024-07-02 09:09:23');
 
 -- --------------------------------------------------------
 
@@ -113,11 +138,10 @@ CREATE TABLE `customerinfo` (
 --
 
 INSERT INTO `customerinfo` (`customerID`, `name`, `email`, `contactNum`, `address`, `password`) VALUES
-(20004, 'Gabriel CK', 'gabgab@gmail.com', '09260456391', 'B4 L23 Kimberton Ville, Niog 2, Bacoor City, Cavite', '2c103f2c4ed1e59c0b4e2e01821770fa'),
+(20004, 'Gabriel CK Almirante', 'gabgab@gmail.com', '09260456391', 'B4 L23 Kimberton Ville, Niog 2, Bacoor City, Cavite', '2c103f2c4ed1e59c0b4e2e01821770fa'),
 (20007, 'Jasmine Mirandahe', 'miranda.jasmine@gmail.com', '09663489557', '64 B, Don Carlos Street, Dasmarinas City', '2c103f2c4ed1e59c0b4e2e01821770fa'),
 (20008, 'kiben pikolo', 'pikopiko@gmail.com', '09260456391', 'B4 L23 Kimberton Ville, Niog 2, Bacoor City, Cavite', '2c103f2c4ed1e59c0b4e2e01821770fa'),
-(20009, 'test test', 'testes@gmail.com', '09663489557', '413431', 'd41d8cd98f00b204e9800998ecf8427e'),
-(20010, 'test test', 'testes@gmail.com', '09663489557', '413431', '2c103f2c4ed1e59c0b4e2e01821770fa');
+(20012, 'test test', 'test@gmail.com', '09663489557', 'test, test', '2c103f2c4ed1e59c0b4e2e01821770fa');
 
 -- --------------------------------------------------------
 
@@ -368,6 +392,14 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`adminID`);
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cartID`),
+  ADD KEY `prodID` (`prodID`),
+  ADD KEY `customerID` (`customerID`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -453,6 +485,12 @@ ALTER TABLE `admin`
   MODIFY `adminID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cartID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30005;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -468,7 +506,7 @@ ALTER TABLE `complete_orders`
 -- AUTO_INCREMENT for table `customerinfo`
 --
 ALTER TABLE `customerinfo`
-  MODIFY `customerID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20011;
+  MODIFY `customerID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20013;
 
 --
 -- AUTO_INCREMENT for table `delivery`

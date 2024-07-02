@@ -1,15 +1,15 @@
 <?php
 session_start();
 include 'dbcon.php';
-$customerID = $_SESSION['id'];
+$customerID = $_SESSION['customerID'];
 
 // Initialize an empty array to store cart items
 $cart_items = array();
 
 // Fetch cart items from the database
-$query = "SELECT * FROM cart WHERE customerID = $customerID";
-$result = mysqli_query($mysqli, $query);
 
+$sql = "SELECT * FROM cart WHERE customerID = $customerID";
+$result = $conn->query($sql);
 if ($result) {
     // Fetch each row as an associative array
     while ($row = mysqli_fetch_assoc($result)) {
@@ -18,6 +18,7 @@ if ($result) {
             'prod_name' => $row['prod_name'],
             'prod_price' => $row['prod_price'],
             'quantity' => $row['quantity'],
+            'img' => $row ['img']
             // Add other fields as needed
         );
     }
@@ -25,8 +26,8 @@ if ($result) {
     echo "Error fetching cart items: " . mysqli_error($mysqli);
 }
 
-// Close the database connection
-mysqli_close($mysqli);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +44,22 @@ mysqli_close($mysqli);
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
    
 </head>
+<style>
+.item-details {
+    display: flex; /* Ensure items are laid out in a row */
+    align-items: center; /* Align items vertically */
+}
+
+.item-image {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.item-image img {
+    max-width: 100%; /* Ensure image fits within container */
+    height: auto; /* Maintain aspect ratio */
+}
+</style>
 <body>
    
 <?php include 'sidenav.php'; ?>
@@ -67,7 +84,7 @@ mysqli_close($mysqli);
                                     <input type="checkbox" class="item-checkbox">
                                     <!-- Assuming you have an image field in your database -->
                                     <div class="item-image">
-                                        <img src="data:image/jpeg;base64,<?php echo base64_encode($item['img']); ?>" alt="<?php echo htmlspecialchars($item['prod_name']); ?>">
+<img src="<?php echo htmlspecialchars($item['img']); ?>" alt="<?php echo htmlspecialchars($item['prod_name']); ?>">
                                     </div>
                                     <div>
                                         <h3><?php echo htmlspecialchars($item['prod_name']); ?></h3>
