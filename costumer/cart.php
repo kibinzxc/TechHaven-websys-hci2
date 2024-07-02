@@ -1,4 +1,33 @@
+<?php
+session_start();
+include 'dbcon.php';
+$customerID = $_SESSION['id'];
 
+// Initialize an empty array to store cart items
+$cart_items = array();
+
+// Fetch cart items from the database
+$query = "SELECT * FROM cart WHERE customerID = $customerID";
+$result = mysqli_query($mysqli, $query);
+
+if ($result) {
+    // Fetch each row as an associative array
+    while ($row = mysqli_fetch_assoc($result)) {
+        $cart_items[] = array(
+            'prodID' => $row['prodID'],
+            'prod_name' => $row['prod_name'],
+            'prod_price' => $row['prod_price'],
+            'quantity' => $row['quantity'],
+            // Add other fields as needed
+        );
+    }
+} else {
+    echo "Error fetching cart items: " . mysqli_error($mysqli);
+}
+
+// Close the database connection
+mysqli_close($mysqli);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,114 +48,113 @@
 <?php include 'sidenav.php'; ?>
 
 <main>
-        <div class="cart-container">
-            <div class="cart-items">
-                <h3>My Cart</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="text-align: start;">Product</th>
-                            <th style="text-align: end;">Quantity</th>
-                            <th>Total</th>
+    <div class="cart-container">
+        <div class="cart-items">
+            <h3>My Cart</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: start;">Product</th>
+                        <th style="text-align: end;">Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cart_items as $item): ?>
+                        <tr class="cart-item">
+                            <td>
+                                <div class="item-details">
+                                    <input type="checkbox" class="item-checkbox">
+                                    <!-- Assuming you have an image field in your database -->
+                                    <div class="item-image">
+                                        <img src="data:image/jpeg;base64,<?php echo base64_encode($item['img']); ?>" alt="<?php echo htmlspecialchars($item['prod_name']); ?>">
+                                    </div>
+                                    <div>
+                                        <h3><?php echo htmlspecialchars($item['prod_name']); ?></h3>
+                                        <p>₱<?php echo number_format($item['prod_price'], 2); ?></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="quantity-controls">
+                                    <button class="decrement">-</button>
+                                    <input type="text" value="<?php echo $item['quantity']; ?>" class="quantity">
+                                    <button class="increment">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="item-total">₱<?php echo number_format($item['prod_price'] * $item['quantity'], 2); ?></p>
+                                <button class="remove-item">X</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($cart_items as $item): ?>
-                            <tr>
-                                <td>
-                                    <div class="item-details">
-                                        <input type="checkbox" class="item-checkbox">
-                                        <div class="item-image">
-                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($item['img']); ?>" alt="<?php echo htmlspecialchars($item['prod_name']); ?>">
-                                        </div>
-                                        <div>
-                                            <h3><?php echo htmlspecialchars($item['prod_name']); ?></h3>
-                                            <p>₱<?php echo number_format($item['prod_price'], 2); ?></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="quantity-controls">
-                                        <button class="decrement">-</button>
-                                        <input type="text" value="<?php echo $item['quantity']; ?>" class="quantity">
-                                        <button class="increment">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="item-total">₱<?php echo number_format($item['prod_price'] * $item['quantity'], 2); ?></p>
-                                    <button class="remove-item">X</button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="order-summary">
-                <h2>Order Summary</h2>
-                <?php
-                $subtotal = 0;
-                foreach ($cart_items as $item) {
-                    $subtotal += $item['prod_price'] * $item['quantity'];
-                }
-                ?>
-                <p>Sub-total (<?php echo count($cart_items); ?> items): ₱<?php echo number_format($subtotal, 2); ?></p>
-                <p>Tax included and shipping calculated at checkout</p>
-                <p>Total: ₱<?php echo number_format($subtotal, 2); ?></p>
-                <button class="checkout-btn">Check Out</button>
-            </div>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
-    </main>
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <?php
+            $subtotal = 0;
+            foreach ($cart_items as $item) {
+                $subtotal += $item['prod_price'] * $item['quantity'];
+            }
+            ?>
+            <p>Sub-total (<?php echo count($cart_items); ?> items): ₱<?php echo number_format($subtotal, 2); ?></p>
+            <p>Tax included and shipping calculated at checkout</p>
+            <p>Total: ₱<?php echo number_format($subtotal, 2); ?></p>
+            <button class="checkout-btn">Check Out</button>
+        </div>
+    </div>
+</main>
 
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const cartItems = document.querySelectorAll('.cart-item');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cartItems = document.querySelectorAll('.cart-item');
 
-            cartItems.forEach(function(item) {
-                const decrementBtn = item.querySelector('.decrement');
-                const incrementBtn = item.querySelector('.increment');
-                const quantityInput = item.querySelector('.quantity');
-                const itemTotal = item.querySelector('.item-total');
-                const price = parseFloat(itemTotal.innerText.replace('₱', '').replace(',', ''));
+        cartItems.forEach(function(item) {
+            const decrementBtn = item.querySelector('.decrement');
+            const incrementBtn = item.querySelector('.increment');
+            const quantityInput = item.querySelector('.quantity');
+            const itemTotal = item.querySelector('.item-total');
+            const price = parseFloat(itemTotal.innerText.replace('₱', '').replace(',', ''));
 
-                decrementBtn.addEventListener('click', function() {
-                    let quantity = parseInt(quantityInput.value);
-                    if (quantity > 1) {
-                        quantity--;
-                        quantityInput.value = quantity;
-                        itemTotal.innerText = `₱${(quantity * price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                    }
-                });
-
-                incrementBtn.addEventListener('click', function() {
-                    let quantity = parseInt(quantityInput.value);
-                    quantity++;
+            decrementBtn.addEventListener('click', function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantity--;
                     quantityInput.value = quantity;
                     itemTotal.innerText = `₱${(quantity * price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                });
+                }
+            });
+
+            incrementBtn.addEventListener('click', function() {
+                let quantity = parseInt(quantityInput.value);
+                quantity++;
+                quantityInput.value = quantity;
+                itemTotal.innerText = `₱${(quantity * price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             });
         });
+    });
 
-        const toggle = document.getElementById('dark-mode-toggle');
-        const logo = document.getElementById('logo');
+    const toggle = document.getElementById('dark-mode-toggle');
+    const logo = document.getElementById('logo');
 
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.classList.add('rotate');
-            if (document.body.classList.contains('dark-mode')) {
-                toggle.classList.remove('bi-moon-fill');
-                toggle.classList.add('bi-sun-fill');
-                logo.src = '../costumer/tech-haven-logo2.png';
-            } else {
-                toggle.classList.remove('bi-sun-fill');
-                toggle.classList.add('bi-moon-fill');
-                logo.src = '../costumer/tech-haven-logo2.png';
-            }
-            setTimeout(() => {
-                toggle.classList.remove('rotate');
-            }, 400);
-        });
-
-    </script>
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggle.classList.add('rotate');
+        if (document.body.classList.contains('dark-mode')) {
+            toggle.classList.remove('bi-moon-fill');
+            toggle.classList.add('bi-sun-fill');
+            logo.src = '../customer/tech-haven-logo2.png';
+        } else {
+            toggle.classList.remove('bi-sun-fill');
+            toggle.classList.add('bi-moon-fill');
+            logo.src = '../customer/tech-haven-logo2.png';
+        }
+        setTimeout(() => {
+            toggle.classList.remove('rotate');
+        }, 400);
+    });
+</script>
 </body>
 </html>
