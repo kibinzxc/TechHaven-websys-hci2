@@ -112,8 +112,8 @@ $conn->close();
     }
     .list {
         height: 85%;
-        width: 80%;
-        margin-left: 50px;
+        width: 50%;
+   margin: auto; /* Centers horizontally */
         display: flex;
         flex-direction: column;
         border-top: none;

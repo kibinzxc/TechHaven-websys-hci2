@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include 'dbcon.php';
 $customerID = $_SESSION['id'];
 
@@ -31,43 +32,97 @@ if ($result->num_rows > 0) {
 
 </head>
 <body>
+<style>
+.product-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 10px;
+    margin: 0 60px;
+}
+.product-item {
+    /* Adjust width as per your layout requirements */
+    width: 250px;
+    /* Ensure product items are inline-block for horizontal arrangement */
+    display: inline-block;
+    /* Add margin or padding to create space between products */
+    margin: 10px;
+    padding: 10px;
+
+    /* Set border and border-radius for visual distinction */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* Ensure product items take up vertical space evenly */
+    vertical-align: top;
+    /* Ensure consistent height for each product item */
+    height: 400px; /* Adjust height as needed */
+    /* Use flexbox for button alignment */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space evenly between items */
+}
+
+.product-item img {
+    /* Ensure images fit within their containers */
+    width: 100%;
+    height: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+}
+
+.btn-item {
+    /* Ensure consistent height for button container */
+    height: 30px; /* Adjust height as needed */
+    /* Center align buttons vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.add-cart,
+.buy {
+    /* Style your buttons consistently */
+    color: #fff;
+    border: none;
+    padding: 6px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 11px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buy{
+padding:8px 20px;
+}
+.add-cart{
+color:black;
+border:1px solid black;
+}
+.add-cart:hover,
+.buy:hover {
+    background-color: #005959;
+    color:white;
+}
+</style>
    
     <?php include 'sidenav.php'; ?>
     <section class="container">
         <div class="main-content">
             <div class="row">
                 <div class="sort">
-                    <h5>Sort By:</h5>
-                    <select>
-                        <option value="oldest">Oldest First</option>
-                        <option value="newest">Newest First</option>
-                        <option value="low-to-high">Price Low to High</option>
-                        <option value="high-to-low">Price High to Low</option>
-                    </select>
+                  
                 </div>
-                <div class="num_page">
-                    <span class="current">1/10</span>
-                    <button class="prev" disabled>&lt;</button>
-                    <button class="next">&gt;</button>
-                </div>
+               
             </div>
             <div class="product-list" id="product-list">
                 <?php if (!empty($products)): ?>
                     <?php foreach ($products as $product): ?>
-                        <div class="product-item" data-name="<?php echo htmlspecialchars($product['prod_name']); ?>" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
-                            <div class="product-header">
-                                <div class="stars">
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <div class="heart">
-                                    <i class="bi bi-heart"></i>
-                                </div>
-                            </div>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($product['img']); ?>" alt="<?php echo htmlspecialchars($product['prod_name']); ?>">
+                        <div class="product-item" data-name="<?php echo htmlspecialchars($product['prodID']); ?>" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
+                            
+                            <img src="../assets/img/<?php echo ($product['img']); ?>" alt="<?php echo htmlspecialchars($product['prod_name']); ?>">
                             <h5><?php echo htmlspecialchars($product['category']); ?></h5>
                             <p><?php echo htmlspecialchars($product['prod_name']); ?></p>
                             <div class="price">₱<?php echo number_format($product['prod_price'], 2); ?></div>
@@ -83,13 +138,7 @@ if ($result->num_rows > 0) {
                     <p>No products found.</p>
                 <?php endif; ?>
             </div>
-            <div class="page-num">
-                <a href="#">&laquo;</a>
-                <a class="active" href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">&raquo;</a>
-            </div>
+          
         </div>
     </section>
     <script>

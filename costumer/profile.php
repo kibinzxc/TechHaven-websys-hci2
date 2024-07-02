@@ -364,7 +364,7 @@ if ($result->num_rows > 0) {
 
 <div class="mainbox">
     <div class="upper">
-        <div class="title">
+        <div class="title"><br>
             <h1>My Profile</h1>
         </div>
         <div class="subtitle">
