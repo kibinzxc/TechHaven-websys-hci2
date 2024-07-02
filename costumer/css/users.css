@@ -871,3 +871,87 @@ input[type="number"]::-webkit-outer-spin-button {
 .contact-form button:hover {
     background-color: #555;
 }
+/* Dark Mode */
+.dark-mode {
+    background-color: var(--darkBody);
+    color: var(--lightColor);
+}
+
+.dark-mode .nav {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .nav .search-bar {
+    background-color: var(--lightColor);
+}
+
+.dark-mode .btn-login,
+.dark-mode .btn-shop-now,
+.dark-mode .buy-now,
+.dark-mode .add-to-cart,
+.dark-mode .checkout-btn {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .btn-login:hover,
+.dark-mode .btn-shop-now:hover,
+.dark-mode .buy-now:hover,
+.dark-mode .add-to-cart:hover,
+.dark-mode .checkout-btn:hover {
+    background-color: var(--darkBody);
+    color: var(--lightColor);
+}
+
+.dark-mode .product-item {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .product-item:hover {
+    background-color: var(--darkBody);
+}
+
+.dark-mode .cart-container {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .cart-items,
+.dark-mode .wish-container,
+.dark-mode .contact-container {
+    background-color: var(--darkBody);
+    color: var(--lightColor);
+}
+
+.dark-mode .cart-items table {
+    border-color: var(--lightColor);
+}
+
+.dark-mode .quantity-controls button {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .quantity-controls button:hover {
+    background-color: var(--darkBody);
+    color: var(--lightColor);
+}
+
+.dark-mode .contact-form input,
+.dark-mode .contact-form textarea {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+    border-color: var(--lightColor);
+}
+
+.dark-mode .contact-form button {
+    background-color: var(--darkModeNav);
+    color: var(--lightColor);
+}
+
+.dark-mode .contact-form button:hover {
+    background-color: var(--darkBody);
+    color: var(--lightColor);
+}

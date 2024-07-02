@@ -396,6 +396,26 @@ $customerID = $_SESSION['id'];
     </div>
 
     <script>
+        const toggle = document.getElementById('dark-mode-toggle');
+        const logo = document.getElementById('logo');
+
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggle.classList.add('rotate');
+            if (document.body.classList.contains('dark-mode')) {
+                toggle.classList.remove('bi-moon-fill');
+                toggle.classList.add('bi-sun-fill');
+                logo.src = '../costumer/tech-haven-logo2.png';
+            } else {
+                toggle.classList.remove('bi-sun-fill');
+                toggle.classList.add('bi-moon-fill');
+                logo.src = '../costumer/tech-haven-logo2.png';
+            }
+            setTimeout(() => {
+                toggle.classList.remove('rotate');
+            }, 400);
+        });
+        
 document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab .all');
     const contents = document.querySelectorAll('.list .product');
