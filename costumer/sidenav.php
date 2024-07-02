@@ -229,12 +229,7 @@
             <a href="profile.php" id="profile-link">
                 <i class="bi bi-person-circle"></i>
             </a>
-<<<<<<< HEAD
             <a href="logout.php"><i class="bi bi-box-arrow-left"></i></a>
-=======
-            <!-- Logout button, initially hidden -->
-            <a href="homepage.php" class="logout-btn">Logout</a>
->>>>>>> 3d2cc86053071c592244210d5b0039ec95d5b1f6
         </div>
     </div>
     </div>
