@@ -109,18 +109,19 @@
 
 .logout-btn {
     position: absolute;
-    top: calc(70% + 10px); /* Position below the profile icon with a small gap */
+    top: calc(70% + 10px); 
     left: 50%;
     transform: translateX(-40%);
-    background-color: #fff; /* Background color for the button */
-    padding: 8px 12px; /* Padding for the button */
-    border-radius: 5px; /* Border radius for rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle effect */
-    display: none; /* Initially hidden */
+    background-color: #fff; 
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    display: none; 
+    font: normal 600 15px/normal 'Inter';
 }
 
 .profile-icon-container.active .logout-btn {
-    display: block; /* Show logout button when profile icon container is active */
+    display: block;
 }
         .side-nav {
             position: fixed;
