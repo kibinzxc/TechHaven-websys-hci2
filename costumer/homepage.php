@@ -177,10 +177,6 @@ $conn->close();
         const logo = document.getElementById('logo');
         const loginButton = document.getElementById('loginButton');
 
-<script>
-    const toggle = document.getElementById('dark-mode-toggle');
-    const logo = document.getElementById('logo');
-    const loginButton = document.getElementById('login-button');
 
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
@@ -203,11 +199,7 @@ $conn->close();
         window.location.href = 'login.php';
     });
 
-    const products = document.getElementById('products');
-        products.addEventListener('click', () => {
-            window.location.href = 'products.php';
-
-
+    
         // Redirect to login page when login button is clicked
         loginButton.addEventListener('click', () => {
             window.location.href = 'login.php';
