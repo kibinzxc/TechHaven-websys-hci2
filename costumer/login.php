@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['loggedin'] = true;
         $_SESSION['name'] = $user['name']; // Store the user's name in the session
         $_SESSION['email'] = $email; // Store the user's email in the session
-
-        // Redirect to dashboard based on role (not considering role in this case)
+        $_SESSION['customerID'] = $user['customerID']; // Store the user's customerID in the session        // Redirect to dashboard based on role (not considering role in this case)
         redirectToDashboard();
     } else {
         $error_message = 'Invalid email or password'; // Set error message for incorrect login
