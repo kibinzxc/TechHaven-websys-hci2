@@ -195,7 +195,7 @@ checkAuth();
                      </a>
                 </li>   
                 <li class="sidebar-list-item">
-                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Advertisements">
+                     <a href="users.php" class="sidebar-link tooltip-trigger" data-tooltip="Messages">
                          <i class="bi bi-envelope-plus-fill"></i>
                      </a>
                 </li>
@@ -461,7 +461,7 @@ checkAuth();
     <script>
         function openNewWindow() {
             // Define window dimensions
-            var width = 700;
+            var width = 900;
             var height = 1000;
 
             // Calculate window position to center it on the screen

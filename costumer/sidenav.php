@@ -19,6 +19,13 @@
 
         .dark-mode .nav {
             background-color: var(--darkModeNav);
+            color: var(--lightColor);
+
+        }
+
+        .dark-mode .side-nav a{
+            color: var(--lightColor);
+
         }
 
         .dark-mode .search-bar {
@@ -93,8 +100,37 @@
         .nav-right i {
             margin: 5px;
             cursor: pointer;
+            margin-right:10px;
         }
 
+        .nav-right {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 3%;
+}
+
+.profile-icon-container {
+    position: relative;
+}
+
+.logout-btn {
+    position: absolute;
+    top: calc(70% + 10px); 
+    left: 50%;
+    transform: translateX(-40%);
+    background-color: #fff; 
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    display: none; 
+    font: normal 600 15px/normal 'Inter';
+}
+
+.profile-icon-container.active .logout-btn {
+    display: block;
+}
         .side-nav {
             position: fixed;
             margin-top: 7%;
@@ -194,16 +230,20 @@
             <input type="text" placeholder="Search..." class="search-bar" id="search-bar" oninput="searchProducts()">
         </div>
         <div class="nav-right">
-            <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
-            <i class="bi bi-cart3"></i>
-            <a href="profile.php">
+        <i class="bi bi-moon-fill" id="dark-mode-toggle"></i>
+        <i class="bi bi-cart3"></i>
+        <div class="profile-icon-container">
+            <a href="profile.php" id="profile-link">
                 <i class="bi bi-person-circle"></i>
             </a>
+            <a href="logout.php"><i class="bi bi-box-arrow-left"></i></a>
         </div>
+    </div>
+    </div>
     </header>
 
     <div class="side-nav">
-    <a href="index.php">
+    <a href="homepage.php">
     <i class="bi bi-house-door-fill"></i><br>
     Home
 </a>
@@ -213,10 +253,6 @@
     Products
 </a>
 
-<a href="wishlist.php">
-    <i class="bi bi-heart-fill"></i><br>
-    Wishlist
-</a>
 
 <a href="cart.php">
     <i class="bi bi-cart-fill"></i><br>
@@ -234,3 +270,19 @@
 </a>
     </div>
 </body>
+<script>
+    // Get elements
+    const profileContainer = document.querySelector('.profile-icon-container');
+    const logoutBtn = document.querySelector('.logout-btn');
+
+    // Add event listeners for mouseenter and mouseleave
+    profileContainer.addEventListener('mouseenter', function() {
+        profileContainer.classList.add('active'); // Add active class to profile icon container
+        logoutBtn.style.display = 'block'; // Show logout button
+    });
+
+    profileContainer.addEventListener('mouseleave', function() {
+        profileContainer.classList.remove('active'); // Remove active class from profile icon container
+        logoutBtn.style.display = 'none'; // Hide logout button
+    });
+</script>

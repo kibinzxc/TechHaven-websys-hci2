@@ -1,341 +1,175 @@
 <?php
 session_start();
+error_reporting(0);
 include 'dbcon.php';
+
 $customerID = $_SESSION['id'];
+
+// Handle adding to cart
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+    $prodID = $_POST['prodID'];
+    $prodName = $_POST['prodName'];
+    $prodPrice = $_POST['prodPrice'];
+    $quantity = 1; // You can change this based on your UI logic
+    $added_at = date('Y-m-d H:i:s'); // Current timestamp
+
+    // Insert into cart table
+    $insertQuery = "INSERT INTO cart (customerID, prodID, prod_name, prod_price, quantity, added_at) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($insertQuery);
+    $stmt->bind_param("iisdss", $customerID, $prodID, $prodName, $prodPrice, $quantity, $added_at);
+    
+    // Execute the statement
+    if ($stmt->execute()) {
+        $success = true;
+    } else {
+        $success = false;
+        echo "Error: " . $stmt->error; // Display error message for debugging
+    }
+}
+
+// Fetch products from the database
+$query = "SELECT * FROM products";
+$result = $conn->query($query);
+
+// Check if there are products available
+$products = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="short icon" href="../costumer/logo.jpg" type="x-icon">
-    <title>
-        <?php echo "View Product list"; ?>
-    </title>
+    <title>View Product list</title>
     <link rel="stylesheet" href="../costumer/css/users.css">
     <link rel="stylesheet" href="../costumer/css/font.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-
 </head>
 <body>
+    <style>
+        .product-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 10px;
+    margin: 0 60px;
+}
+.product-item {
+    /* Adjust width as per your layout requirements */
+    width: 250px;
+    /* Ensure product items are inline-block for horizontal arrangement */
+    display: inline-block;
+    /* Add margin or padding to create space between products */
+    margin: 10px;
+    padding: 10px;
+
+    /* Set border and border-radius for visual distinction */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* Ensure product items take up vertical space evenly */
+    vertical-align: top;
+    /* Ensure consistent height for each product item */
+    height: 400px; /* Adjust height as needed */
+    /* Use flexbox for button alignment */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space evenly between items */
+}
+
+.product-item img {
+    /* Ensure images fit within their containers */
+    width: 100%;
+    height: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+}
+
+.btn-item {
+    /* Ensure consistent height for button container */
+    height: 30px; /* Adjust height as needed */
+    /* Center align buttons vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.buy {
+    /* Style your buttons consistently */
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 11px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.add-cart {
+    /* Style your buttons consistently */
+    color: #fff;
+    border: none;
+    padding: 6px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 11px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-cart{
+color:black;
+border:1px solid black;
+}
+.add-cart:hover,
+.buy:hover {
+    background-color: #005959;
+    color:white;
+}
+    </style>
    
     <?php include 'sidenav.php'; ?>
+    
     <section class="container">
-        <div class="search-filters">
-            <div class="filter-group">
-                <div class="top">
-                    <i class="bi bi-funnel-fill"></i>
-                    <h4>SEARCH FILTERS</h4>
-                </div>
-                <div class="category">
-                    <label for="category-filter">CATEGORIES:</label>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                </div>
-                <div class="separator"></div>
-                <div class="brand">
-                    <label for="category-filter">BRAND:</label>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="main-content">
-            <div class="row">
-                <div class="sort">
-                    <h5>Sort By:</h5>
-                    <select>
-                        <option value="">Oldest First</option>
-                        <option value="">Newest First</option>
-                        <option value="">Price Low to High</option>
-                        <option value="">Price High to Low</option>
-                    </select>
-                </div>
-                <div class="num_page">
-                    <span class="current">1/10</span>
-                    <button class="prev" disabled>&lt;</button>
-                    <button class="next">&gt;</button>
-                </div>
-            </div>
             <div class="product-list" id="product-list">
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
+                <?php if (!empty($products)): ?>
+                    <?php foreach ($products as $product): ?>
+                        <div class="product-item" data-name="<?php echo htmlspecialchars($product['prodID']); ?>" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
+                            <img src="../assets/img/<?php echo htmlspecialchars($product['img']); ?>" alt="<?php echo htmlspecialchars($product['prod_name']); ?>">
+                            <h5><?php echo htmlspecialchars($product['category']); ?></h5>
+                            <p><?php echo htmlspecialchars($product['prod_name']); ?></p>
+                            <div class="price">₱<?php echo number_format($product['prod_price'], 2); ?></div>
+                            <form method="post" action="add_to_cart1.php">
+                                  <input type="hidden" name="prodID" value="<?php echo $product['prodID']; ?>">
+                                    <input type="hidden" name="prodName" value="<?php echo htmlspecialchars($product['prod_name']); ?>">
+                                    <input type="hidden" name="prodPrice" value="<?php echo $product['prod_price']; ?>">
+                                    <input type="hidden" name="prodImg" value="../assets/img/<?php echo htmlspecialchars($product['img']); ?>">
+                                    <button type="submit" name="add_to_cart" class="add-cart">Add to Cart</button>
+                            </form>
+                            <button class="buy">BUY NOW</button>
                         </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png">
-                        <h5>Mouse</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png" alt="Product 1">
-                        <h5>Product 1</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div> 
-                
-                <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item-2.png" style="height: 130px;">
-                        <h5>Keyboard</h5>
-                        <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
-                        <div class="price">₱2,395.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png">
-                        <h5>Mouse</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png">
-                        <h5>Mouse</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png" alt="Product 1">
-                        <h5>Product 1</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div> 
-
-                <div class="product-item" data-name="Rakk Aporo RGB Gaming Mouse">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item.png" alt="Product 1">
-                        <h5>Product 1</h5>
-                        <p>Rakk Aporo RGB Gaming Mouse</p>
-                        <div class="price">₱350.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div> 
-
-                <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart heart-icon" data-filled="false"></i>
-                        </div>
-                    </div>
-                    <img src="item-2.png" style="height: 130px;">
-                        <h5>Keyboard</h5>
-                        <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
-                        <div class="price">₱2,395.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-
-                <div class="product-item" data-name="RAKK Ilis RGB Mechanical Keyboard Gateron Yellow">
-                    <div class="product-header">
-                        <div class="stars">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <img src="item-2.png" style="height: 130px;">
-                        <h5>Keyboard</h5>
-                        <p>RAKK Ilis RGB Mechanical Keyboard Gateron Yellow</p>
-                        <div class="price">₱2,395.00</div>
-                    <div class="btn-item">
-                        <button class="add-cart">
-                            <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                        </button>
-                        <button class="buy">BUY NOW</button>
-                    </div>
-                </div>
-            </div>
-            <div class="page-num">
-                <a href="#">&laquo;</a>
-                <a class="active" href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">&raquo;</a>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No products found.</p>
+                <?php endif; ?>
             </div>
         </div>
     </section>
-
     <script>
-
         document.querySelectorAll('.heart i').forEach(heartIcon => {
             heartIcon.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent the click event from bubbling up to the product item
+                event.stopPropagation();
                 heartIcon.classList.toggle('bi-heart');
                 heartIcon.classList.toggle('bi-heart-fill');
                 heartIcon.classList.toggle('heart-filled');
@@ -351,7 +185,7 @@ $customerID = $_SESSION['id'];
             if (document.body.classList.contains('dark-mode')) {
                 toggle.classList.remove('bi-moon-fill');
                 toggle.classList.add('bi-sun-fill');
-                logo.src = '../costumer/tech-haven-logo2.png';
+                logo.src = 'logo_dark.png';
             } else {
                 toggle.classList.remove('bi-sun-fill');
                 toggle.classList.add('bi-moon-fill');
@@ -384,11 +218,9 @@ $customerID = $_SESSION['id'];
         });
 
         function handleProductClick(productName) {
-        // Navigate to view-prod.php with the product name as a query parameter
             window.location.href = `view-prod.php?product=${encodeURIComponent(productName)}`;
         }
-    
-        // Add click event listeners to all product items
+
         document.querySelectorAll('.product-item').forEach(item => {
             item.addEventListener('click', () => {
                 const productName = item.getAttribute('data-name');

@@ -1,17 +1,17 @@
 <?php
+error_reporting(0);
 session_start();
 
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "th_db";
+$servername = "localhost";
+$username = "root";
+$db_password = "";
+$dbname = "th_db";
 
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
+$conn = new mysqli($servername, $username, $db_password, $dbname);
 
 // Redirect to dashboard if already logged in
 if (isset($_SESSION['loggedin'])) {
-    header('Location: dashboard.php');
-    exit();
+    redirectToDashboard();
 }
 
 // Handle user login
@@ -31,19 +31,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         // Fetch user details
         $user = $result->fetch_assoc();
-        
+
         $_SESSION['loggedin'] = true;
         $_SESSION['name'] = $user['name']; // Store the user's name in the session
         $_SESSION['email'] = $email; // Store the user's email in the session
-
-        header('Location: dashboard.php');
-        exit();
+        $_SESSION['role'] = $user['role'];
+        // Determine user role and redirect accordingly
+        if ($user['role'] == 'admin') {
+            redirectTo('dashboard.php');
+        } elseif ($user['role'] == 'super_admin') {
+            redirectTo('../super_admin/dashboard.php');
+        } else {
+            $error_message = 'Invalid role assigned';
+        }
     } else {
-        echo 'Invalid email or password';
+        $error_message = 'Invalid email or password';
     }
 
     // Close the connection
     $conn->close();
+}
+
+function redirectTo($location) {
+    header("Location: $location");
+    exit();
+}
+
+function redirectToDashboard() {
+    if ($_SESSION['role'] == 'admin') {
+        redirectTo('dashboard.php');
+    } elseif ($_SESSION['role'] == 'super_admin') {
+        redirectTo('super_dashboard.php');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -68,12 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label>Email</label>
                 <div class="fillup">
                     <i class="bi bi-person"></i>
-                    <input type="email" name="email" placeholder="Type your Email" required>
+                    <input type="email" name="email" placeholder="Type your Email" >
                 </div>
                 <label>Password</label>
                 <div class="fillup">
                     <i class="bi bi-lock"></i>
-                    <input type="password" name="password" placeholder="Type your Password" required>
+                    <input type="password" name="password" placeholder="Type your Password" >
                     <i class="bi bi-eye-slash"></i>
                 </div>
                 <?php
@@ -81,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo "<p style='color:red;text-align:center;margin-top:-10px;font-size:12px;'>$error_message</p>";
                 }
                 ?>
-                <p><a href="#">Forget Password?</a></p>
                 <div class="btn-container">
                     <button type="submit">Login</button>
                 </div>
