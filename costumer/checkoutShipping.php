@@ -347,7 +347,13 @@ button:hover {
 
           
 
-            <button>Continue to Payment</button>
+            <a href="checkoutInfo.php" style="margin-right:195px;">
+                <button type="button">Go back   </button>
+            </a>
+            
+            <a href="checkoutPayment.php">
+                <button type="button">Continue to Payment</button>
+            </a>
 
             </div>
 

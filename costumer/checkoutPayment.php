@@ -38,7 +38,8 @@
    
    
         padding-top: 40px;
-        padding-left:100px;
+        padding-left: 45px;
+
     }
 
     .content{
@@ -51,7 +52,7 @@
     }
 
 .content {
-    width: 70%;
+    width: 90%;
     margin: auto;
     padding: 20px;
     margin-top: 10px;
@@ -111,7 +112,7 @@ button:hover {
             display: flex;
             flex-direction: column;
             background-color: #d3d3d3;
-            
+      
             border-radius: 10px;
         
      
@@ -211,7 +212,79 @@ button:hover {
             flex-direction: row;
             margin-bottom: 250px;
         }
+
+        .shipping{
+            height: 70px;
+            width: 100%;
+            border: solid 1px black;
+            border-radius: 5px;
+            display: flex;
+            flex-direction:column;
+            background-color: #d3d3d3;
+
+        }
+
+        .contact{
+            display: flex;
+            flex-direction:row;
+            height: 50%;
+            width: 90%;
+            border-bottom: solid 1px black;
+            padding-top: 5px;
+
+        }
+
+        .add{
+            display: flex;
+            flex-direction:row;
+            height: 50%;
+            width: 90%;
+            padding-top: 5px
+            
+            
+        }
+
+
+
+        .label{
+            margin-right: 15px;
+        }
+
+        .info{
+            margin-right: 58px;
+        }
+        .info1{
+            margin-right: 95px;
+        }
+
+        .method{
+            height: 40px;
+            width: 100%;
+            border: solid 1px black;
+            border-radius: 5px;
+            display: flex;
+            flex-direction:row;
+            background-color: #d3d3d3;
+
+        }
+
+        .title1 {
+            display: flex;
+            flex-direction: row;
+            width: 200px;
+            padding: 10px;
+        }
+
+        .method p {
+            margin-left: 10px;
+        }
+        
+        .price1{
+            padding: 10px;
+            margin-left: 150px;
+        }
 </style>
+
 <body>
 
 <?php include 'sidenav.php'; ?>
@@ -221,48 +294,67 @@ button:hover {
         <div class="left">
             <div class="top-tab">
 
-                <h2>Information</h2>
+                <h2>Shipping </h2>
 
             </div>
 
                     
             <div class="content">
+             
+                <div class="shipping">
+                   
+                <div class="contact">
+                        <div class="label">
+                        Contact:
+                        </div>
+                        <div class="info1">
+                        Markanthony@gmail.com
+                        </div>
+                        <div class="modify">
+                        change
+                        </div>
+                </div>
 
-            <div class="row1">
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Surname">
-            </div>
+                   
+                <div class="add">
+                    <div class="label">
+                            Ship To:
+                        </div>
+                        <div class="info">
+                            Brgy. Buhay na Tubig Imus City
+                        </div>
+                        <div class="modify">
+                            change
+                        </div>
+                            
+                    </div>
+                </div>
 
-            <div class="row2">
-                <input type="text" placeholder="Phone Number">
-            </div>
 
-            <div class="row2">
-                <input type="text" placeholder="Email Address">
-            </div>
+                    <div class="method">
 
-            <div class="row2">
-                <input type="text" placeholder="Complete Address">
-            </div>
+                        <div class="title1">
+                            <i class="bi bi-crosshair2"></i>
+                            <p> Standard - Luzon </p>
+                        </div>
 
-            <div class="row3">
-                <input type="text" placeholder="Street">
-                <input type="text" placeholder="City">
-                <input type="text" placeholder="Town">
-            </div>
+                        <div class="price1">
+                        <p> <b> Php 698 </b> </p>
+                        </div>
 
-            <div class="row1">
-                <input type="text" placeholder="Postal Code">
-                <input type="text" placeholder="Region">
-            </div>
+                    </div>
+            
 
-            <div class="row2">
-                <input type="text" placeholder="Delivery Instructions (optional)">
-            </div>
+          
 
-            <a href="checkoutShipping.php">
-                <button type="button">Continue to delivery</button>
+            <a href="checkoutShipping.php" style="margin-right:195px;">
+                <button type="button">Go back   </button>
             </a>
+
+            <a href="checkoutPayment.php">
+                <button type="button">Continue to Payment</button>
+            </a>
+
             </div>
 
             <div class="right">
