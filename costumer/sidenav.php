@@ -243,7 +243,7 @@
     </header>
 
     <div class="side-nav">
-    <a href="index.php">
+    <a href="homepage.php">
     <i class="bi bi-house-door-fill"></i><br>
     Home
 </a>
