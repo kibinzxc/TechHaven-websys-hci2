@@ -180,7 +180,6 @@ checkAuth();
                     <th>Email</th>
                     <th>Contact Number</th>
                     <th>Address</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -213,14 +212,11 @@ checkAuth();
                         echo "<td>" . $row["email"] . "</td>";
                         echo "<td>" . $row["contactNum"] . "</td>";
                         echo "<td>" . $row["address"] . "</td>";
-                        echo "<td>";
-                        echo "<a href='#' class='bi bi-trash-fill delete-btn' data-id='" . $row["customerID"] . "' title='Delete' style='margin-left: 10px;color:maroon;font-size:18px;'></a>";
-                        echo "</td>";
                         echo "</tr>";
                         $counter++;
                     }
                 } else {
-                    echo "<tr><td colspan='7'>No results found</td></tr>";
+                    echo "<tr><td colspan='6'>No results found</td></tr>";
                 }
                 $conn->close();
                 ?>

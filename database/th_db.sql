@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 03:43 AM
+-- Generation Time: Jul 02, 2024 at 04:12 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -89,12 +89,9 @@ CREATE TABLE `complete_orders` (
 --
 
 INSERT INTO `complete_orders` (`c_orderID`, `orderID`, `customerID`, `deliveryID`, `items`, `total_amount`, `date_delivered`) VALUES
-(2, 3, 20004, 1, '[{\"name\":\"Rakk Huna\",\"price\":\"159\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"1299\"}]', 1458, '2024-06-30 19:28:20'),
-(3, 4, 20004, 1, '[{\"name\":\"Rakk Huna\",\"price\":\"159\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"1299\"}]', 1458, '2024-07-01 20:30:53'),
-(4, 4, 20004, 1, '[{\"name\":\"Rakk Huna\",\"price\":\"100\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"500\"}]', 600, '2024-06-29 20:30:53'),
-(5, 4, 20004, 1, '[{\"name\":\"Rakk Huna\",\"price\":\"400\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"500\"}]', 900, '2024-06-27 20:30:53'),
-(6, 4, 20004, 1, '[{\"name\":\"Rakk Huna\",\"price\":\"159\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"1299\"}]', 1458, '2024-07-02 00:05:55'),
-(7, 6, 20004, 1, '[{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"2\",\"totalPrice\":\"1678\"}]', 1678, '2024-07-02 01:31:25');
+(9, 8, 20004, 1, '[{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"2\",\"totalPrice\":\"1678\"}]', 1678, '2024-06-30 01:57:45'),
+(10, 9, 20004, 1, '[{\"name\":\"Redragon M612 Predator\",\"price\":\"899\",\"qty\":\"2\",\"totalPrice\":\"1798\"},{\"name\":\"Rakk Pirah Wireless Mechanical Keyboard\",\"price\":\"2796\",\"qty\":\"1\",\"totalPrice\":\"2796\"}]', 4594, '2024-07-01 02:04:54'),
+(11, 10, 20004, 1, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"10346\",\"qty\":\"1\",\"totalPrice\":\"10346\"},{\"name\":\"Redragon M719 Invader\",\"price\":\"779\",\"qty\":\"1\",\"totalPrice\":\"779\"}]', 11125, '2024-07-02 02:08:30');
 
 -- --------------------------------------------------------
 
@@ -116,7 +113,7 @@ CREATE TABLE `customerinfo` (
 --
 
 INSERT INTO `customerinfo` (`customerID`, `name`, `email`, `contactNum`, `address`, `password`) VALUES
-(20004, 'Gabriel CK', 'gabgab@gmail.com', '09260456391', 'Sa Gedli Lang', '2c103f2c4ed1e59c0b4e2e01821770fa'),
+(20004, 'Gabriel CK', 'gabgab@gmail.com', '09260456391', 'B4 L23 Kimberton Ville, Niog 2, Bacoor City, Cavite', '2c103f2c4ed1e59c0b4e2e01821770fa'),
 (20007, 'Jasmine Mirandahe', 'miranda.jasmine@gmail.com', '09663489557', '64 B, Don Carlos Street, Dasmarinas City', '2c103f2c4ed1e59c0b4e2e01821770fa'),
 (20008, 'kiben pikolo', 'pikopiko@gmail.com', '09260456391', 'B4 L23 Kimberton Ville, Niog 2, Bacoor City, Cavite', '2c103f2c4ed1e59c0b4e2e01821770fa'),
 (20009, 'test test', 'testes@gmail.com', '09663489557', '413431', 'd41d8cd98f00b204e9800998ecf8427e'),
@@ -217,7 +214,17 @@ INSERT INTO `msg_users` (`user_msgID`, `customerID`, `title`, `category`, `descr
 (20, 20004, 'Order ID#4 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 00:05:55'),
 (21, 20004, 'Order ID#6 Status Update', 'Order status', 'Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!', 'preparing.png', 'unread', '2024-07-02 01:31:19'),
 (22, 20004, 'Order ID#6 Status Update', 'Order status', 'Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!', 'delivery.png', 'unread', '2024-07-02 01:31:22'),
-(23, 20004, 'Order ID#6 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 01:31:25');
+(23, 20004, 'Order ID#6 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 01:31:25'),
+(24, 20004, 'Order ID#8 Status Update', 'Order status', 'Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!', 'preparing.png', 'unread', '2024-07-02 01:57:33'),
+(25, 20004, 'Order ID#8 Status Update', 'Order status', 'Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!', 'preparing.png', 'unread', '2024-07-02 01:57:35'),
+(26, 20004, 'Order ID#8 Status Update', 'Order status', 'Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!', 'delivery.png', 'unread', '2024-07-02 01:57:42'),
+(27, 20004, 'Order ID#8 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 01:57:45'),
+(28, 20004, 'Order ID#9 Status Update', 'Order status', 'Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!', 'preparing.png', 'unread', '2024-07-02 02:04:40'),
+(29, 20004, 'Order ID#9 Status Update', 'Order status', 'Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!', 'delivery.png', 'unread', '2024-07-02 02:04:49'),
+(30, 20004, 'Order ID#9 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 02:04:54'),
+(31, 20004, 'Order ID#10 Status Update', 'Order status', 'Your order is now being process. Thanks for your patience, we\'ll have it deliver to you soon!', 'preparing.png', 'unread', '2024-07-02 02:08:25'),
+(32, 20004, 'Order ID#10 Status Update', 'Order status', 'Your order is on its way! We\'re excited to let you know that your order has been shipped and is currently en route to your address. Thank you for shopping with us. We appreciate your patience and hope you enjoy your purchase!!', 'delivery.png', 'unread', '2024-07-02 02:08:27'),
+(33, 20004, 'Order ID#10 Status Update', 'Order status', 'Your order has been delivered! If you have any questions or need further assistance, feel free to reach out to our customer support team. Thank you for choosing Tech Haven!', 'thankyou.png', 'unread', '2024-07-02 02:08:30');
 
 -- --------------------------------------------------------
 
@@ -255,9 +262,10 @@ CREATE TABLE `orders_prod` (
 --
 
 INSERT INTO `orders_prod` (`orderID`, `customerID`, `items`, `shipID`, `payment`, `order_date`, `status`, `total_amount`) VALUES
-(3, 20004, '[{\"name\":\"Rakk Huna\",\"price\":\"159\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"1299\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 1458),
-(4, 20004, '[{\"name\":\"Rakk Huna\",\"price\":\"159\",\"qty\":\"1\",\"totalPrice\":\"159\"},{\"name\":\"Rakk Kimat\",\"price\":\"1299\",\"qty\":\"1\",\"totalPrice\":\"1299\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 1458),
-(6, 20004, '[{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"2\",\"totalPrice\":\"1678\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 1678);
+(8, 20004, '[{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"2\",\"totalPrice\":\"1678\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 1678),
+(9, 20004, '[{\"name\":\"Redragon M612 Predator\",\"price\":\"899\",\"qty\":\"2\",\"totalPrice\":\"1798\"},{\"name\":\"Rakk Pirah Wireless Mechanical Keyboard\",\"price\":\"2796\",\"qty\":\"1\",\"totalPrice\":\"2796\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 4594),
+(10, 20004, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"10346\",\"qty\":\"1\",\"totalPrice\":\"10346\"},{\"name\":\"Redragon M719 Invader\",\"price\":\"779\",\"qty\":\"1\",\"totalPrice\":\"779\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 11125),
+(11, 20004, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"5626\",\"qty\":\"1\",\"totalPrice\":\"5626\"},{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"1\",\"totalPrice\":\"839\"},{\"name\":\"Redragon K617 FIZZ\",\"price\":\"1632\",\"qty\":\"1\",\"totalPrice\":\"1632\"}]', 1, 'COD', '2024-07-01 08:56:00', 'placed', 8097);
 
 -- --------------------------------------------------------
 
@@ -317,17 +325,17 @@ CREATE TABLE `prod_inventory` (
 --
 
 INSERT INTO `prod_inventory` (`invID`, `prodID`, `prod_name`, `price`, `qty`, `sold`, `last_update`, `updated_by`) VALUES
-(6, 151561, 'Redragon M612 Predator', 899, 10, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(7, 151562, 'Redragon M719 Invader', 779, 18, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(8, 151563, 'Rakk Pirah Wireless Mechanical Keyboard', 2796, 30, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(9, 151564, 'Asus ROG Azoth PBT NX Snow Mechanical', 14356, 7, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(10, 151565, 'Asus TUF Gaming H3 Wired Gaming Headset', 2269, 26, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(11, 151566, 'Fantech Valor MH86', 1082, 0, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(12, 151567, 'Viewplus MX-32CH', 10346, 5, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(13, 151568, 'Viewplus ML-27S 75hz', 5626, 25, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(14, 151569, 'Nvision ES32G2 32\" Curved', 10039, 7, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(15, 151570, 'Redragon M609 PHASER', 501, 15, 0, '2024-07-02 01:37:01', 'Gabriel Almirante'),
-(16, 151571, 'Redragon H260 HYLAS', 839, 1, 2, '2024-07-02 01:37:01', 'Gabriel Almirante'),
+(6, 151561, 'Redragon M612 Predator', 899, 8, 2, '2024-07-02 02:04:54', 'Kevin Almirante'),
+(7, 151562, 'Redragon M719 Invader', 779, 17, 1, '2024-07-02 02:08:30', 'Kevin Almirante'),
+(8, 151563, 'Rakk Pirah Wireless Mechanical Keyboard', 2796, 29, 1, '2024-07-02 02:04:54', 'Kevin Almirante'),
+(9, 151564, 'Asus ROG Azoth PBT NX Snow Mechanical', 14356, 7, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(10, 151565, 'Asus TUF Gaming H3 Wired Gaming Headset', 2269, 26, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(11, 151566, 'Fantech Valor MH86', 1082, 3, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(12, 151567, 'Viewplus MX-32CH', 10346, 14, 1, '2024-07-02 02:08:30', 'Kevin Almirante'),
+(13, 151568, 'Viewplus ML-27S 75hz', 5626, 25, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(14, 151569, 'Nvision ES32G2 32\" Curved', 10039, 7, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(15, 151570, 'Redragon M609 PHASER', 501, 15, 0, '2024-07-02 02:00:34', 'Kevin Almirante'),
+(16, 151571, 'Redragon H260 HYLAS', 839, 4, 2, '2024-07-02 01:57:45', 'Kevin Almirante'),
 (17, 151572, 'Redragon K617 FIZZ', 1632, 2, 0, '2024-07-02 01:37:01', 'Gabriel Almirante');
 
 -- --------------------------------------------------------
@@ -454,7 +462,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `complete_orders`
 --
 ALTER TABLE `complete_orders`
-  MODIFY `c_orderID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `c_orderID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `customerinfo`
@@ -484,7 +492,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `msg_users`
 --
 ALTER TABLE `msg_users`
-  MODIFY `user_msgID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_msgID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `ordercount`
@@ -496,7 +504,7 @@ ALTER TABLE `ordercount`
 -- AUTO_INCREMENT for table `orders_prod`
 --
 ALTER TABLE `orders_prod`
-  MODIFY `orderID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `orderID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`

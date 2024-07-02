@@ -354,8 +354,8 @@ $conn->close();
 
                 // Query to get the total sales for the current month
                 $sql6 = "SELECT SUM(total_amount) AS total_sales
-                        FROM orders_prod
-                        WHERE MONTH(order_date) = '$currentMonth' AND YEAR(order_date) = '$currentYear'";
+                        FROM complete_orders
+                        WHERE MONTH(date_delivered) = '$currentMonth' AND YEAR(date_delivered) = '$currentYear'";
 
                 $result6 = $conn->query($sql6);
 
@@ -395,8 +395,8 @@ $conn->close();
             <canvas id="weeklySalesChart" width="400" height="200"></canvas>                
             </div>
             </div>
-            <div class="table-wrapper">
-                <div class = "wrappery">
+            <div class="table-wrapper" >
+                <div class = "wrappery" style="padding-bottom:10px;overflow-y:auto; overflow-x:hidden;">
                 <h3><span style="color:#008686;">Most</span> Selling Products</h3><br>
                 <?php
                     $servername = "localhost";
@@ -415,7 +415,7 @@ $conn->close();
                             FROM prod_inventory pi
                             JOIN products p ON pi.prodID = p.prodID
                             ORDER BY pi.sold DESC
-                            LIMIT 5";
+                            LIMIT 3";
 
                     $result = $conn->query($sql);
 
