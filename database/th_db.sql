@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 04:12 AM
+-- Generation Time: Jul 02, 2024 at 04:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -265,7 +265,7 @@ INSERT INTO `orders_prod` (`orderID`, `customerID`, `items`, `shipID`, `payment`
 (8, 20004, '[{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"2\",\"totalPrice\":\"1678\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 1678),
 (9, 20004, '[{\"name\":\"Redragon M612 Predator\",\"price\":\"899\",\"qty\":\"2\",\"totalPrice\":\"1798\"},{\"name\":\"Rakk Pirah Wireless Mechanical Keyboard\",\"price\":\"2796\",\"qty\":\"1\",\"totalPrice\":\"2796\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 4594),
 (10, 20004, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"10346\",\"qty\":\"1\",\"totalPrice\":\"10346\"},{\"name\":\"Redragon M719 Invader\",\"price\":\"779\",\"qty\":\"1\",\"totalPrice\":\"779\"}]', 1, 'COD', '2024-07-01 08:56:00', 'delivered', 11125),
-(11, 20004, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"5626\",\"qty\":\"1\",\"totalPrice\":\"5626\"},{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"1\",\"totalPrice\":\"839\"},{\"name\":\"Redragon K617 FIZZ\",\"price\":\"1632\",\"qty\":\"1\",\"totalPrice\":\"1632\"}]', 1, 'COD', '2024-07-01 08:56:00', 'placed', 8097);
+(11, 20004, '[{\"name\":\"Viewplus MX-32CH\",\"price\":\"5626\",\"qty\":\"1\",\"totalPrice\":\"5626\"},{\"name\":\"Redragon H260 HYLAS\",\"price\":\"839\",\"qty\":\"1\",\"totalPrice\":\"839\"},{\"name\":\"Redragon K617 FIZZ\",\"price\":\"1632\",\"qty\":\"1\",\"totalPrice\":\"1632\"}]', 1, 'COD', '2024-07-02 08:56:00', 'placed', 8097);
 
 -- --------------------------------------------------------
 
