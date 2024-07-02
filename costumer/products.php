@@ -34,62 +34,6 @@ if ($result->num_rows > 0) {
    
     <?php include 'sidenav.php'; ?>
     <section class="container">
-        <div class="search-filters">
-            <div class="filter-group">
-                <div class="top">
-                    <i class="bi bi-funnel-fill"></i>
-                    <h4>SEARCH FILTERS</h4>
-                </div>
-                <div class="category">
-                    <label for="category-filter">CATEGORIES:</label>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                </div>
-                <div class="separator"></div>
-                <div class="brand">
-                    <label for="category-filter">BRAND:</label>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="electronics" name="category" value="electronics">
-                        <label for="electronics">Lorem Ipsum</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="main-content">
             <div class="row">
                 <div class="sort">
@@ -110,7 +54,7 @@ if ($result->num_rows > 0) {
             <div class="product-list" id="product-list">
                 <?php if (!empty($products)): ?>
                     <?php foreach ($products as $product): ?>
-                        <div class="product-item" data-name="<?php echo htmlspecialchars($product['prod_name']); ?>" data-prod-id="<?php echo $product['prodID']; ?>">
+                        <div class="product-item" data-name="<?php echo htmlspecialchars($product['prod_name']); ?>" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
                             <div class="product-header">
                                 <div class="stars">
                                     <i class="bi bi-star"></i>
@@ -128,7 +72,7 @@ if ($result->num_rows > 0) {
                             <p><?php echo htmlspecialchars($product['prod_name']); ?></p>
                             <div class="price">₱<?php echo number_format($product['prod_price'], 2); ?></div>
                             <div class="btn-item">
-                                <button class="add-cart">
+                                <button class="add-cart" data-prod-id="<?php echo $product['prodID']; ?>" data-prod-name="<?php echo htmlspecialchars($product['prod_name']); ?>" data-prod-price="<?php echo $product['prod_price']; ?>">
                                     <i class="bi bi-cart-plus-fill"></i> Add to cart 
                                 </button>
                                 <button class="buy">BUY NOW</button>
@@ -149,10 +93,9 @@ if ($result->num_rows > 0) {
         </div>
     </section>
     <script>
-
         document.querySelectorAll('.heart i').forEach(heartIcon => {
             heartIcon.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent the click event from bubbling up to the product item
+                event.stopPropagation();
                 heartIcon.classList.toggle('bi-heart');
                 heartIcon.classList.toggle('bi-heart-fill');
                 heartIcon.classList.toggle('heart-filled');
@@ -201,11 +144,9 @@ if ($result->num_rows > 0) {
         });
 
         function handleProductClick(productName) {
-        // Navigate to view-prod.php with the product name as a query parameter
             window.location.href = `view-prod.php?product=${encodeURIComponent(productName)}`;
         }
-    
-        // Add click event listeners to all product items
+
         document.querySelectorAll('.product-item').forEach(item => {
             item.addEventListener('click', () => {
                 const productName = item.getAttribute('data-name');
@@ -214,29 +155,35 @@ if ($result->num_rows > 0) {
         });
 
         document.querySelectorAll('.add-cart').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent the click event from bubbling up to the product item
-            const productItem = button.closest('.product-item');
-            const prodID = productItem.getAttribute('data-prod-id');
-            
-            fetch('add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'prodID=' + prodID
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data === 'success') {
-                    alert('Product added to cart successfully!');
-                } else {
-                    alert('Failed to add product to cart.');
-                }
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const prodID = button.getAttribute('data-prod-id');
+                const prodName = button.getAttribute('data-prod-name');
+                const prodPrice = button.getAttribute('data-prod-price');
+                const customerID = <?php echo json_encode($customerID); ?>;
+                const quantity = 1;
+
+                fetch('add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ customerID, prodID, prodName, prodPrice, quantity })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Product added to cart!');
+                    } else {
+                        alert('Failed to add product to cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding the product to the cart.');
+                });
             });
         });
-    });
-        
     </script>
 </body>
 </html>
