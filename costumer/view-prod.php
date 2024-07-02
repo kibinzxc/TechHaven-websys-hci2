@@ -144,7 +144,7 @@ $conn->close();
             <div class="header">
                 <div class="review">
                     <div class="reviewer-info">
-                        <img src="placeholder-avatar.png" class="avatar">
+
                         <div>
                             <strong>Juan Dela Cruz</strong>
                             <div class="star-rating">★★★★★</div>
@@ -155,7 +155,6 @@ $conn->close();
                 </div>
                 <div class="review">
                     <div class="reviewer-info">
-                        <img src="placeholder-avatar.png" class="avatar">
                         <div>
                             <strong>Juan Dela Cruz Jr.</strong>
                             <div class="star-rating">★★★★★</div>
@@ -166,30 +165,7 @@ $conn->close();
                 </div>
             </div>
         </div>
- <div class="related">
-            <h3>Related Items</h3>
-            <!-- Related product items fetched from database -->
-            <div class="related-items">
-                <?php while ($row_related = $result_related->fetch_assoc()) : ?>
-                    <div class="product-item">
-
-                            
-                        <!-- Assuming you have product images stored in your database -->
-                        <img src="../assets/img/<?php echo $row_related['img']; ?>" alt="<?php echo $row_related['prod_name']; ?>">
-                        <h5><?php echo $row_related['category']; ?></h5>
-                        <p><?php echo $row_related['prod_name']; ?></p>
-                        <div class="price">₱ <?php echo number_format($row_related['prod_price'], 2); ?></div>
-                        <div class="btn-item">
-                            <button class="add-cart">
-                                <i class="bi bi-cart-plus-fill"></i> Add to cart 
-                            </button>
-                            <button class="buy">BUY NOW</button>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            </div>
-        </div>
-    </main>
+ 
     <script>
         const toggle = document.getElementById('dark-mode-toggle');
         const logo = document.getElementById('logo');
