@@ -177,22 +177,36 @@ $conn->close();
         const logo = document.getElementById('logo');
         const loginButton = document.getElementById('loginButton');
 
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.classList.add('rotate');
-            if (document.body.classList.contains('dark-mode')) {
-                toggle.classList.remove('bi-moon-fill');
-                toggle.classList.add('bi-sun-fill');
-                logo.src = '../customer/logo-dark.png';
-            } else {
-                toggle.classList.remove('bi-sun-fill');
-                toggle.classList.add('bi-moon-fill');
-                logo.src = '../portal/tech-haven-logo.png';
-            }
-            setTimeout(() => {
-                toggle.classList.remove('rotate');
-            }, 400);
-        });
+<script>
+    const toggle = document.getElementById('dark-mode-toggle');
+    const logo = document.getElementById('logo');
+    const loginButton = document.getElementById('login-button');
+
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggle.classList.add('rotate');
+        if (document.body.classList.contains('dark-mode')) {
+            toggle.classList.remove('bi-moon-fill');
+            toggle.classList.add('bi-sun-fill');
+            logo.src = 'logo_dark.png';
+        } else {
+            toggle.classList.remove('bi-sun-fill');
+            toggle.classList.add('bi-moon-fill');
+            logo.src = 'tech-haven-logo2.png';
+        }
+        setTimeout(() => {
+            toggle.classList.remove('rotate');
+        }, 400);
+    });
+
+    loginButton.addEventListener('click', () => {
+        window.location.href = 'login.php';
+    });
+
+    const products = document.getElementById('products');
+        products.addEventListener('click', () => {
+            window.location.href = 'products.php';
+
 
         // Redirect to login page when login button is clicked
         loginButton.addEventListener('click', () => {

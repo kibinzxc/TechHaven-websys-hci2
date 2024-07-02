@@ -231,7 +231,7 @@ $conn->close();
             if (document.body.classList.contains('dark-mode')) {
                 toggle.classList.remove('bi-moon-fill');
                 toggle.classList.add('bi-sun-fill');
-                logo.src = '../costumer/tech-haven-logo2.png';
+                logo.src = 'logo_dark.png';
             } else {
                 toggle.classList.remove('bi-sun-fill');
                 toggle.classList.add('bi-moon-fill');

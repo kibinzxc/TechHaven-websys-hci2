@@ -19,6 +19,13 @@
 
         .dark-mode .nav {
             background-color: var(--darkModeNav);
+            color: var(--lightColor);
+
+        }
+
+        .dark-mode .side-nav a{
+            color: var(--lightColor);
+
         }
 
         .dark-mode .search-bar {
