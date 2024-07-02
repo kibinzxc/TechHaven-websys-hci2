@@ -21,27 +21,62 @@
 <header class="nav">
         <img src="tech-haven-logo2.png" alt="">
     </header>
+<style>
 
+</style>
+<br><br><br>
     <section class="container">
-        <div class="box">
+        <div class="box" style="height:auto;">
             <h3>Register</h3>
-            <form method="" onsubmit="return validateForm()">
+            <form method="POST" action="register_process.php" onsubmit="return validateForm()">
+                <label>Name</label>
+                <div class="input-group name-container">
+                    <div class="fillup">
+                        <i class="bi bi-person"></i>
+                        <input type="text" name="first_name" placeholder="First Name" required>
+                    </div>
+                    <div class="fillup">
+                        <i class="bi bi-person"></i>
+                        <input type="text" name="last_name" placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <label>Address</label>
+                <div class="input-group address-container">
+                    <div class="fillup">
+                        <i class="bi bi-house-door"></i>
+                        <input type="text" name="house_number_street" placeholder="House No., Street" required>
+                    </div>
+                    <div class="fillup">
+                        <i class="bi bi-geo-alt"></i>
+                        <input type="text" name="city_province" placeholder="City, Province" required>
+                    </div>
+                </div>
+
                 <label>Email</label>
                 <div class="fillup">
-                    <i class="bi bi-person"></i>                    
-                    <input type="text" placeholder="Type your Email" required>
+                    <i class="bi bi-envelope"></i>
+                    <input type="email" name="email" placeholder="Type your Email" required>
                 </div>
+
+                <label>Contact Number</label>
+                <div class="fillup">
+                    <i class="bi bi-phone"></i>
+                    <input type="text" name="contact_number" placeholder="Enter your Contact Number" required>
+                </div>
+
                 <label>Password</label>
                 <div class="fillup">
                     <i class="bi bi-lock"></i>
                     <input type="password" name="password" placeholder="Type your Password" required oninput="checkPasswordStrength(this)">
-                    <i class="bi bi-eye-slash"></i>
+                    <i class="bi bi-eye-slash toggle-password"></i>
                 </div>
+
                 <label>Confirm Password</label>
                 <div class="fillup">
                     <i class="bi bi-lock"></i>
                     <input type="password" name="confirm_password" placeholder="Confirm your Password" required oninput="checkPasswordStrength(this)">
-                    <i class="bi bi-eye-slash"></i>
+                    <i class="bi bi-eye-slash toggle-password"></i>
                 </div>
 
                 <div>
@@ -57,12 +92,11 @@
                 </div>
             </form>
 
-            <div class="sign-log">
+            <div class="sign-log" style="margin-top:-20px;margin-bottom:10px;">
                 <p>Already have an account? <span id="login">Login</span></p>
-            </div>
+            </div><br> <br>
         </div>
-
-    </section>
+    </section><br><br>
 <script>
     function validateForm() {
         if (!passwordsMatch()) {

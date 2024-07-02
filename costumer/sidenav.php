@@ -93,6 +93,7 @@
         .nav-right i {
             margin: 5px;
             cursor: pointer;
+            margin-right:10px;
         }
 
         .side-nav {
@@ -199,6 +200,7 @@
             <a href="profile.php">
                 <i class="bi bi-person-circle"></i>
             </a>
+            <a href="logout.php"><i class="bi bi-box-arrow-left"></i></a>
         </div>
     </header>
 
@@ -213,10 +215,6 @@
     Products
 </a>
 
-<a href="wishlist.php">
-    <i class="bi bi-heart-fill"></i><br>
-    Wishlist
-</a>
 
 <a href="cart.php">
     <i class="bi bi-cart-fill"></i><br>
