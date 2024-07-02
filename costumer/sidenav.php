@@ -100,6 +100,7 @@
         .nav-right i {
             margin: 5px;
             cursor: pointer;
+            margin-right:10px;
         }
 
         .nav-right {
@@ -235,8 +236,7 @@
             <a href="profile.php" id="profile-link">
                 <i class="bi bi-person-circle"></i>
             </a>
-            <!-- Logout button, initially hidden -->
-            <a href="homepage.php" class="logout-btn">Logout</a>
+            <a href="logout.php"><i class="bi bi-box-arrow-left"></i></a>
         </div>
     </div>
     </div>
@@ -253,10 +253,6 @@
     Products
 </a>
 
-<a href="wishlist.php">
-    <i class="bi bi-heart-fill"></i><br>
-    Wishlist
-</a>
 
 <a href="cart.php">
     <i class="bi bi-cart-fill"></i><br>

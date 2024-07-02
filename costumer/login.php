@@ -2,73 +2,105 @@
 session_start();
 include 'dbcon.php';
 
+// Redirect to dashboard if already logged in
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Initialize error message variable
+$error_message = '';
+
+// Handle user login
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM customerinfo WHERE email = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Escape input data to prevent SQL injection
+    $email = $conn->real_escape_string($email);
+    $password = md5($conn->real_escape_string($password));
 
-    if ($result->num_rows == 1) {
-        $_SESSION['email'] = $email;
-        $_SESSION['id'] = $customerID;
-        header("Location: index.php");
-        exit();
+    // Execute the query
+    $query = "SELECT * FROM customerinfo WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($query);
 
+    // Check the result
+    if ($result->num_rows > 0) {
+        // Fetch user details
+        $user = $result->fetch_assoc();
 
+        $_SESSION['loggedin'] = true;
+        $_SESSION['name'] = $user['name']; // Store the user's name in the session
+        $_SESSION['email'] = $email; // Store the user's email in the session
+        $_SESSION['customerID'] = $user['customerID']; // Store the user's customerID in the session        // Redirect to dashboard based on role (not considering role in this case)
+        redirectToDashboard();
     } else {
-        $loginError = true;
+        $error_message = 'Invalid email or password'; // Set error message for incorrect login
     }
+
+    // Close the connection
+    $conn->close();
+}
+
+function redirectTo($location) {
+    header("Location: $location");
+    exit();
+}
+
+function redirectToDashboard() {
+    header("Location: homepage.php");
+    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
-    <title><?php echo "Login | Tech Haven"; ?></title>
+    <title>Login | Tech Haven</title>
     <link rel="stylesheet" href="../costumer/css/style.css">
     <link rel="stylesheet" href="../assets/font/inter.css">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <header class="nav">
+<header class="nav">
     <img src="../assets/img/tech-haven-logo2.png" id="logo">
-    </header>
-    <section class="container">
-        <div class="box">
-            <h3>Login</h3>
-            <form action="login.php" method="post">
-                <label>Email</label>
-                <div class="fillup">
-                    <i class="bi bi-person"></i>
-                    <input type="email" name="email" placeholder="Type your Email" required>
-                </div>
-                <label>Password</label>
-                <div class="fillup">
-                    <i class="bi bi-lock"></i>
-                    <input type="password" name="password" placeholder="Type your Password" required>
-                    <i class="bi bi-eye-slash"></i>
-                </div>
-                <p><a href="#">Forget Password?</a></p>
-                <div id="popup">
-                    <p id="popup-message"></p>
-                </div>
-                <div class="btn-container">
-                    <button type="submit">Login</button>
-                </div>
-                <div class="sign-log">
-                    <p> Don’t have an account yet? <span id="register">Create Account</span></p>
-                </div>
-            </form>
-        </div>
-    </section>
+</header>
+<section class="container">
+    <div class="box">
+        <h3>Login</h3>
+
+        <form action="login.php" method="post">
+            <label>Email</label>
+            <div class="fillup">
+                <i class="bi bi-person"></i>
+                <input type="email" name="email" placeholder="Type your Email" required>
+            </div>
+            <label>Password</label>
+            <div class="fillup">
+                <i class="bi bi-lock"></i>
+                <input type="password" name="password" placeholder="Type your Password" required>
+                <i class="bi bi-eye-slash toggle-password"></i>
+            </div>
+            <p><a href="#">Forget Password?</a></p>
+            <div id="popup">
+                <p id="popup-message"></p>
+            </div>
+            <div class="btn-container">
+                <button type="submit">Login</button>
+            </div>
+                        <?php if (!empty($error_message)): ?>
+            <div class="error" style="text-align:center;"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+            <p style="margin-left:15px; font-size:14px;">Don’t have an account yet? <a href="register.php" id="register" style="display: inline-block; color:blue;">Create Account</a></p>
+        </form>
+    </div>
+</section>
 <script>
     
     document.querySelectorAll('.bi-eye-slash').forEach(function(icon) {
