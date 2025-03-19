@@ -1,5 +1,3 @@
 # TechHaven
 
-Ill be finishing this soon
-
-under development
+CURRENTLY UNDER DEVELOPMENT
